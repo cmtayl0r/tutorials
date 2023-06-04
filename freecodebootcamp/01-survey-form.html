@@ -9,20 +9,24 @@
     <body>
         <h1 id="title">Form title</h1>
         <p id="description">This is a description</p>
-        <form action="" id="survey-form">
+        <form action="" id="survey-form" method="post">
             <fieldset>
-                <label for="name" id="name-label">
+                <div class="form-group">
+                    <label for="name" id="name-label"> Name</label>
                     <input
                         type="text"
                         id="name"
+                        name="name"
                         placeholder="Enter your name"
                         required
                     />
-                </label>
-                <label for="email" id="email-label">
+                </div>
+                <div class="form-group">
+                    <label for="email" id="email-label"> Email </label>
                     <input
                         type="text"
                         id="email"
+                        name="email"
                         placeholder="Enter your email"
                         required
                     />
@@ -31,11 +35,15 @@
                         TD: HTML 5 validation error 
                         - non valid email
                     -->
-                </label>
-                <label for="number" id="number-label">
+                </div>
+                <div class="form-group">
+                    <label for="number" id="number-label">
+                        Age (optional)
+                    </label>
                     <input
                         type="number"
                         id="number"
+                        name="number"
                         min="18"
                         max="120"
                         placeholder="Enter your age"
@@ -46,7 +54,73 @@
                         - outside number range
                         - non-numbers
                     -->
-                </label>
+                </div>
+                <div class="form-group">
+                    <label for="dropdown">
+                        Which option best describes your current role?
+                    </label>
+                    <select name="dropdown" id="dropdown">
+                        <optgroup label="Select an option">
+                            <!-- TD: Add correct option values -->
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p>you recommend freeCodeCamp to a friend?</p>
+                    <label for="user-recommend">
+                        <input
+                            type="radio"
+                            name="user-recommend"
+                            value="Definitely"
+                        />
+                        Definitely
+                    </label>
+                    <label for="user-recommend">
+                        <input
+                            type="radio"
+                            name="user-recommend"
+                            value="Maybe"
+                        />
+                        Maybe
+                    </label>
+                    <label for="user-recommend">
+                        <input
+                            type="radio"
+                            name="user-recommend"
+                            value="Not sure"
+                        />
+                        Not sure
+                    </label>
+                </div>
+                <div class="form-group">
+                    <p>
+                        What would you like to see improved? (Check all that
+                        apply)
+                    </p>
+                    <label for="option-1">
+                        <input type="checkbox" name="prefer" value="option-1" />
+                        Front-end Projects
+                    </label>
+                    <label for="option-2">
+                        <input type="checkbox" name="prefer" value="option-2" />
+                        Back-end Projects
+                    </label>
+                    <label for="option-3">
+                        <input type="checkbox" name="prefer" value="option-3" />
+                        Data Visualization
+                    </label>
+                    <label for="option-4">
+                        <input type="checkbox" name="prefer" value="option-4" />
+                        Challenges
+                    </label>
+                    <label for="option-5">
+                        <input type="checkbox" name="prefer" value="option-5" />
+                        Open Source Community
+                    </label>
+                </div>
+                <div class="form-group"></div>
             </fieldset>
         </form>
     </body>
