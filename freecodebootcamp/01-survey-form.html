@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1 id="title">Form title</h1>
+        <p id="description">This is a description</p>
+        <form action="" id="survey-form">
+            <fieldset>
+                <label for="name" id="name-label">
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                    />
+                </label>
+                <label for="email" id="email-label">
+                    <input
+                        type="text"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    />
+                    <!-- TD: email formatting options -->
+                    <!-- 
+                        TD: HTML 5 validation error 
+                        - non valid email
+                    -->
+                </label>
+                <label for="number" id="number-label">
+                    <input
+                        type="number"
+                        id="number"
+                        min="18"
+                        max="120"
+                        placeholder="Enter your age"
+                    />
+                    <!-- TD: number formatting options -->
+                    <!-- 
+                        TD: HTML 5 validation error 
+                        - outside number range
+                        - non-numbers
+                    -->
+                </label>
+            </fieldset>
+        </form>
+    </body>
+</html>
