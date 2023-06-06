@@ -38,6 +38,20 @@
                     -->
                 </div>
                 <div class="form-group">
+                    <label for="password" id="password-label"
+                        >CReate a new password</label
+                    >
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter a new password"
+                        pattern="[a-z0-5]{8,}"
+                        required
+                    />
+                    <!-- TD: understand pattern options -->
+                </div>
+                <div class="form-group">
                     <label for="number" id="number-label">
                         Age (optional)
                     </label>
@@ -67,6 +81,12 @@
                             <option value="2">Option 2</option>
                         </optgroup>
                     </select>
+                </div>
+                <div id="form-group">
+                    <label for="profile-picture">
+                        Upload a profile picture:
+                    </label>
+                    <input id="profile-picture" type="file" name="file" />
                 </div>
                 <div class="form-group">
                     <p>you recommend freeCodeCamp to a friend?</p>
