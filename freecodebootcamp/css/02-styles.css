@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-white: #f3f3f3;
+    --color-orange: #fdb347;
+    --color-black-alt: #0a0a23;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: var(--color-white);
+    font-size: 1rem; /* 16px */
+}
+
+.header {
+    background-color: var(--color-black-alt);
+    color: var(--color-white);
+    border-bottom: 4px solid var(--color-orange);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 1rem;
+    max-width: 87.5rem; /* 1400px */
+    margin: 0 auto;
+    padding: 2rem 0.265rem;
+}
+
+.gallery img {
+    width: 100%;
+    max-width: 20rem;
+    height: 18rem;
+    object-fit: cover; /* TD: understand property */
+    border-radius: 10px;
+}
+
+/*
+The ::after pseudo-element creates an element that is the last child of the selected element. You can use it to add an empty element after the last image.
+
+If you give it the same width as the images it will push the last image to the left when the gallery is in a two-column layout.
+*/
+.gallery::after {
+    content: '';
+    width: 20rem;
+}
