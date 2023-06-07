@@ -3,7 +3,7 @@
 :root {
     --color-white: #f3f3f3;
     --color-darkblue: #1b1b32;
-    --color-darkMagenta-alpha: rgba(87, 1, 83, 0.8);
+    --color-darkMagenta-alpha: rgba(87, 1, 83, 0.7);
     --color-green: #37af65;
 }
 
@@ -43,10 +43,71 @@ body::before {
     background-repeat: no-repeat;
     background-position: center;
 }
+/*
+------------------------------------------------------------
+TYPOGRAPHY
+------------------------------------------------------------
+*/
+h1,
+p {
+    margin: 1em auto;
+    text-align: center;
+}
 
+/* 
+------------------------------------------------------------
+CONTAINER
+------------------------------------------------------------
+*/
+.container {
+    width: 100%;
+    margin: 3.125rem auto 0 auto;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+/* 
+------------------------------------------------------------
+FORM
+------------------------------------------------------------
+*/
 form {
     background-color: var(--color-darkMagenta-alpha);
 }
 fieldset {
     border: none;
 }
+label {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+input,
+button,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  border: none;
+}
+
+.form-group {
+    margin: 0 auto 1.25rem auto;
+}
+
