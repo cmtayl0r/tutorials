@@ -44,6 +44,13 @@ body {
     height: 18rem;
     object-fit: cover; /* TD: understand property */
     border-radius: 10px;
+    transition: 0.3s;
+}
+
+.gallery img:hover {
+    transform: translateY(-0.75rem);
+    transition: 0.3s;
+    box-shadow: 0 0.75rem 1rem rgba(0, 0, 0, 0.3);
 }
 
 /*
