@@ -16,12 +16,22 @@
 
 body {
     font-family: 'Work Sans', sans-serif;
-    font-size: 1rem;
+    font-size: 1rem; /* 16px */
     font-weight: 400;
     line-height: 1.4;
     margin: 0;
     color: var(--color-white);
 }
+
+/*
+Font sizes
+0.25rem - 4px
+0.5rem - 8px 
+0.625rem - 10px
+1rem - 16px
+1.25rem - 20px
+1.5rem  14px
+*/
 
 /* mobile friendly alternative to using background-attachment: fixed */
 body::before {
@@ -53,11 +63,12 @@ TYPOGRAPHY
 h1 {
     font-weight: 400;
     line-height: 1.2;
+    /* 2rem / 32px */
 }
 
 /* Same size as labels */
 p {
-    font-size: 1.125rem;
+    font-size: 1.125rem; /* 18px */
 }
 
 h1,
@@ -95,12 +106,10 @@ FORM
 */
 form {
     background-color: var(--color-darkMagenta-alpha);
-    padding: 2.5rem 0.625rem;
+    padding: 1.5rem;
     border-radius: 0.25rem;
 }
-fieldset {
-    border: none;
-}
+
 label {
     display: flex;
     align-items: center;
@@ -123,7 +132,7 @@ button {
 }
 
 .form-group {
-    margin: 0 auto 1.25rem auto;
+    margin: 0 auto 1.5rem auto;
 }
 
 /* Inputs, Selects */
