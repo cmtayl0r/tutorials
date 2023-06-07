@@ -4,7 +4,7 @@
     --color-white: #f3f3f3;
     --color-darkblue: #1b1b32;
     --color-darkMagenta-alpha: rgba(87, 1, 83, 0.7);
-    --color-green: #37af65;
+    --color-green: #006828;
     --color-grey-border: #ced4da;
 }
 
@@ -61,7 +61,7 @@ TYPOGRAPHY
 */
 
 h1 {
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.2;
     /* 2rem / 32px */
 }
@@ -71,10 +71,22 @@ p {
     font-size: 1.125rem; /* 18px */
 }
 
+h1[id='title'],
+p[id='description'] {
+    padding: 0 1.5rem;
+    
+}
+
 h1,
 p {
     margin-top: 0;
     margin-bottom: 0.5rem;
+}
+
+.clue {
+    margin-left: 0.25rem;
+    font-size: 0.875rem; /* 14px */
+    color: #e4e4e4;
 }
 
 /* 
@@ -91,11 +103,19 @@ CONTAINER
     .container {
         max-width: 540px;
     }
+    h1[id='title'],
+    p[id='description'] {
+        padding: 0;
+    }
 }
 
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
+    }
+    h1[id='title'],
+    p[id='description'] {
+        padding: 0;
     }
 }
 
@@ -169,6 +189,11 @@ button {
     width: 100%;
     padding: 0.625rem;
     resize: vertical;
+}
+
+.upload-button {
+    display: block;
+    cursor: pointer;
 }
 
 /* Form buttons */
