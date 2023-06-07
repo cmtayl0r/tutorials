@@ -71,10 +71,13 @@ p {
     font-size: 1.125rem; /* 18px */
 }
 
+a {
+    color: var(--color-white);
+}
+
 h1[id='title'],
 p[id='description'] {
     padding: 0 1.5rem;
-    
 }
 
 h1,
