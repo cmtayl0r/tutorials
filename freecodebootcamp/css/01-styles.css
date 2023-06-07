@@ -49,10 +49,21 @@ body::before {
 TYPOGRAPHY
 ------------------------------------------------------------
 */
+
+h1 {
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+/* Same size as labels */
+p {
+    font-size: 1.125rem;
+}
+
 h1,
 p {
-    margin: 1em auto;
-    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
 }
 
 /* 
@@ -84,6 +95,8 @@ FORM
 */
 form {
     background-color: var(--color-darkMagenta-alpha);
+    padding: 2.5rem 0.625rem;
+    border-radius: 0.25rem;
 }
 fieldset {
     border: none;
@@ -99,6 +112,7 @@ button,
 select,
 textarea {
     margin: 0;
+    /* TD: What is the benefit of inherit? */
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
@@ -117,6 +131,7 @@ button {
     display: block;
     width: 100%;
     height: 2.375rem;
+    padding: 0.375rem 0.75rem;
     color: var(--color-darkblue);
     background-color: var(--color-white);
     background-clip: padding-box;
@@ -133,27 +148,27 @@ button {
 /* Radios, Checkboxes */
 .input-radio,
 .input-checkbox {
-  display: inline-block;
-  margin-right: 0.625rem;
-  min-height: 1.25rem;
-  min-width: 1.25rem;
+    display: inline-block;
+    margin-right: 0.625rem;
+    min-height: 1.25rem;
+    min-width: 1.25rem;
 }
 
 /* Text area */
 .input-textarea {
-  min-height: 120px;
-  width: 100%;
-  padding: 0.625rem;
-  resize: vertical;
+    min-height: 120px;
+    width: 100%;
+    padding: 0.625rem;
+    resize: vertical;
 }
 
 /* Form buttons */
 .submit-button {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  background: var(--color-green);
-  color: inherit;
-  border-radius: 2px;
-  cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--color-green);
+    color: inherit;
+    border-radius: 2px;
+    cursor: pointer;
 }
