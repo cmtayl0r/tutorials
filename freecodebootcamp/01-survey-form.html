@@ -8,15 +8,24 @@
         <link rel="stylesheet" href="css/01-styles.css" />
     </head>
     <body>
-        <div class="container">
-            <h1 id="title">Form title</h1>
-            <p id="description">
+        <header>
+            <h1 id="title">My Amazing Form</h1>
+            <nav>
+                <ul>
+                    <li><a href="#your-details">Your details</a></li>
+                    <li><a href="#questions">Questions</a></li>
+                    <li><a href="#anything-else">Comments</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
+            <!-- <p id="description">
                 This is the
                 <a href="https://survey-form.freecodecamp.rocks/">
                     example given by FreeCodeCamp</a
                 >
                 as an influence.
-            </p>
+            </p> -->
             <form action="" id="survey-form" method="post">
                 <!-- Input: Name -->
                 <div class="form-group">
@@ -185,24 +194,112 @@
                         Open Source Community
                     </label>
                 </div>
+
+                <hr />
+                <!-- SECTION: Questions -->
+                <section role="region" aria-labelledby="questions">
+                    <h3 id="questions">Questions</h3>
+                    <!-- Question 1 -->
+                    <div class="form-group">
+                        <p class="question-num">1</p>
+                        <fieldset class="question" name="html-question-one">
+                            <legend>
+                                The legend element represents a caption for the
+                                content of its parent fieldset element
+                            </legend>
+                            <ul class="answers-list">
+                                <li>
+                                    <label for="q1-a1">
+                                        <input
+                                            type="radio"
+                                            id="q1-a1"
+                                            name="q1"
+                                            value="true"
+                                            class="input-radio"
+                                        />
+                                        True
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="q1-a2">
+                                        <input
+                                            type="radio"
+                                            id="q1-a2"
+                                            name="q1"
+                                            value="false"
+                                            class="input-radio"
+                                        />
+                                        False
+                                    </label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <!-- Question 2 -->
+                    <div class="form-group">
+                        <p class="question-num">2</p>
+                        <fieldset class="question" name="html-question-two">
+                            <legend>
+                                A label element nesting an input element is
+                                required to have a for attribute with the same
+                                value as the input's id
+                            </legend>
+                            <ul class="answers-list">
+                                <li>
+                                    <label for="q2-a1">
+                                        <input
+                                            type="radio"
+                                            id="q2-a1"
+                                            name="q2"
+                                            value="true"
+                                            class="input-radio"
+                                        />
+                                        True
+                                    </label>
+                                </li>
+                                <li>
+                                    <label for="q2-a2">
+                                        <input
+                                            type="radio"
+                                            id="q2-a2"
+                                            name="q2"
+                                            value="false"
+                                            class="input-radio"
+                                        />
+                                        False
+                                    </label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                </section>
+                <hr />
+                <!-- SECTION: Comments -->
+                <section role="region" aria-labelledby="comments">
+                    <h3 id="comments">Comments</h3>
+                    <div class="form-group">
+                        <label for="comments-label"
+                            >Any comments or suggestions you would like to
+                            make?</label
+                        >
+                        <textarea
+                            name="comments-label"
+                            id="comments-label"
+                            cols="30"
+                            rows="10"
+                            placeholder="Enter your comment here..."
+                            class="input-textarea"
+                        ></textarea>
+                    </div>
+                </section>
                 <!-- Input: Text area -->
-                <div class="form-group">
-                    <label for="comments-label"
-                        >Any comments or suggestions?</label
-                    >
-                    <textarea
-                        name=""
-                        id="comments-label"
-                        cols="30"
-                        rows="10"
-                        placeholder="Enter your comment here..."
-                        class="input-textarea"
-                    ></textarea>
-                </div>
+
+                <!-- Submit button -->
                 <div class="form-group">
                     <button type="submit" class="submit-button">Submit</button>
                 </div>
+                
             </form>
-        </div>
+        </main>
     </body>
 </html>
