@@ -31,100 +31,104 @@
                 <!-- SECTION: Your details -->
                 <section role="region" aria-labelledby="your-details">
                     <h3 id="your-details">Your details</h3>
+                    <!-- Input: Name -->
+                    <div class="form-group">
+                        <label for="name" id="name-label">Name</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            required
+                        />
+                    </div>
+                    <!-- Input: Email -->
+                    <div class="form-group">
+                        <label for="email" id="email-label"> Email </label>
+                        <input
+                            class="form-control"
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        />
+                        <!-- TD: email formatting options -->
+                    </div>
+                    <!-- Input: Password -->
+                    <div class="form-group">
+                        <label for="password" id="password-label"
+                            >Create a new password</label
+                        >
+                        <input
+                            class="form-control"
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter a new password"
+                            pattern="[a-z0-5]{8,}"
+                            required
+                        />
+                        <!-- TD: understand pattern options -->
+                    </div>
+                    <!-- Input: Age -->
+                    <div class="form-group">
+                        <label for="number" id="number-label">
+                            Age
+                            <span class="clue">(optional)</span>
+                        </label>
+                        <input
+                            class="form-control"
+                            type="number"
+                            id="number"
+                            name="number"
+                            min="18"
+                            max="120"
+                            placeholder="Age"
+                        />
+                    </div>
+                    <!-- Input: File upload -->
+                    <div class="form-group">
+                        <label for="profile-picture">
+                            Upload a profile picture
+                        </label>
+                        <input
+                            id="profile-picture"
+                            type="file"
+                            name="file"
+                            class="upload-button"
+                        />
+                    </div>
+                    <!-- Input: Select -->
+                    <div class="form-group">
+                        <label for="dropdown">
+                            Which option best describes your current role?
+                        </label>
+                        <select
+                            name="dropdown"
+                            id="dropdown"
+                            class="form-control"
+                        >
+                            <!-- TD: Add correct option values -->
+                            <option disabled selected>Select an option</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                            <option value="option4">Option 4</option>
+                        </select>
+                    </div>
+                    <!-- Input: Date -->
+                    <div class="form-group">
+                        <label for="birth-date"> Date of Birth</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            name="birth-date"
+                            id="birth-date"
+                        />
+                    </div>
                 </section>
-                <!-- Input: Name -->
-                <div class="form-group">
-                    <label for="name" id="name-label">Name</label>
-                    <input
-                        class="form-control"
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Enter your name"
-                        required
-                    />
-                </div>
-                <!-- Input: Email -->
-                <div class="form-group">
-                    <label for="email" id="email-label"> Email </label>
-                    <input
-                        class="form-control"
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    />
-                    <!-- TD: email formatting options -->
-                </div>
-                <!-- Input: Password -->
-                <div class="form-group">
-                    <label for="password" id="password-label"
-                        >Create a new password</label
-                    >
-                    <input
-                        class="form-control"
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter a new password"
-                        pattern="[a-z0-5]{8,}"
-                        required
-                    />
-                    <!-- TD: understand pattern options -->
-                </div>
-                <!-- Input: Age -->
-                <div class="form-group">
-                    <label for="number" id="number-label">
-                        Age
-                        <span class="clue">(optional)</span>
-                    </label>
-                    <input
-                        class="form-control"
-                        type="number"
-                        id="number"
-                        name="number"
-                        min="18"
-                        max="120"
-                        placeholder="Age"
-                    />
-                </div>
-                <!-- Input: File upload -->
-                <div class="form-group">
-                    <label for="profile-picture">
-                        Upload a profile picture:
-                    </label>
-                    <input
-                        id="profile-picture"
-                        type="file"
-                        name="file"
-                        class="upload-button"
-                    />
-                </div>
-                <!-- Input: Select -->
-                <div class="form-group">
-                    <label for="dropdown">
-                        Which option best describes your current role?
-                    </label>
-                    <select name="dropdown" id="dropdown" class="form-control">
-                        <!-- TD: Add correct option values -->
-                        <option disabled selected>Select an option</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
-                        <option value="option4">Option 4</option>
-                    </select>
-                </div>
-                <!-- Input: Date -->
-                <div class="form-group">
-                    <label for="birth-date"> Date of Birth</label>
-                    <input
-                        type="date"
-                        class="form-control"
-                        name="birth-date"
-                        id="birth-date"
-                    />
-                </div>
                 <hr />
                 <!-- SECTION: Preferences -->
                 <section role="region" aria-labelledby="preferences">
