@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-white: #f3f3f3;
+    --color-orange: #fdb347;
+    --color-black-alt: #0a0a23;
+}
+
+body {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+    /* color: var(--color-white); */
+}
+
+h1,
+h3 {
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 4rem;
+}
