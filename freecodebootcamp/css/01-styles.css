@@ -189,16 +189,16 @@ FORM
 */
 form {
     background-color: var(--color-petrol-dark-a);
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 0.25rem;
 }
 
 .form-group {
-    margin: 0 auto 1.5rem auto;
+    margin: 0 auto 2rem auto;
 }
 
 section {
-    padding-top: 1.5rem;
+    padding: 2rem 0 0 0;
 }
 
 section:first-of-type {
