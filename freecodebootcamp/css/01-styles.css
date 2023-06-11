@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;700&display=swap');
 
+/*
+------------------------------------------------------------
+TODO LIST
+
+- Style upload file
+- Create 50% widths for date and select inputs
+- breakpoint to go back to 100% for the above
+- Hide/show nav in mobile view using JS DOM manipulation
+------------------------------------------------------------
+*/
+
 :root {
     --color-white: #f3f3f3;
     --color-petrol-dark: #173131;
