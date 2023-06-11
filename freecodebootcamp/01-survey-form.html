@@ -13,6 +13,7 @@
             <nav>
                 <ul>
                     <li><a href="#your-details">Your details</a></li>
+                    <li><a href="#preferences">Preferences</a></li>
                     <li><a href="#questions">Questions</a></li>
                     <li><a href="#anything-else">Comments</a></li>
                 </ul>
@@ -27,6 +28,10 @@
                 as an influence.
             </p> -->
             <form action="" id="survey-form" method="post">
+                <!-- SECTION: Your details -->
+                <section role="region" aria-labelledby="your-details">
+                    <h3 id="your-details">Your details</h3>
+                </section>
                 <!-- Input: Name -->
                 <div class="form-group">
                     <label for="name" id="name-label">Name</label>
@@ -110,91 +115,105 @@
                         <option value="option4">Option 4</option>
                     </select>
                 </div>
-                <!-- Input: Radio -->
+                <!-- Input: Date -->
                 <div class="form-group">
-                    <p>Would you recommend freeCodeCamp to a friend?</p>
-                    <label>
-                        <input
-                            type="radio"
-                            name="user-recommend"
-                            value="Definitely"
-                            class="input-radio"
-                        />
-                        Definitely
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="user-recommend"
-                            value="Maybe"
-                            class="input-radio"
-                        />
-                        Maybe
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="user-recommend"
-                            value="Not sure"
-                            class="input-radio"
-                        />
-                        Not sure
-                    </label>
+                    <label for="birth-date"> Date of Birth</label>
+                    <input
+                        type="date"
+                        class="form-control"
+                        name="birth-date"
+                        id="birth-date"
+                    />
                 </div>
-                <!-- Input: Checkboxes -->
-                <div class="form-group">
-                    <p>
-                        What would you like to see improved?
-                        <span class="clue">(check all that apply)</span>
-                    </p>
-                    <!-- Associating labels implicitly (WCAG) -->
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="improve"
-                            value="front-end-projects"
-                            class="input-checkbox"
-                        />
-                        Front-end Projects
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="improve"
-                            value="back-end-projects"
-                            class="input-checkbox"
-                        />
-                        Back-end Projects
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="improve"
-                            value="data-visualisation"
-                            class="input-checkbox"
-                        />
-                        Data Visualization
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="prefer"
-                            value="challenges"
-                            class="input-checkbox"
-                        />
-                        Challenges
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="improve"
-                            value="open-source-community"
-                            class="input-checkbox"
-                        />
-                        Open Source Community
-                    </label>
-                </div>
-
+                <hr />
+                <!-- SECTION: Preferences -->
+                <section role="region" aria-labelledby="preferences">
+                    <h3 id="preferences">Preferences</h3>
+                    <!-- Input: Radio -->
+                    <div class="form-group">
+                        <p>Would you recommend freeCodeCamp to a friend?</p>
+                        <label>
+                            <input
+                                type="radio"
+                                name="user-recommend"
+                                value="Definitely"
+                                class="input-radio"
+                            />
+                            Definitely
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="user-recommend"
+                                value="Maybe"
+                                class="input-radio"
+                            />
+                            Maybe
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="user-recommend"
+                                value="Not sure"
+                                class="input-radio"
+                            />
+                            Not sure
+                        </label>
+                    </div>
+                    <!-- Input: Checkboxes -->
+                    <div class="form-group">
+                        <p>
+                            What would you like to see improved?
+                            <span class="clue">(check all that apply)</span>
+                        </p>
+                        <!-- Associating labels implicitly (WCAG) -->
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="improve"
+                                value="front-end-projects"
+                                class="input-checkbox"
+                            />
+                            Front-end Projects
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="improve"
+                                value="back-end-projects"
+                                class="input-checkbox"
+                            />
+                            Back-end Projects
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="improve"
+                                value="data-visualisation"
+                                class="input-checkbox"
+                            />
+                            Data Visualization
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="prefer"
+                                value="challenges"
+                                class="input-checkbox"
+                            />
+                            Challenges
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="improve"
+                                value="open-source-community"
+                                class="input-checkbox"
+                            />
+                            Open Source Community
+                        </label>
+                    </div>
+                </section>
                 <hr />
                 <!-- SECTION: Questions -->
                 <section role="region" aria-labelledby="questions">
@@ -298,7 +317,6 @@
                 <div class="form-group">
                     <button type="submit" class="submit-button">Submit</button>
                 </div>
-                
             </form>
         </main>
     </body>
