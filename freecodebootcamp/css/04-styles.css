@@ -57,6 +57,7 @@ NAVBAR
 }
 #navbar header h1 {
     margin: 0;
+    font-size: 1.5rem;
 }
 
 #navbar ul {
@@ -107,8 +108,12 @@ main {
     margin-bottom: 110px;
 }
 
-header h2 {
-    margin-top: 0;
+section {
+    margin: 0 0 2rem 0;
+}
+section header {
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 section article {
