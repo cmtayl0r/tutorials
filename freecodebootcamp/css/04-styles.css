@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap');
 
+/*
+-------------------------------------------------------------------------------
+RESET
+-------------------------------------------------------------------------------
+*/
 /* Accessibility consideration */
 @media (prefers-reduced-motion: no-preference) {
     * {
@@ -15,9 +20,10 @@
 
 :root {
     --color-white: #ffffff;
-    --color-gray1: #eee;
+    --color-gray-light: #eee;
+    --color-gray-dark: #8e8e8e;
     --color-orange: #fdb347;
-    --color-black-alt: #0a0a23;
+    --color-black: #0a0a23;
 }
 
 body {
@@ -26,24 +32,135 @@ body {
     font-weight: 400;
     line-height: 1.5;
     margin: 0;
+    color: var(--color-black);
 }
 
-@media (max-width: 768px) {
-    #navbar {
-        position: fixed;
-    }
-}
+/*
+-------------------------------------------------------------------------------
+NAVBAR
+-------------------------------------------------------------------------------
+*/
 
 #navbar {
-    background-color: peachpuff;
-    width: 300px;
+    position: fixed;
+    min-width: 290px;
+    top: 0px;
+    left: 0px;
+    width: 18.75rem; /* 300px */
     height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
+    border-right: 0.1875rem solid var(--color-black);
+    background-color: peachpuff;
 }
+
+#navbar header {
+    margin: 0.625rem;
+}
+#navbar header h1 {
+    margin: 0;
+}
+
+#navbar ul {
+    height: 88%;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#navbar ul > li {
+    color: #4d4e53;
+    border-top: 1px solid;
+    list-style: none;
+    position: relative;
+    width: 100%;
+}
+
+#navbar ul > li:last-of-type {
+    border-bottom: 1px solid;
+}
+#navbar a {
+    display: block;
+    padding: 10px 30px;
+    color: #4d4e53;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.05s;
+}
+
+#navbar a:hover::before {
+    content: '→ ';
+}
+
+#navbar a:active {
+    transform: translateY(0.25rem);
+}
+
+/*
+-------------------------------------------------------------------------------
+MAIN + SECTIONS
+-------------------------------------------------------------------------------
+*/
+
 main {
     position: absolute;
-    left: 310px;
-    top: 0;
+    margin-left: 310px;
+    padding: 20px;
+    margin-bottom: 110px;
+}
+
+header h2 {
+    margin-top: 0;
+}
+
+section article {
+    color: #4d4e53;
+    margin: 15px;
+    font-size: 0.96em;
+}
+
+section li {
+    margin: 0.5rem 0 0 0.5rem;
+}
+
+code {
+    display: block;
+    text-align: left;
+    white-space: pre-line;
+    position: relative;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 2;
+    background-color: #f7f7f7;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/*
+-------------------------------------------------------------------------------
+MEDIA QUERIES
+-------------------------------------------------------------------------------
+*/
+
+@media only screen and (max-width: 768px) {
+    #navbar {
+        background-color: var(--color-gray-light);
+        position: absolute;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        max-height: 275px;
+        border: none;
+        z-index: 1;
+        border-bottom: 0.1875rem solid var(--color-black);
+    }
+    #navbar ul {
+        border: 0.1875rem solid;
+        height: 207px;
+    }
+    #main-doc {
+        position: relative;
+        margin-left: 0px;
+        margin-top: 270px;
+    }
 }
