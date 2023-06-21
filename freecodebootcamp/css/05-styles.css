@@ -1,0 +1,74 @@
+/* 
+-----------------------------------------------------------
+STRUCTURE
+-----------------------------------------------------------
+*/
+
+#page-wrapper {
+    position: relative;
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 
+-----------------------------------------------------------
+HEADER
+-----------------------------------------------------------
+*/
+header {
+    position: fixed;
+    top: 0;
+    min-height: 75px;
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eee;
+}
+
+.logo {
+    width: 60vw;
+}
+
+.logo > img {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+nav > ul {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.6rem;
+}
+li {
+    list-style: none;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+/* 
+-----------------------------------------------------------
+HEADER
+-----------------------------------------------------------
+*/
+#hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 200px;
+    margin-top: 75px;
+}
