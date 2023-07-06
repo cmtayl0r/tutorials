@@ -5,7 +5,7 @@ TYPOGRAPHY
 */
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 /*
@@ -26,6 +26,8 @@ STRUCTURE
 .container {
     display: flex;
     border: 5px solid goldenrod;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .box1 {
@@ -47,14 +49,14 @@ STRUCTURE
     background-color: var(--color-rainbow-petrol);
 }
 .box7 {
-    background-color: var(--color-rainbow-aqua);
-}
-.box8 {
     background-color: var(--color-rainbow-azure);
 }
-.box9 {
+.box8 {
     background-color: var(--color-rainbow-blue);
 }
-.box10 {
+.box9 {
     background-color: var(--color-rainbow-violet);
+}
+.box10 {
+    background-color: var(--color-rainbow-night);
 }
