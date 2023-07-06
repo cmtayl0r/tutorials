@@ -1,14 +1,60 @@
 /*
 --------------------------------------------------------------------
+TYPOGRAPHY
+--------------------------------------------------------------------
+*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*
+--------------------------------------------------------------------
 STRUCTURE
 --------------------------------------------------------------------
 */
 
-/* Default styles to make eachbox visible */
+/* Default styles to make each box visible */
 .box {
     color: white;
-    font-size: 10rem;
+    font-size: 6.4rem;
     text-align: center;
     text-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.1);
     padding: 1rem;
+}
+
+.container {
+    display: flex;
+    border: 5px solid goldenrod;
+}
+
+.box1 {
+    background-color: var(--color-rainbow-red);
+}
+.box2 {
+    background-color: var(--color-rainbow-orange);
+}
+.box3 {
+    background-color: var(--color-rainbow-yellow);
+}
+.box4 {
+    background-color: var(--color-rainbow-radium);
+}
+.box5 {
+    background-color: var(--color-rainbow-green);
+}
+.box6 {
+    background-color: var(--color-rainbow-petrol);
+}
+.box7 {
+    background-color: var(--color-rainbow-aqua);
+}
+.box8 {
+    background-color: var(--color-rainbow-azure);
+}
+.box9 {
+    background-color: var(--color-rainbow-blue);
+}
+.box10 {
+    background-color: var(--color-rainbow-violet);
 }
