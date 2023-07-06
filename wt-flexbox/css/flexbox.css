@@ -1,0 +1,14 @@
+/*
+--------------------------------------------------------------------
+STRUCTURE
+--------------------------------------------------------------------
+*/
+
+/* Default styles to make eachbox visible */
+.box {
+    color: white;
+    font-size: 10rem;
+    text-align: center;
+    text-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
