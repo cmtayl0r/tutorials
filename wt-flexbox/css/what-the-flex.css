@@ -41,7 +41,7 @@ a {
     display: inline-block;
     width: 100%;
     text-align: center;
-    transition: all 0.5s;
+    transition: all 0.2s;
 }
 
 a:hover {
@@ -86,3 +86,61 @@ a:hover {
 02 - MOBILE REORDERING
 --------------------------------------------------------------------
 */
+
+/* Hide mobile menu */
+.toggleNav {
+    display: none;
+}
+
+/* fit img to container */
+img {
+    width: 100%;
+}
+
+input {
+    padding: 1rem;
+    border: 0;
+}
+
+header {
+    margin: 2rem 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+section,
+footer {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+@media all and (max-width: 500px) {
+    /* Wrapper becomes flex container */
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Hide nav and show menu */
+    .toggleNav {
+        display: block;
+    }
+    .flex-nav ul {
+        display: none;
+    }
+    /* Toggle menu visibility */
+    .flex-nav ul.open {
+        display: flex;
+    }
+
+    /* Every immediete child of wrapper */
+    .wrapper > * {
+        order: 1;
+    }
+
+    .flex-nav {
+        order: -1;
+    }
+}
