@@ -116,7 +116,7 @@ footer {
     margin: 2rem 0;
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 1000px) {
     /* Wrapper becomes flex container */
     .wrapper {
         display: flex;
@@ -134,13 +134,22 @@ footer {
     .flex-nav ul.open {
         display: flex;
     }
-
-    /* Every immediete child of wrapper */
+    /* Every immediate child of wrapper */
     .wrapper > * {
+        order: 999;
+    }
+    .flex-nav {
         order: 1;
     }
 
-    .flex-nav {
-        order: -1;
+    .top {
+        order: 2;
+    }
+
+    .details {
+        order: 3;
+    }
+    .signup {
+        order: 4;
     }
 }
