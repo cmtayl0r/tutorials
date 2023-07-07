@@ -1,0 +1,62 @@
+/*
+--------------------------------------------------------------------
+TYPOGRAPHY
+--------------------------------------------------------------------
+*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+html {
+    height: 100vh; /* removes css gradient banding defined in body */
+}
+
+body {
+    font-family: 'DM Mono', monospace;
+    background-image: linear-gradient(260deg, #2376ae, #c16ecf 100%);
+    margin: 0;
+}
+
+/*
+--------------------------------------------------------------------
+STRUCTURE
+--------------------------------------------------------------------
+*/
+
+.wrapper {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+/*
+--------------------------------------------------------------------
+NAVIGATION
+--------------------------------------------------------------------
+*/
+
+a {
+    color: var(--color-white);
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2rem 0.5rem;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    transition: all 0.5s;
+}
+
+a:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.flex-nav ul {
+    border: 1px solid black;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media all and (max-width: 100rem) {
+}
+
+@media all and (max-width: 50rem) {
+}
