@@ -3,9 +3,10 @@
 TYPOGRAPHY
 --------------------------------------------------------------------
 */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
 
 body {
-    font-family: Helvetica, sans-serif;
+    font-family: 'DM Mono', monospace;
 }
 
 /*
@@ -13,21 +14,21 @@ body {
 STRUCTURE
 --------------------------------------------------------------------
 */
+.container {
+    display: flex;
+    border: 5px solid goldenrod;
+    align-items: flex-start;
+    margin-bottom: 1.6rem;
+}
 
 /* Default styles to make each box visible */
 .box {
     color: white;
-    font-size: 6.4rem;
+    font-size: 3.6rem;
     text-align: center;
     text-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.1);
     padding: 1rem;
-}
-
-.container {
-    display: flex;
-    border: 5px solid goldenrod;
-    min-height: 100vh;
-    flex-direction: column;
+    /* height: 20rem; */
 }
 
 .box1 {
