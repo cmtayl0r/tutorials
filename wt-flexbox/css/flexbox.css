@@ -19,6 +19,7 @@ STRUCTURE
     border: 5px solid goldenrod;
     align-items: flex-start;
     margin-bottom: 1.6rem;
+    flex-wrap: wrap;
 }
 
 /* Default styles to make each box visible */
@@ -29,6 +30,8 @@ STRUCTURE
     text-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.1);
     padding: 1rem;
     /* height: 20rem; */
+    flex-basis: 200px;
+    flex-grow: 1;
 }
 
 .box1 {
