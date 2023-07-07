@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WTF!? - 02 Mobile Reordering</title>
+        <link rel="stylesheet" href="../global/reset.css" />
+        <link rel="stylesheet" href="../global/variables.css" />
+        <link rel="stylesheet" href="css/what-the-flex.css" />
+        <script
+            src="https://kit.fontawesome.com/e629a3f72c.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="top">
+                <h1><a href="#">Mobile Reordering in Flexbox</a></h1>
+            </header>
+
+            <!-- START - .flex-nav -->
+            <nav class="flex-nav">
+                <a href="#" class="toggleNav">☰ Menu</a>
+                <ul>
+                    <li><a href="#">Item 01</a></li>
+                    <li><a href="#">Item 02</a></li>
+                    <li><a href="#">Item 03</a></li>
+                    <li><a href="#">Item 04</a></li>
+                    <li><a href="#">Item 05</a></li>
+                    <li><a href="#">Item 06</a></li>
+                    <li class="social">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    </li>
+                    <li class="social">
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    </li>
+                    <li class="social">
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </li>
+                    <li class="social">
+                        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <section class="hero">
+                <img src="http://picsum.photos/1000/600" />
+            </section>
+
+            <section class="details">
+                <p>A simple rap about the meaning of life.</p>
+                <p>Sign up today to get some great karma!</p>
+            </section>
+
+            <section class="signup">
+                <form action="" class="signup">
+                    <input type="text" placeholder="Your Name" />
+                    <input type="email" placeholder="Email Address" />
+                    <input type="submit" value="Sign me up!" />
+                </form>
+            </section>
+
+            <footer>
+                <p>&copy; Chris Taaylor</p>
+            </footer>
+        </div>
+    </body>
+    <script>
+        const toggleNav = document.querySelector('.toggleNav');
+
+        toggleNav.addEventListener('click', function () {
+            document.querySelector('.flex-nav ul').classList.toggle('open');
+        });
+    </script>
+</html>
