@@ -53,10 +53,30 @@ a:hover {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex;
+}
+.flex-nav li {
+    flex: 3; /* take 3x space as the social buttons */
+}
+.flex-nav .social {
+    flex: 1;
 }
 
-@media all and (max-width: 100rem) {
+@media all and (max-width: 1000px) {
+    .flex-nav ul {
+        flex-wrap: wrap; /* in order to wrap we need to set flex-basis on children */
+    }
+    .flex-nav li {
+        flex: 1 1 50%; /* flex-basis 50% puts them in columns */
+    }
+    .flex-nav .social {
+        flex: 1 1 25%; /* flex-basis 25% keeps them in nice row */
+    }
 }
 
-@media all and (max-width: 50rem) {
+@media all and (max-width: 500px) {
+    .flex-nav li {
+        /* only have to change flex-basis, create stacked column */
+        flex-basis: 100%;
+    }
 }
