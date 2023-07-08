@@ -153,3 +153,40 @@ footer {
         order: 4;
     }
 }
+
+/*
+--------------------------------------------------------------------
+03 - VERTICAL AND HORIZONTAL CENTERING
+--------------------------------------------------------------------
+*/
+
+/* flex container */
+.slider-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* first flex item */
+.slider-nav li {
+    flex: 2; /* they take up double the room as the arrows */
+    display: flex; /* nested flex to get full height li AND links */
+}
+.slider-nav a {
+    flex-basis: 100%;
+    /* We want to stretch aswell as center */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slider-nav .arrow {
+    flex: 1;
+    font-size: 3rem;
+}
+
+/*
+--------------------------------------------------------------------
+04 - PRICING GRID
+--------------------------------------------------------------------
+*/
