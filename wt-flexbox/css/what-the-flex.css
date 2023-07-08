@@ -284,10 +284,63 @@ footer {
     If you give explicit width via flex-basis 
     You use calc() to compensate for the margin (1rem) so that 3 (33.33%) items can fill a row
     */
-    flex: 0 1 calc(33.33% - 2rem); 
+    flex: 0 1 calc(33.33% - 2rem);
     /* 
     do nothing with the extra space by adding 0 to flex grow
     justify-content on the parent dictates the leftovers on wrap, if not in 3s
     */
-    
+}
+
+/*
+--------------------------------------------------------------------
+06 - SINGLE LINE FORM
+--------------------------------------------------------------------
+*/
+
+.cover {
+    height: 100vh;
+    width: 100%;
+}
+
+/*Video*/
+.dog {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 100%;
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+.flex-form {
+    z-index: 10;
+    position: relative;
+}
+
+/*Hack to get them to align properly */
+.flex-form > *:not([type='date']) {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.flex-form > * {
+    border: 0;
+    padding: 1rem;
+    background: white;
+    line-height: 5rem;
+    font-size: 2rem;
+    border-radius: 0;
+    outline: 0;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.flex-form > *:last-child {
+    border-right: 0;
+}
+.flex-form input[type='submit'] {
+    background: #ff5a5f;
+    border-top: 1px solid #ff5a5f;
+    border-bottom: 1px solid #ff5a5f;
+    color: white;
 }
