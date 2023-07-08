@@ -214,6 +214,7 @@ footer {
     border-radius: 0.4rem;
 }
 .plan h2 {
+    font-size: 3.6rem;
     text-transform: uppercase;
     color: white;
     letter-spacing: 0.2rem;
@@ -226,7 +227,32 @@ footer {
     margin: 1rem 0;
 }
 
+/* Flex container */
 .pricing-grid {
     max-width: 750px;
     margin: 0 auto;
+    display: flex;
+    /* align-items: center; */
+}
+
+.plan {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0.8rem;
+    padding: 1.2rem;
+    margin: 1.6rem;
+    text-align: center;
+
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* all direct descendents of .plan div */
+.plan > * {
+    flex: 1;
+    flex-basis: 100%; /* set width */
+}
+
+.plan .cta {
+    align-self: flex-end;
 }
