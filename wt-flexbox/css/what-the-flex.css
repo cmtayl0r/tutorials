@@ -190,3 +190,43 @@ footer {
 04 - PRICING GRID
 --------------------------------------------------------------------
 */
+
+.plan ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.plan ul li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.plan ul li:last-child {
+    border-bottom: 0;
+}
+
+.plan a {
+    text-decoration: none;
+    background: #feff00;
+    padding: 1rem;
+    color: black;
+    border-radius: 0.4rem;
+}
+.plan h2 {
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 0.2rem;
+    text-shadow: 0.3rem 0.3rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.price {
+    font-size: 5rem;
+    font-family: serif;
+    margin: 1rem 0;
+}
+
+.pricing-grid {
+    max-width: 750px;
+    margin: 0 auto;
+}
