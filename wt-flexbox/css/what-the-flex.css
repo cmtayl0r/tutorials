@@ -262,3 +262,32 @@ footer {
 05 - EQUAL HEIGHT COLUMNS
 --------------------------------------------------------------------
 */
+
+.elements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 20px;
+}
+.item.small {
+    font-size: 2.4rem;
+}
+.item.large {
+    font-size: 3.6rem;
+}
+
+.item {
+    background: rgba(255, 255, 255, 0.2);
+    margin: 1rem;
+    padding: 2rem;
+    /* 
+    If you give explicit width via flex-basis 
+    You use calc() to compensate for the margin (1rem) so that 3 (33.33%) items can fill a row
+    */
+    flex: 0 1 calc(33.33% - 2rem); 
+    /* 
+    do nothing with the extra space by adding 0 to flex grow
+    justify-content on the parent dictates the leftovers on wrap, if not in 3s
+    */
+    
+}
