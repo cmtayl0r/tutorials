@@ -46,8 +46,8 @@ h2 {
     align-items: center;
     border: 5px solid rgba(0, 0, 0, 0.03);
     border-radius: 0.3rem;
-    font-size: 3.6rem;
     background-color: var(--color-yellow);
+    font-size: 3.6rem;
 }
 
 .item p {
@@ -56,7 +56,7 @@ h2 {
 
 /* 
 --------------------------------------------------------
-11 - Spanning and placing cardio
+00 - basic grid
 --------------------------------------------------------
 */
 
@@ -64,34 +64,6 @@ h2 {
     display: grid;
     border: 10px solid var(--color-black);
     gap: 2rem;
-    grid-template-columns: repeat(5, 1fr 2fr);
-    grid-template-rows: repeat(10, 50px);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    margin-bottom: 2rem;
 }
-.item1 {
-    grid-column: 3 / 5;
-}
-.item2 {
-    grid-column: 5 / -1;
-}
-.item5 {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-.item8 {
-    grid-row: span 2;
-}
-.item15 {
-    grid-column: 1 / -1;
-}
-.item18 {
-    grid-column: span 4 / 9;
-}
-.item20 {
-    grid-row: 4 / span 3;
-}
-
-/* 
---------------------------------------------------------
-00 - XXX
---------------------------------------------------------
-*/
