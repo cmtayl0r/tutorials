@@ -92,9 +92,11 @@ img {
     object-position: center;
 }
 
-/** --------------------------------------------------------------------
-  Accessible Breadcrumbs
---------------------------------------------------------------------- */
+/* 
+--------------------------------------------------------
+00 - Accessible Breadcrumbs
+--------------------------------------------------------
+*/
 
 .breadcrumb-nav {
     font-size: 3.6rem;
@@ -117,7 +119,6 @@ img {
 .breadcrumb-nav li:not(:last-child)::after {
     border: solid black;
     border-width: 0 6px 6px 0;
-
     padding: 6px;
     content: '';
     transform: rotate(-45deg);
@@ -142,3 +143,9 @@ img {
     font-weight: normal;
     text-decoration: none;
 }
+
+/* 
+--------------------------------------------------------
+00 - Album layout
+--------------------------------------------------------
+*/
