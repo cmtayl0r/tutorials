@@ -1,5 +1,61 @@
 /* 
 --------------------------------------------------------
-00 - Album layout
+00 - Foundation
 --------------------------------------------------------
 */
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+    background-image: linear-gradient(110deg, #abf93d, #47d9b2);
+    min-height: calc(100vh - 100px); /* 100vh minus the margin on body */
+    margin: 50px;
+}
+
+/* 
+--------------------------------------------------------
+00 - Album structure
+--------------------------------------------------------
+*/
+
+.albums {
+    display: grid;
+    border: 0.8rem dashed var(--color-black);
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.album {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    font-weight: 300;
+
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.album__artwork {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(100%);
+}
+
+.album__details {
+    padding: 2rem;
+}
+.album__details > * {
+    margin: 0 0 0.6rem 0;
+}
+.album__details > h2 {
+    font-weight: 700;
+    font-size: 2rem;
+}
+.album__artist {
+    font-weight: 500;
+}
+.album__desc {
+}
