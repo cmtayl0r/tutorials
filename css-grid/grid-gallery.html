@@ -23,6 +23,8 @@
     </section>
 
     <script>
+        // ---------- Gallery
+
         const gallery = document.querySelector('.gallery');
         const overlay = document.querySelector('.overlay');
         // Look inside the overlay for the img and close button
@@ -46,15 +48,39 @@
         }
 
         // Array to generate values for random columns and rows
-        const digits = Array.from({ length: 50 }, () => [randomNumber(4), randomNumber(4)]).concat([[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]]);
+        // The concat array with random [1,1] is there to fill all the small gaps with 1x1 images
+        const digits = Array.from({ length: 50 }, () => [randomNumber(4), randomNumber(4)]).concat([[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]]);
         console.log(digits);
 
         // Pass digits to generateHTML function
         // Those values from the array will be destructured into the h and v values
-        // join turns the output into a string
+        // join turns the output into a string, so HTML code can be written
         const html = digits.map(generateHTML).join('');
         // Insert the HTML into the gallery 
         gallery.innerHTML = html;
+
+        // ---------- Modal
+
+        function handleClick(e) {
+            // look for img and get src attribute
+            const src = e.currentTarget.querySelector('img').src;
+            // set overlay img to have the src
+            overlayImage.src = src;
+            // add ,open class to overlay
+            overlay.classList.add('open');
+        }
+
+        // 
+        function close() {
+            overlay.classList.remove('open');
+        }
+
+        const items = document.querySelectorAll('.item');
+        // loop over item and listen for click
+        items.forEach(item => item.addEventListener('click', handleClick));
+
+        // When someone clicks the button with .close, we apply the close function
+        overlayClose.addEventListener('click', close);
 
     </script>
 </body>

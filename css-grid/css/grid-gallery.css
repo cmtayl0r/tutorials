@@ -39,13 +39,23 @@ p {
 */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-auto-rows: min-max(100px, auto);
+    grid-template-columns: repeat(auto-fit, 100px);
+    grid-auto-rows: 100px;
     grid-auto-flow: dense;
     border: 0.8rem dashed var(--color-black);
 }
 
-.item > img {
+.item {
+    overflow: hidden;
+    /* sub grid instead of using absolute on overlay */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.item img {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -75,11 +85,46 @@ p {
 
 /* 
 --------------------------------------------------------
-02 - Modal overlay
+02 - Item overlay
 --------------------------------------------------------
 */
 
 .item__overlay {
+    background: #bb007090;
+    /* overlay can happen if the grid-column/row matches the overlapping element (.item) */
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+
+    /* Centre the button inside the overlay */
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    /* animation for overlay on hover, 100% off the bottom to start */
+    transform: translateY(100%);
+    transition: 0.2s;
+}
+
+.item__overlay button {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.6rem;
+    cursor: pointer;
+}
+
+.item:hover .item__overlay {
+    transform: translateY(0);
+}
+
+/* 
+--------------------------------------------------------
+02 - Modal overlay
+--------------------------------------------------------
+*/
+
+.overlay {
     position: fixed;
     background: rgba(0, 0, 0, 0.7);
     top: 0;
@@ -90,16 +135,25 @@ p {
     z-index: 2;
 }
 
-.item__overlay.open {
+.overlay.open {
     display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
-.item__overlay figure {
+.overlay-inner {
     background: white;
     width: 700px;
     padding: 20px;
 }
 
-.item__overlay img {
+.overlay img {
     width: 100%;
+}
+
+.close {
+    background: none;
+    color: black;
+    border: 0;
+    cursor: pointer;
 }
