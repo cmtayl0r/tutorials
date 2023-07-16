@@ -37,6 +37,41 @@ p {
 01 - Gallery
 --------------------------------------------------------
 */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-rows: min-max(100px, auto);
+    grid-auto-flow: dense;
+    border: 0.8rem dashed var(--color-black);
+}
+
+.item > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(100%);
+    mix-blend-mode: multiply;
+}
+
+.item.v2 {
+    grid-row: span 2;
+}
+.item.v3 {
+    grid-row: span 3;
+}
+.item.v4 {
+    grid-row: span 4;
+}
+.item.h2 {
+    grid-column: span 2;
+}
+.item.h3 {
+    grid-column: span 3;
+}
+.item.h4 {
+    grid-column: span 4;
+}
 
 /* 
 --------------------------------------------------------
@@ -44,27 +79,27 @@ p {
 --------------------------------------------------------
 */
 
-.overlay {
+.item__overlay {
     position: fixed;
     background: rgba(0, 0, 0, 0.7);
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    /* display: none; */
+    display: none;
     z-index: 2;
 }
 
-.overlay.open {
+.item__overlay.open {
     display: grid;
 }
 
-.overlay figure {
+.item__overlay figure {
     background: white;
     width: 700px;
     padding: 20px;
 }
 
-.overlay img {
+.item__overlay img {
     width: 100%;
 }

@@ -7,6 +7,7 @@
     <title>CSS Grid - Grid Gallery</title>
     <link rel="stylesheet" href="../global/reset.css" />
     <link rel="stylesheet" href="../global/variables.css" />
+    <link rel="stylesheet" href="css/grid-gallery.css">
 </head>
 
 <body>
@@ -21,6 +22,41 @@
     <section class="gallery">
     </section>
 
+    <script>
+        const gallery = document.querySelector('.gallery');
+        const overlay = document.querySelector('.overlay');
+        // Look inside the overlay for the img and close button
+        const overlayImage = overlay.querySelector('img');
+        const overlayClose = overlay.querySelector('.close')
+
+        // function takes in v (vertical) and h (horizontal) css values
+        function generateHTML([h, v]) {
+            return `
+                <div class="item h${h} v${v}">
+                    <img src="https://source.unsplash.com/random/500x500?dog,v=${randomNumber(12)}" />  
+                    <div class="item__overlay">  
+                        <button>View →</button>
+                    </div>
+                </div>
+            `;
+        }
+        // function to generate random number for image url src AND grid value array
+        function randomNumber(limit) {
+            return Math.floor(Math.random() * limit) + 1;
+        }
+
+        // Array to generate values for random columns and rows
+        const digits = Array.from({ length: 50 }, () => [randomNumber(4), randomNumber(4)]).concat([[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]]);
+        console.log(digits);
+
+        // Pass digits to generateHTML function
+        // Those values from the array will be destructured into the h and v values
+        // join turns the output into a string
+        const html = digits.map(generateHTML).join('');
+        // Insert the HTML into the gallery 
+        gallery.innerHTML = html;
+
+    </script>
 </body>
 
 </html>
