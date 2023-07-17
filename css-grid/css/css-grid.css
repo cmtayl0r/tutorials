@@ -201,7 +201,6 @@ img {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-
     border: 5px dashed var(--color-black);
 }
 
