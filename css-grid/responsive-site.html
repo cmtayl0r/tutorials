@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid - Responsive site</title>
+    <link rel="stylesheet" href="../global/reset.css">
+    <link rel="stylesheet" href="../global/variables.css">
+    <link rel="stylesheet" href="css/responsive-site.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="top">
+            <header class="hero">
+                <h1>Bingo's Doggy Treat Joint</h1>
+                <p>Pretty Good Treats!</p>
+            </header>
+            <div class="cta cta1">
+                <p class="price">$1.99</p>
+                <p>Tacos</p>
+            </div>
+            <div class="cta cta2">
+                <p class="price">$3.99</p>
+                <p>Hotdogs</p>
+            </div>
+
+        </div>
+        <nav class="menu">
+            <button aria-expanded="false" aria-controls="menu-list">
+                <span class="open">☰</span>
+                <span class="close">×</span>
+                Menu
+            </button>
+            <ul id="menu-list">
+                <li>
+                    <a href="">Tacos</a>
+                </li>
+                <li>
+                    <a href="">Beers</a>
+                </li>
+                <li>
+                    <a href="">Wines</a>
+                </li>
+                <li>
+                    <a href="">Desserts</a>
+                </li>
+                <li>
+                    <a href="">Reservations</a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <section class="features">
+            <div class="feature">
+                <span class="icon">🌮</span>
+                <h3>Tacos</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+            </div>
+            <div class="feature">
+                <span class="icon">🍩</span>
+                <h3>Donuts</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+            </div>
+            <div class="feature">
+                <span class="icon">🌭</span>
+                <h3>Hotdogs</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+            </div>
+            <div class="feature">
+                <span class="icon">🥨</span>
+                <h3>Bretzels</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, assumenda.</p>
+            </div>
+        </section>
+
+        <section class="about">
+            <img src="https://source.unsplash.com/random/800x800?taco" alt="Yummy Taco" class="about__mockup">
+            <div class="about__details">
+                <h2>Featured Doggy Taco</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic officiis a magnam nemo, provident
+                    repellendus at, itaque quo voluptates aliquam quos, totam assumenda quisquam? Saepe nam magnam
+                    nesciunt enim soluta?</p>
+                <button>Learn More →</button>
+            </div>
+        </section>
+
+
+        <section class="gallery">
+            <h2>Doggy Grams</h2>
+            <img src="https://source.unsplash.com/random/201x201?dog" alt="">
+            <img src="https://source.unsplash.com/random/202x202?dog" alt="">
+            <img src="https://source.unsplash.com/random/203x203?dog" alt="">
+            <img src="https://source.unsplash.com/random/204x204?dog" alt="">
+            <img src="https://source.unsplash.com/random/205x205?dog" alt="">
+            <img src="https://source.unsplash.com/random/206x206?dog" alt="">
+            <img src="https://source.unsplash.com/random/207x207?dog" alt="">
+            <img src="https://source.unsplash.com/random/207x208?dog" alt="">
+            <img src="https://source.unsplash.com/random/207x209?dog" alt="">
+            <img src="https://source.unsplash.com/random/207x210?dog" alt="">
+        </section>
+    </div>
+
+    <script>
+        // create a variable connected to the Menu button in the DOM
+        // We are targeting a button with this aria attribute
+        const navButton = document.querySelector('button[aria-expanded]');
+        const browserWidth = window.innerWidth;
+
+        // We create a function for the toggle
+        function toggleNav({ target }) {
+            // we destructure the target
+            // this console log will show the HTML target, to make sure we are targeting the right element
+            // console.log(target);
+
+            // we target the aria-expanded attribute on the button
+            const expanded = target.getAttribute('aria-expanded') === 'true' || false;
+            navButton.setAttribute('aria-expanded', !expanded);
+            console.log(expanded);
+        };
+
+        // Check if the above function is working on click, with a console.log('TOGGLE!')
+        navButton.addEventListener('click', toggleNav);
+    </script>
+
+</body>
+
+</html>
