@@ -10,7 +10,8 @@
     /* Colour neutral*/
     --color-white: #f3f3f3;
     --color-black: #0a0a23;
-    --color-gray-dark: #8e8e8e;
+    --color-gray: #8e8e8e;
+    --color-gray-dark: #444;
     --color-orange: #fdb347;
     --color-yellow: #ffc608;
     /* Colour rainbow*/
