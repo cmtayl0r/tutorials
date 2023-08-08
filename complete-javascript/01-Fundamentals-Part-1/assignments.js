@@ -2,20 +2,80 @@
 // LESSON 9 - Values and Variables
 /////////////////////////////////////////////////////////
 
-/*
-let country = 83200000;
-let continent = 746400000;
-
-console.log(country, continent);
-*/
+const country = 'Germany';
+const continent = 'Europe';
 
 /////////////////////////////////////////////////////////
 // LESSON 10 - Data Types
 /////////////////////////////////////////////////////////
 
-/*
 const language = 'Deutsch';
-console.log(language);
 
-language = 'English';
+/////////////////////////////////////////////////////////
+// LESSON 12 - let, const and var
+/////////////////////////////////////////////////////////
+
+const myLanguage = 'English';
+
+/////////////////////////////////////////////////////////
+// LESSON 13 - Basic Operators
+/////////////////////////////////////////////////////////
+
+let population = 83.2;
+const populationAvg = 33;
+/*
+let halfPopulation = population / 2;
+const populationFinland = 6000000;
+const populationAvg = 33000000;
+
+const description1 =
+    country +
+    ' is in ' +
+    continent +
+    ', and its ' +
+    population +
+    ' people speak ' +
+    language;
+
+console.log(description1 );
 */
+
+/////////////////////////////////////////////////////////
+// LESSON 18 - If / else statements
+/////////////////////////////////////////////////////////
+
+/*
+if (population > populationAvg) {
+    console.log(
+        `${country}'s population is ${
+            population - populationAvg
+        } million above the average ⬆️👫.`
+    );
+} else {
+    console.log(
+        `${country}'s population is ${
+            populationAvg - population
+        } million below the average ⬇️👫.`
+    );
+}
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 20 - Type conversion and Coercion
+/////////////////////////////////////////////////////////
+
+/*
+console.log('9' - '5');// 4
+console.log('19' - '13' + '17'); // 617
+console.log('19' - '13' + 17); // 23
+console.log('123' < 57); // false
+console.log(5 + 6 + '4' + 9 - 4 - 2);// 1143
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 22 - Equality Operators: == vs. ===
+/////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////
+// LESSON 24 - Logical operators
+/////////////////////////////////////////////////////////
