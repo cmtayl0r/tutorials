@@ -212,11 +212,106 @@ if (height) {
 /////////////////////////////////////////////////////////
 // LESSON 22 - Equality Operators: == vs. ===
 /////////////////////////////////////////////////////////
+/*
+const age = 187;
+if (age === 18) {
+    console.log('All good!');
+} else {
+    console.log('Oh no its not looking good');
+}
 
-/////////////////////////////////////////////////////////
-// LESSON 23 - Boolean logic
-/////////////////////////////////////////////////////////
+const favourite = Number(prompt('What is your favourite number?'));
+
+if (favourite === 23) {
+    console.log('23 is an amazing number');
+} else if (favourite === 7) {
+    console.log('7 is pretty good too!');
+}
+
+if (favourite !== 23) {
+    console.log('Why not the 23?');
+}
+*/
 
 /////////////////////////////////////////////////////////
 // LESSON 24 - Logical operators
 /////////////////////////////////////////////////////////
+
+/*
+const hasLicense = true; // A
+const hasGoodVision = true; // B
+const isTired = false; // C
+
+if (hasLicense && hasGoodVision && !isTired) {
+    console.log('You can drive baby! 🚗');
+} else {
+    console.log('Someone else should drive 😭');
+}
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 26 - switch statement
+/////////////////////////////////////////////////////////
+/*
+const day = 'saturday';
+
+switch (day) {
+    case 'monday':
+        console.log('Sweet baby jesus, Monday again 😳');
+        break;
+    case 'tuesday':
+        console.log('Lordy lordy, its only Tuesday 😭');
+    case 'wednesday':
+    case 'thursday':
+        console.log("Hump days y'all 🏔️");
+        break;
+    case 'friday':
+        console.log('That nice easy Friday feeling 👍');
+        break;
+    case 'saturday':
+    case 'sunday':
+        console.log('Its the weekend bruv! 🍺');
+        break;
+    default:
+        console.log('Keine idee was heute ist?!');
+        break;
+}
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 27 - Statements and expressions
+/////////////////////////////////////////////////////////
+// Expressions produce values
+// Statements are like full sentences that translate actions
+
+/*
+3 + 4; // expression
+true && false && !false; // expression
+
+if (23 > 10) {
+    const str = '23 is bigger'; // statement
+}
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 28 - The conditional (ternary) operator
+/////////////////////////////////////////////////////////
+
+/*
+const age = 12;
+
+// a variable that is defined conditionally using ternary operator
+const drink = age >= 18 ? 'Party! 🍻' : 'Sorry me ol flower 💧';
+console.log(drink);
+
+const drink2 =
+    age >= 18 // if
+        ? 'Alles gut! 🍺'
+        : age < 18 && age > 10 // else if
+        ? 'Water for you buddy 💧'
+        : 'You iz a baby dude! 🐥'; // else
+
+console.log(drink2);
+
+console.log(`You want a drink? ${drink2}`);
+*/

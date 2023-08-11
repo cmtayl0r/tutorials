@@ -76,6 +76,74 @@ console.log(5 + 6 + '4' + 9 - 4 - 2);// 1143
 // LESSON 22 - Equality Operators: == vs. ===
 /////////////////////////////////////////////////////////
 
+/*
+const numNeighbours = Number(
+    prompt('How many neighbour countries does your country have?')
+);
+
+if (numNeighbours === 1) {
+    console.log('Only 1 border! 🍫');
+} else if (numNeighbours > 1) {
+    console.log('More than 1 border 🍱');
+} else {
+    console.log('No borders 🍕');
+}
+*/
+
 /////////////////////////////////////////////////////////
 // LESSON 24 - Logical operators
 /////////////////////////////////////////////////////////
+
+/*
+const speakEnglish = false;
+const isIsland = false;
+
+if (speakEnglish && population < 50 && isIsland) {
+    console.log('You should live in Germany! 🏠');
+} else {
+    console.log('You should probably look somewhere else 🔍');
+}
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 26 - switch statement
+/////////////////////////////////////////////////////////
+
+/*
+switch (language) {
+    case 'Chinese':
+    case 'Mandarin':
+        console.log('🇨🇳 MOST number of native speakers!');
+        break;
+    case 'Spanish':
+        console.log('🇪🇸 2nd place in number of native speakers');
+        break;
+    case 'English':
+        console.log('🇬🇧🇺🇸🇨🇦🇦🇺🇳🇿 3rd Place');
+        break;
+    case 'Hindi':
+        console.log('🇮🇳 Number 4');
+        break;
+    case 'Arabic':
+        console.log('5th most spoken language');
+        break;
+    default:
+        console.log('Great language too 👍');
+}
+*/
+
+/////////////////////////////////////////////////////////
+// LESSON 27 - The conditional (ternary) operator
+/////////////////////////////////////////////////////////
+/*
+const aboveAvg =
+    population > 33
+        ? `${country} population is ABOVE average`
+        : `${country} population is BELOW average`;
+
+console.log(
+    `${country}'s population is ${
+        population > 33 ? 'ABOVE' : 'BELOW'
+    } average 👍`
+);
+*/

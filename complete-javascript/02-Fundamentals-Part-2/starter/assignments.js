@@ -3,18 +3,6 @@
 // 33 - Functions
 /////////////////////////////////////////////////////////
 
-function logger() {
-    console.log('My name is Chris');
-}
-
-// calling / running / invoking the function
-logger();
-
-function fruitBlender(apples, oranges) {
-    console.log(apples, oranges);
-    
-}
-
 /////////////////////////////////////////////////////////
 // 34 - Function Declarations vs. Expressions
 /////////////////////////////////////////////////////////
