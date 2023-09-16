@@ -16,6 +16,11 @@ const restaurant = {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
 
+  orderDelivery: function ({ starterIndex, mainIndex, time, address }) {
+    const [starterItem, mainItem] = this.order(starterIndex, mainIndex); // Utilize the order method
+    console.log(starterItem, mainItem, time, address);
+  },
+
   openingHours: {
     thu: {
       open: 12,
@@ -32,14 +37,13 @@ const restaurant = {
   },
 };
 
-const getScores = function () {
-  return [70, 80, 90];
-};
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via de Sole 21',
+  mainIndex: 2,
+  starterIndex: 2,
+});
 
-// Invoke the function
-// assign the returned array values to a variable
-let scores = getScores();
-
-let [x, y, z, a] = getScores();
-console.log(x, y, z, a);
-// 70, 80, 90, undefined
+const arr = [7, 8, 9];
+const newArr = [1, 3, ...arr];
+console.log(newArr);
