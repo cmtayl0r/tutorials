@@ -12,6 +12,10 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
   openingHours: {
     thu: {
       open: 12,
@@ -27,3 +31,15 @@ const restaurant = {
     },
   },
 };
+
+const getScores = function () {
+  return [70, 80, 90];
+};
+
+// Invoke the function
+// assign the returned array values to a variable
+let scores = getScores();
+
+let [x, y, z, a] = getScores();
+console.log(x, y, z, a);
+// 70, 80, 90, undefined
