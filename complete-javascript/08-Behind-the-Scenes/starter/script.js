@@ -1,18 +1,34 @@
 'use strict';
 
-const chris = {
-  firstName: 'Chris',
-  year: 1982,
-  calcAge: function () {
-    console.log(2037 - this.year);
+let age = 43;
+let oldAge = age;
+age = 44;
 
-    const self = this; 
-    const isMillenial = function () {
-      console.log(self);
-      console.log(self.year >= 1981 && self.year <= 1996);
-    };
-    isMillenial();
-  },
+console.log(age, oldAge);
+
+const chris = {
+  name: 'Chris',
+  age: 43,
 };
 
-chris.calcAge();
+const anna = chris;
+anna.age = 40;
+
+console.log(chris, anna);
+
+let lastName = 'Taylor';
+let oldLastName = lastName;
+lastName = 'Lohmann';
+
+console.log(lastName, oldLastName);
+
+const Jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+const marriedJessica = Jessica;
+marriedJessica.lastName = 'Davis';
+
+console.log(Jessica, marriedJessica);
