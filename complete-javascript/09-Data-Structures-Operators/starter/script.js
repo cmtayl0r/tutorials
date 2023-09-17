@@ -21,6 +21,10 @@ const restaurant = {
     console.log(starterItem, mainItem, time, address);
   },
 
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is !!!! ${ing1}, ${ing2}, and ${ing3}`);
+  },
+
   openingHours: {
     thu: {
       open: 12,
@@ -47,3 +51,39 @@ restaurant.orderDelivery({
 const arr = [7, 8, 9];
 const newArr = [1, 3, ...arr];
 console.log(newArr);
+
+// create shallow copies of arrays
+const mainMenuCopy = [...restaurant.mainMenu];
+
+mainMenuCopy.push('DUmb!');
+
+console.log(mainMenuCopy);
+console.log(restaurant.mainMenu);
+
+// merge arrays
+const combinedMenu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(combinedMenu);
+
+// spread operator as function arguments
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1?"),
+//   prompt('Ingredient 2?'),
+//   prompt('Ingredient 3?'),
+// ];
+
+// restaurant.orderPasta(...ingredients);
+
+const newRestaurant = { ...restaurant, headChef: 'Chris Taylor' };
+newRestaurant.name = 'Foody Shack Fuck';
+
+console.log(newRestaurant);
+
+let display = ({ firstName, lastName }) =>
+  console.log(`${person.firstName} ${person.lastName}`);
+
+let person = {
+  firstName: 'John',
+  lastName: 'Doe',
+};
+
+display(person);
