@@ -46,6 +46,8 @@ const restaurant = {
     },
 };
 
+/*
+
 restaurant.orderDelivery({
     time: '22:30',
     address: 'Via de Sole 21',
@@ -102,6 +104,7 @@ console.log(pizza, Risotto, otherFood);
 const { sat, ...weekdays } = restaurant.openingHours;
 
 console.table(weekdays);
+*/
 
 ////////// 2. Function calls
 
@@ -119,7 +122,7 @@ add(2, 8);
 
 const arrX = [23, 5, 7];
 console.log(add(...arrX));
-*/
+
 
 // Use ANY data type, return ANY data type, short circuiting
 
@@ -160,3 +163,23 @@ rest2.owner &&= 'anon';
 
 console.log(rest1);
 console.log(rest2);
+*/
+
+/////////////////////////////////
+// 111 - For of loop
+
+const restaurant = {
+    starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+    mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+};
+
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+for (const [i, el] of menu.entries()) {
+  console.log(i, el);
+}
+
+for (const item of menu) console.log(item);
+
+/////////////////////////////////
+// 112 - Enhanced object literals
