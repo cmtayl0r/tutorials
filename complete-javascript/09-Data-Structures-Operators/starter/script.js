@@ -185,4 +185,43 @@ console.log(restaurant.openingHours.mon); // undefined
 // console.log(restaurant.openingHours.mon.open); // error
 
 // only if before ? exists, after it will be read
-console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.mon?.open);
+console.log(restaurant.openingHours?.thu?.open);
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+    const open = restaurant.openingHours[day]?.open ?? 'closed';
+    if (open === 'closed') {
+        console.log(`We are closed`);
+    } else {
+        console.log(`On ${day}, we open at ${open}`);
+    }
+}
+
+// Optional chaining on calling methods
+// See if a method exists before calling it
+console.log(restaurant.order?.(0, 1) ?? 'Method does not exist');
+
+// Optional chaining works on arrays
+// Check and see if array is empty
+const users = [
+    {
+        name: 'Chris',
+        email: 'hello@gmail.com',
+    },
+];
+
+console.log(users[0]?.name ?? 'User array empty'); // Chris
+console.log(users[1]?.name ?? 'User array empty'); // User array empty
+
+// Looping over objects
+
+const properties = Object.keys(restaurant.openingHours);
+console.log(properties);
+
+for (const day of Object.keys(restaurant.openingHours)) {
+    console.log(day);
+}
+
+console.log(Object.entries(openingHours));
