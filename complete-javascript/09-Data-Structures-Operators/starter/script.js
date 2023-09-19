@@ -168,18 +168,21 @@ console.log(rest2);
 /////////////////////////////////
 // 111 - For of loop
 
-const restaurant = {
-    starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-    mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-};
-
+/*
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
 for (const [i, el] of menu.entries()) {
-  console.log(i, el);
+    console.log(i, el);
 }
 
 for (const item of menu) console.log(item);
+*/
 
 /////////////////////////////////
-// 112 - Enhanced object literals
+// 113 - Optional chaining (.?) ES2020
+
+console.log(restaurant.openingHours.mon); // undefined
+// console.log(restaurant.openingHours.mon.open); // error
+
+// only if before ? exists, after it will be read
+console.log(restaurant.openingHours.mon?.open);
