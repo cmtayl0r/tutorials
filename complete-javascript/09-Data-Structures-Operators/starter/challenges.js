@@ -92,6 +92,7 @@ team2 < team1 && console.log('Team 2 is more likely to win');
 // Coding challenge #2
 ////////////////////////////////////////////////////////////
 
+/*
 /////////// TASK 1
 // Print each player name to the console, along with the goal number
 // entries() will give us an index number, just like a for loop over an array
@@ -121,9 +122,20 @@ console.log(oddAvg.toFixed(2));
 
 /////////// TASK 3
 // Print the 3 odds to the console, but in a nice formatted way
-console.log(`Odd of victory ${game.team1}: ${game.odds.team1}`);
-console.log(`Odd of draw: ${game.odds.x}`);
-console.log(`Odd of victory ${game.team2}: ${game.odds.team2}`);
+
+// loop that iterates over the entries of the game.odds object using destructuring
+// This loop iterates through each key-value pair in the game.odds object.
+// [team, odd] destructures each key value pair from the game.odds object
+ for (const [team, odd] of Object.entries(game.odds)) {
+    // conditional (ternary) operator (?) is used to conditionally assign the value of teamStr based on whether team is 'x' or the name of a team
+    const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+    console.log(`Odd of ${teamStr} ${odd}`);
+}
+
+// Odd of victory Bayern Munich 1.33
+// Odd of draw 3.25
+// Odd of victory Borrussia Dortmund 6.5
+*/
 
 ////////////////////////////////////////////////////////////
 // Coding challenge #3
