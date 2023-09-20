@@ -181,6 +181,7 @@ for (const item of menu) console.log(item);
 /////////////////////////////////
 // 113 - Optional chaining (.?) ES2020
 
+/*
 console.log(restaurant.openingHours.mon); // undefined
 // console.log(restaurant.openingHours.mon.open); // error
 
@@ -225,3 +226,4 @@ for (const day of Object.keys(restaurant.openingHours)) {
 }
 
 console.log(Object.entries(openingHours));
+*/
