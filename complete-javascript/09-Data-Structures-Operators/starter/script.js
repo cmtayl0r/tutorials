@@ -359,3 +359,45 @@ console.log(question.get(question.get('correct') === answer));
 // If the users answer is correct
 // the code retrieves the value associated with the key 'true' from the question Map
 */
+
+////////////////////////////////////////////////////////
+// 121 - Working with strings
+
+const airline = 'Virgin Airlines';
+const plane = 'A320';
+
+console.log(airline.indexOf('r')); // 2
+console.log(airline.lastIndexOf('r')); // 9
+console.log(airline.indexOf('Airways')); // -1
+
+// Slice first 3 characters from start of string
+// console.log(airline.slice(0, 3)); // Vir
+
+// Slice first word without knowing the index #
+console.log(airline.slice(0, airline.indexOf(' '))); // Virgin
+
+// Slice last word without knowing the index #
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // Airlines
+
+// Slice last character from string
+console.log(airline.slice(-1)); // s
+
+// Remove the last character
+console.log(airline.slice(1, -1)); // Virgin Airline
+
+const checkMiddleSeat = function (seat) {
+    // B and E are the middle seats
+    const s = seat.slice(-1);
+    if (s === 'B' || s === 'E') {
+        console.log('You got the middle seat 😩');
+    } else {
+        console.log('You got lucky 😃');
+    }
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+
+////////////////////////////////////////////////////////
+// 122 - Working with strings
