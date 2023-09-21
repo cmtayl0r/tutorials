@@ -227,3 +227,100 @@ for (const day of Object.keys(restaurant.openingHours)) {
 
 console.log(Object.entries(openingHours));
 */
+
+////////////////////////////////////////////////////////
+// 116 - Sets
+
+/*
+// a collection of unique values
+
+const ordersSet = new Set([
+    'Pasta',
+    'Pizza',
+    'Gnocchi',
+    'Pizza',
+    'Risotto',
+    'Pasta',
+    'Pizza',
+]);
+
+// set met
+console.log(ordersSet.size); // 4
+console.log(ordersSet.has('Bread')); // false
+console.log(ordersSet.has('Pizza')); // true
+
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread'); // Only one gets added, other ignored
+ordersSet.delete('Risotto');
+
+// sets are iterable
+for (const order of ordersSet) console.log(order);
+
+console.log(ordersSet); // {'Pasta', 'Pizza', 'Gnocchi', 'Garlic Bread'}
+console.log(new Set('Chris')); // {'C', 'h', 'r', 'i', 's'}
+
+// Starting array
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+
+// convert a new set of unique values, to an array
+// using destructuring and spread operator
+const staffUnique = [...new Set(staff)];
+
+console.log(staffUnique); // ['Waiter', 'Chef', 'Manager']
+*/
+
+////////////////////////////////////////////////////////
+// 117 - Maps
+
+/*
+const rest = new Map();
+
+// Add data using the set method
+rest.set('name', 'Classico Italiano');
+rest.set(1, 'Firenze, Italy');
+rest.set(2, 'Lisbon, Portugal');
+
+// chain the set method
+rest.set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+    .set('open', 11)
+    .set('close', 23)
+    .set(true, 'We are open!')
+    .set(false, 'We are closed ');
+
+// Read data from a map using the get method
+console.log(rest.get('name'));
+
+// Exploiting booleans as map keys
+const time = 8;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+// Checking existence
+console.log(rest.has('categories')); // true
+
+// Deleting values
+rest.delete(2);
+
+console.log(rest.size); // 7
+
+// Use arrays or objects as map keys
+const arr = [1, 2];
+rest.set(arr, 'Test array value');
+console.log(rest.get(arr)); // Test Array value
+
+rest.set(document.querySelector('h1'), 'Heading');
+*/
+
+/*
+0: {"name" => "Classico Italiano"}
+1: {1 => "Firenze, Italy"}
+2: {"categories" => Array(4)}
+3: {"open" => 11}
+4: {"close" => 23}
+5: {true => "We are open!"}
+6: {false => "We are closed "}
+7: {Array(2) => "Test array value"}
+8: {h1 => "Heading"}
+*/
+
+////////////////////////////////////////////////////////
+// 118 - Maps
