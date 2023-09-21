@@ -324,3 +324,38 @@ rest.set(document.querySelector('h1'), 'Heading');
 
 ////////////////////////////////////////////////////////
 // 118 - Maps
+
+/*
+const question = new Map([
+    // pass in an array to Map rather than use set method
+    // first position a key, second position the value
+    ['question', 'What is the best programming language in the world?'],
+    [1, 'C'],
+    [2, 'Java'],
+    [3, 'Javascript'],
+    ['correct', 3],
+    [true, 'Correct 👍'],
+    [false, 'Try again 😩'],
+]);
+
+// Convert object to Map ?????
+
+// Quiz app
+// Ask question
+console.log(question.get('question'));
+
+// Loop over map for questions only
+// Destructure into 2 separate variables for key and value
+for (const [key, value] of question) {
+    if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+// Ask for user input
+// user answer stored in answer variable
+const answer = Number(prompt('Your answer?'));
+
+console.log(question.get(question.get('correct') === answer));
+// The result of the comparison (true or false) is used as a key to retrieve a message from the question Map ('true' or 'false')
+// If the users answer is correct
+// the code retrieves the value associated with the key 'true' from the question Map
+*/
