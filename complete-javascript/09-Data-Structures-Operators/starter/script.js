@@ -128,7 +128,7 @@ console.log(add(...arrX));
 
 console.log(0 && 'Orange'); // Orange (truthy / truthy)
 console.log('' && 'Orange'); //
-console.log(true && null); // null
+console.log(truetrue && null); // null
 console.log('Apple' && 'Orange'); //
 
 if (restaurant.orderPizza) {
@@ -363,6 +363,7 @@ console.log(question.get(question.get('correct') === answer));
 ////////////////////////////////////////////////////////
 // 121 - Working with strings
 
+/*
 const airline = 'Virgin Airlines';
 const plane = 'A320';
 
@@ -398,6 +399,73 @@ const checkMiddleSeat = function (seat) {
 checkMiddleSeat('11B');
 checkMiddleSeat('23C');
 checkMiddleSeat('3E');
+*/
 
 ////////////////////////////////////////////////////////
 // 122 - Working with strings
+
+/*
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+// Fix capitalisation in name
+const passenger = 'cHRiS';
+const passLower = passenger.toLowerCase();
+const passCorrect = passLower[0].toUpperCase() + passLower.slice(1);
+console.log(passCorrect); // Chris
+
+// Fix capitalisation as a function
+const nameCorrect = function (name) {
+    const passLower = name.toLowerCase();
+    const passCorrect = passLower[0].toUpperCase() + passLower.slice(1);
+    console.log(nameCorrect(passCorrect));
+};
+
+// compare emails
+const email = 'hello@chris.dev';
+const loginEmail = '  Hello@Chris.Dev \n';
+const normalisedEmail = loginEmail.toLowerCase().trim();
+console.log(normalisedEmail);
+
+// Compare emails as function
+const checkEmail = function (email) {
+    const correctEmail = 'hello@chris.dev';
+    const normalisedEmail = email.toLowerCase().trim();
+    console.log(normalisedEmail === correctEmail);
+};
+checkEmail('  Hello@Chris.Dev \n');
+
+// Replace parts of strings
+const priceGB = '299,97£';
+const priceUS = priceGB.replace('£', '$').replace(',', '.');
+console.log(priceUS); // 299.97$
+
+// Replace words in strings
+const announcement =
+    'All passengers come to Boarding door 23. Boarding door 23!';
+console.log(announcement.replaceAll('door', 'gate'));
+
+// Booleans
+// includes, startswith, endswith
+
+const planeNew = 'Airbus A320neo';
+console.log(planeNew.includes('A320')); // true
+console.log(planeNew.includes('Boeing')); // false
+console.log(planeNew.startsWith('Air')); // true
+console.log(planeNew.endsWith('o')); // true
+
+if (planeNew.startsWith('Air') && planeNew.endsWith('neo'))
+    console.log('True!'); // True
+
+const checkBaggage = function (items) {
+    const baggage = items.toLowerCase();
+    if (baggage.includes('gun') || baggage.includes('knife')) {
+        console.log('You aint coming on the plane son ✋');
+    } else {
+        console.log('Have a nice flight 👍');
+    }
+};
+checkBaggage('I have a laptop, food and a pocket Knife');
+checkBaggage('I have some Socks and a Camera');
+checkBaggage('I have some Snacks and a Gun');
+*/
