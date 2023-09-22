@@ -469,3 +469,57 @@ checkBaggage('I have a laptop, food and a pocket Knife');
 checkBaggage('I have some Socks and a Camera');
 checkBaggage('I have some Snacks and a Gun');
 */
+
+////////////////////////////////////////////////////////
+// 123 - Working with strings
+
+console.log('a+very+nice+string'.split('+'));
+
+const [firstName, lastName] = 'Christopher Taylor'.split(' ');
+console.log(firstName);
+console.log(lastName);
+
+const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+// Mr Christopher TAYLOR
+// One string joined from 3 parts of the array
+
+const capName = function (name) {
+    const names = name.split(' '); // create array
+    // Empty array to populate with capitalised words
+    const namesUpper = [];
+    // loop over the array
+    for (const word of names) {
+        // capitalise first letter, then join with rest of word
+        // add it to array
+        namesUpper.push(word[0].toUpperCase() + word.slice(1));
+    }
+    // Join strings in array together
+    console.log(namesUpper.join(' '));
+};
+
+capName('anna miriam lohmann');
+capName('chris mark taylor');
+
+// padding
+const message = 'Go to gate 23';
+console.log(message.padStart(25, '+').padEnd(35, '+'));
+
+const maskCreditCard = function (number) {
+    const str = number + ''; // turn number into string
+    const last = str.slice(-4);
+    return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(2536892739381029)); // ************1029
+console.log(maskCreditCard('6384038402938375')); // ************8375
+
+// repeat
+const repeatMsg = 'Bad weather... All departures delayed...';
+console.log(repeatMsg.repeat(5));
+
+const planesInLine = function (num) {
+    console.log(`There are ${num} planes in line ${'🛩️'.repeat(num)}`);
+};
+
+planesInLine(5); // There are 5 planes in line 🛩️🛩️🛩️🛩️🛩️
