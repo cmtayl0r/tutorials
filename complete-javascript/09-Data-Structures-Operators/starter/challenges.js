@@ -190,3 +190,33 @@ for (const [key, values] of gameEvents.entries()) {
 ////////////////////////////////////////////////////////////
 // Coding challenge #4
 ////////////////////////////////////////////////////////////
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+const btn = document.querySelector('button');
+const text = document.querySelector('textarea');
+
+btn.addEventListener('click', () => {
+    // split text by line
+    const rows = text.value.split('\n');
+
+    // to get current index in a for of loop
+    // entries() array method returns an iterable object that contains index-value pairs.
+    // You deconstruct the entry to get the index and element
+    for (const [i, row] of rows.entries()) {
+        // lower case
+        // trim space
+        // split into 2 words, all with chaining
+        // Deconstruct into 2 variables for each word
+        const [first, second] = row.toLowerCase().trim().split('_');
+        // join 2 words + capitalise 2nd word
+        const output = [
+            first,
+            second.replace(second[0], second[0].toUpperCase()),
+        ].join('');
+        // Log each combined word with padEnd + Emoji(s)
+        // Repeat emoji string by entries index
+        console.log(`${output.padEnd(20, ' ')}${'✅'.repeat(i + 1)}`);
+    }
+});
