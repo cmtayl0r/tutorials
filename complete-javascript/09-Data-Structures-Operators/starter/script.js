@@ -1,8 +1,6 @@
 'use strict';
 
 // Data needed for a later exercise
-const flights =
-    '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
 const restaurant = {
@@ -523,3 +521,33 @@ const planesInLine = function (num) {
 };
 
 planesInLine(5); // There are 5 planes in line 🛩️🛩️🛩️🛩️🛩️
+
+////////////////////////////////////////////////////////
+// 125 - Strings methods practice
+
+const flights =
+    '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+// Arrow function to slice both from and to codes
+const getCode = str => str.toUpperCase().slice(0, 3);
+
+for (const flight of flights.split('+')) {
+    const [type, from, to, time] = flight.split(';');
+    const output = `${type.startsWith('_Delayed') ? '🔴' : ''} ${type
+        .slice(1)
+        .replace('_', ' ')} from ${getCode(from)} to ${getCode(
+        to
+    )} (${time.replace(':', 'h')})`.padStart(44);
+
+    // let newType = type.includes('Delay')
+    //     ? `🔴 ${type.slice(1).replace('_', ' ')}`
+    //     : `${type.slice(1).replace('_', ' ')}`;
+
+    // const newDepart = `from ${from.toUpperCase().slice(0, 3)}`;
+    // const newArrival = `to ${to.toUpperCase().slice(0, 3)}`;
+    // const newTime = `(${time.replace(':', 'h')})`;
+
+    // console.log(newType.padStart(20, ' '), newDepart, newArrival, newTime);
+
+    console.log(output);
+}
