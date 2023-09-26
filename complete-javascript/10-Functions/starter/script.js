@@ -79,6 +79,7 @@ checkIn(flight, chris);
 ///////////////////////////////////////////////////////////////
 // 131 - Functions accepting callback functions
 
+/*
 const oneWord = function (str) {
     // remove space + turn lowercase
     return str.replace(/ /g, '').toLowerCase();
@@ -127,6 +128,7 @@ document.body.addEventListener('click', highFive);
 // JS uses callback functions all the time
 // 1 - Easy to split up into inter connected parts
 // 2 - Callback functions allow us to create abstraction
+*/
 
 ///////////////////////////////////////////////////////////////
 // 132 - Functions returning functions
@@ -199,3 +201,51 @@ console.log(swiss);
 
 ///////////////////////////////////////////////////////////////
 // 134 - The bind method
+
+const bookEW = book.bind(euroWings);
+const bookLX = book.bind(swiss);
+const bookLH = book.bind(lufthansa);
+
+bookEW(23, 'Dave Jones');
+bookLH(7346, 'Janie Jones');
+bookLX(748, 'Harvey Jones');
+
+const bookEW23 = book.bind(euroWings, 23);
+bookEW23('Chris Taylor');
+
+// With event listeners
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+    console.log(this);
+    this.planes++;
+    console.log(this.planes);
+};
+
+document
+    .querySelector('.buy')
+    .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// Partial application
+
+/*
+// General function for adding Tax
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+// addVAT = value => value + value * 0.23;
+
+console.log(addVAT(1938));
+*/
+
+const chrisTax = function (rate) {
+    return function (value) {
+        const calc = value + value * rate;
+        console.log(`VAT Rate: ${rate} from ${value}, equals: ${calc}`);
+    };
+};
+
+const chrisVAT = chrisTax(0.23);
+
+chrisVAT(1000);
