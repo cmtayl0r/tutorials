@@ -3,6 +3,7 @@
 ///////////////////////////////////////////////////////////////
 // 128 - Default parameters
 
+/*
 // declare an empty array
 // used to store information about flight bookings from function
 const bookings = [];
@@ -40,6 +41,7 @@ const age = 30;
 const person = { name, age };
 
 console.log(person);
+*/
 
 ///////////////////////////////////////////////////////////////
 // 129 - How passing arguments works
@@ -133,6 +135,7 @@ document.body.addEventListener('click', highFive);
 ///////////////////////////////////////////////////////////////
 // 132 - Functions returning functions
 
+/*
 const greet = function (greeting) {
     return function (name) {
         console.log(`${greeting} ${name}`);
@@ -148,10 +151,12 @@ greet('Yo!')('Anna'); // Yo! Anna
 const zeet = zeeting => name => console.log(`${zeeting} ${name}`);
 
 zeet('Wassup!')('Jana');
+*/
 
 ///////////////////////////////////////////////////////////////
 // 133 - The call and apply methods
 
+/*
 const lufthansa = {
     airline: 'Lufthansa',
     iataCode: 'LH',
@@ -198,10 +203,12 @@ book.call(swiss, ...flightData);
 console.log(lufthansa);
 console.log(euroWings);
 console.log(swiss);
+*/
 
 ///////////////////////////////////////////////////////////////
 // 134 - The bind method
 
+/*
 const bookEW = book.bind(euroWings);
 const bookLX = book.bind(swiss);
 const bookLH = book.bind(lufthansa);
@@ -228,7 +235,6 @@ document
 
 // Partial application
 
-/*
 // General function for adding Tax
 const addTax = (rate, value) => value + value * rate;
 console.log(addTax(0.1, 200));
@@ -237,7 +243,7 @@ const addVAT = addTax.bind(null, 0.23);
 // addVAT = value => value + value * 0.23;
 
 console.log(addVAT(1938));
-*/
+
 
 const chrisTax = function (rate) {
     return function (value) {
@@ -249,3 +255,5 @@ const chrisTax = function (rate) {
 const chrisVAT = chrisTax(0.23);
 
 chrisVAT(1000);
+
+*/
