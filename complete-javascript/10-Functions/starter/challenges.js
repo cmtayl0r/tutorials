@@ -47,6 +47,7 @@ poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
 
 ///////////////////////// Mini-Challenge 1
 
+/*
 function greet(name) {
     console.log(name); // Chris
     console.log(this); // {name: 'John'}
@@ -62,9 +63,11 @@ const person = {
 const greetJohn = greet.bind(person, 'Chris');
 
 greetJohn(); // Hello, Chris! My name is John
+*/
 
 ///////////////////////// Mini-Challenge 2
 
+/*
 const multiply = function (x, y) {
     return x * y;
 };
@@ -72,6 +75,7 @@ const multiply = function (x, y) {
 const double = multiply.bind(null, 2);
 
 console.log(`Your doubled number is ${double(12)}`);
+*/
 
 ////////////////////////////////////////////////////////////
 // Coding challenge #2

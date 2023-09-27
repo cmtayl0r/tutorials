@@ -257,3 +257,36 @@ const chrisVAT = chrisTax(0.23);
 chrisVAT(1000);
 
 */
+
+///////////////////////////////////////////////////////////////
+// 136 - IIFE
+
+/*
+// A function that is executed one and never again
+// Dissapears after its called (useful with AsyncAwait)
+
+// Trick javascript into thinking this function is an expression
+// Wrap it in ()
+// Immediately call it with a separate ()
+(function () {
+    console.log('This will never run again 🥳');
+})();
+*/
+
+///////////////////////////////////////////////////////////////
+// 137 - Closures
+
+const secureBooking = function () {
+    let passengerCount = 0;
+    return function () {
+        passengerCount++;
+        console.log(`${passengerCount} passengers`);
+    };
+};
+
+const booker = secureBooking();
+
+booker();
+
+///////////////////////////////////////////////////////////////
+// 138 - Closures
