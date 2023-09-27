@@ -4,6 +4,7 @@
 // Coding challenge #1
 ////////////////////////////////////////////////////////////
 
+/*
 const poll = {
     question: 'What is your favourite programming language?',
     options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
@@ -42,8 +43,9 @@ document
 
 // call a new array as 'this'
 poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+*/
 
-///////////////////////// Challenge 1
+///////////////////////// Mini-Challenge 1
 
 function greet(name) {
     console.log(name); // Chris
@@ -61,14 +63,15 @@ const greetJohn = greet.bind(person, 'Chris');
 
 greetJohn(); // Hello, Chris! My name is John
 
-///////////////////////// Challenge 2
+///////////////////////// Mini-Challenge 2
 
-function multiply(x, y) {
+const multiply = function (x, y) {
     return x * y;
-}
+};
 
-// Create a new function 'double' using bind() that always doubles the given number.
-// Call 'double' to double a specific number.
+const double = multiply.bind(null, 2);
+
+console.log(`Your doubled number is ${double(12)}`);
 
 ////////////////////////////////////////////////////////////
 // Coding challenge #2
