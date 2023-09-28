@@ -278,15 +278,16 @@ chrisVAT(1000);
 
 const secureBooking = function () {
     let passengerCount = 0;
-    return function () {
+    return function (x) {
         passengerCount++;
+        console.log(x * 2);
         console.log(`${passengerCount} passengers`);
     };
 };
 
 const booker = secureBooking();
 
-booker();
+booker(5);
 
 ///////////////////////////////////////////////////////////////
 // 138 - Closures
