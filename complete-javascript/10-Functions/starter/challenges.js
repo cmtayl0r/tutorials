@@ -81,8 +81,36 @@ console.log(`Your doubled number is ${double(12)}`);
 // Coding challenge #2
 ////////////////////////////////////////////////////////////
 
-
 (function () {
     const header = document.querySelector('h1');
     header.style.color = 'red';
+
+    document.querySelector('body').addEventListener('click', () => {
+        header.style.color = 'blue';
+    });
 })();
+
+const myModule = (function () {
+    console.log('Its working!');
+
+    // Private variables and functions
+    let privateVar = 0;
+
+    function privateFn() {
+        return privateVar;
+    }
+
+    // Public interface (exposed to outside)
+    return {
+        increment: function () {
+            privateVar++;
+        },
+        getValue: function () {
+            return privateFn();
+        },
+    };
+})();
+
+myModule.increment(); // Add 1 to privateVar via object method
+myModule.increment(); // Add 1 to privateVar via object method
+console.log(myModule.getValue()); // Output: 2
