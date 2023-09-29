@@ -80,3 +80,9 @@ console.log(`Your doubled number is ${double(12)}`);
 ////////////////////////////////////////////////////////////
 // Coding challenge #2
 ////////////////////////////////////////////////////////////
+
+
+(function () {
+    const header = document.querySelector('h1');
+    header.style.color = 'red';
+})();

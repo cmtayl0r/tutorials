@@ -278,16 +278,68 @@ chrisVAT(1000);
 
 const secureBooking = function () {
     let passengerCount = 0;
-    return function (x) {
+    return function () {
         passengerCount++;
-        console.log(x * 2);
         console.log(`${passengerCount} passengers`);
     };
 };
 
 const booker = secureBooking();
 
-booker(5);
+booker();
 
 ///////////////////////////////////////////////////////////////
 // 138 - Closures
+
+////// Example 1
+
+let switchFn;
+
+const firstFn = function () {
+    // sets a variable
+    const a = 23;
+    // assigns firstFn function to switchFn
+    switchFn = function () {
+        console.log(a * 2);
+    };
+};
+
+const secondFn = function () {
+    // sets a variable
+    const b = 777;
+    // assigns secondFn function to switchFn
+    switchFn = function () {
+        console.log(b * 2);
+    };
+};
+
+firstFn(); // firstFn executed first time, completes execution
+switchFn(); // switchFn executed, Output: 46
+console.dir(switchFn); // [[Scopes]]: Scopes[3]0: Closure (g) {a: 23}
+// It shows that switchFn has a closure that references the a variable from the firstFn function's scope.
+// typical behavior for closures – they remember the variables from their enclosing scopes even if those scopes are no longer active.
+
+////////// Re-assigning switchFn function
+
+secondFn(); // secondFn executed first time, completes execution
+switchFn(); // switchFn executed again, Output: 1554
+console.dir(switchFn); // [[Scopes]]: Scopes[3]0: Closure (h) {b: 777}
+// It shows that switchFn has a closure that references the b variable from the secondFn function's scope.
+
+/*
+In essence, switchFn acts as a sort of "switchable" function that can be dynamically reassigned to different functions. Each time it's reassigned, it "remembers" the variables from the scope in which it was last assigned, thanks to closures. This demonstrates how closures allow functions to retain access to their lexical (enclosing) scope's variables even after those scopes have completed execution.
+*/
+
+////// Example 2
+
+const boardPassengers = function (num, wait) {
+    const perGroup = num / 3;
+    setTimeout(function () {
+        console.log(`Will are now boarding all ${num} passengers`);
+        console.log(`There are 3 groups with ${perGroup} passengers`);
+    }, wait * 1000);
+    console.log(`Will start boarding in ${wait} seconds`);
+};
+
+const perGroup = 1000;
+boardPassengers(180, 3);
