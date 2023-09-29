@@ -90,6 +90,8 @@ console.log(`Your doubled number is ${double(12)}`);
     });
 })();
 
+/// Other IIFE example
+
 const myModule = (function () {
     console.log('Its working!');
 
