@@ -74,3 +74,35 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// Lecture 144 forEach
+/*
+for (const [i, movement] of movements.entries()) {
+    if (movement > 0) {
+        console.log(`Movement ${i}: You deposited ${movement}`);
+    } else if (movement < 0) {
+        // Math.abs() makes the value absolute, removing the minus symbol
+        console.log(`Movement ${i}: You withdrew ${Math.abs(movement)}`);
+    }
+}
+console.log(`------------ FOREACH ------------`);
+
+// forEach is technically a higher order function
+// Each iteration it calls the anonymous function as a callback function
+// first time with the argument 200, then 450, and so on. Until the end of the array.
+// Parameter order: Current element, current index, entire array
+movements.forEach(function (movement, i, arr) {
+    if (movement > 0) {
+        console.log(`Movement ${i}: You deposited ${movement}`);
+    } else if (movement < 0) {
+        // Math.abs() makes the value absolute, removing the minus symbol
+        console.log(`Movement ${i}: You withdrew ${Math.abs(movement)}`);
+    }
+});
+
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach(function (number) {
+    console.log(number);
+});
+*/
