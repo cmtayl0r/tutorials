@@ -63,6 +63,8 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // Good practice to pass data into a function
 // Rather than having a global variable
+
+// GENERATE TRANSACTION LIST
 const displayMovements = function (movements) {
     // Empty the container to begin
     containerMovements.innerHTML = '';
@@ -84,7 +86,6 @@ const displayMovements = function (movements) {
         containerMovements.insertAdjacentHTML('afterbegin', html);
     });
 };
-
 displayMovements(account1.movements);
 
 /////////////////////////////////////////////////
