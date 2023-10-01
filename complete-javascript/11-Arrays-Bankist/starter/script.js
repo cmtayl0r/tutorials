@@ -145,3 +145,7 @@ numbers.forEach(function (number) {
     console.log(number);
 });
 */
+
+///////////////////// Lecture 149 Data transformations: map, filter, reduce
+
+
