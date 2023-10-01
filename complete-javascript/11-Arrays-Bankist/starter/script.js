@@ -4,7 +4,7 @@
 /////////////////////////////////////////////////
 // BANKIST APP
 
-// Data
+// Data: fake API data as objects
 const account1 = {
     owner: 'Jonas Schmedtmann',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
@@ -61,21 +61,59 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// Good practice to pass data into a function
+// Rather than having a global variable
+const displayMovements = function (movements) {
+    // Empty the container to begin
+    containerMovements.innerHTML = '';
+    // Add HTML elements to container
+    movements.forEach(function (mov, i) {
+        // Ternary operator to determine if withdraw or deposit
+        // Used on HTML value and class
+        const type = mov > 0 ? 'deposit' : 'withdrawal';
+        // HTML content for row
+        const html = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${
+            i + 1
+        } ${type}</div>
+          <div class="movements__value">${mov}</div>
+        </div>`;
+        // Insert HTML into DOM element
+        // Parameter: Position, HTML string to be parsed and inserted
+        containerMovements.insertAdjacentHTML('afterbegin', html);
+    });
+};
+
+displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-    ['USD', 'United States dollar'],
-    ['EUR', 'Euro'],
-    ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//     ['USD', 'United States dollar'],
+//     ['EUR', 'Euro'],
+//     ['GBP', 'Pound sterling'],
+// ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-// Lecture 144 forEach
+///////////////////// Lecture 145 forEach with Map and Set
+
+// currencies.forEach(function (value, key, map) {
+//     console.log(`${key}: ${value}`);
+// });
+
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log(currenciesUnique);
+// currenciesUnique.forEach(function (value, key, map) {
+//     console.log(`${key}: ${value}`);
+// });
+
+///////////////////// Lecture 144 forEach
 /*
 for (const [i, movement] of movements.entries()) {
     if (movement > 0) {
