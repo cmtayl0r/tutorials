@@ -6,28 +6,28 @@
 
 // Data: fake API data as objects
 const account1 = {
-    owner: 'Jonas Schmedtmann',
+    owner: 'Chris Taylor',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
     interestRate: 1.2, // %
     pin: 1111,
 };
 
 const account2 = {
-    owner: 'Jessica Davis',
+    owner: 'Anna Lohmann',
     movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
     interestRate: 1.5,
     pin: 2222,
 };
 
 const account3 = {
-    owner: 'Steven Thomas Williams',
+    owner: 'Tom Brayford',
     movements: [200, -200, 340, -300, -20, 50, 400, -460],
     interestRate: 0.7,
     pin: 3333,
 };
 
 const account4 = {
-    owner: 'Sarah Smith',
+    owner: 'Rob Markham',
     movements: [430, 1000, 700, 50, 90],
     interestRate: 1,
     pin: 4444,
@@ -87,6 +87,23 @@ const displayMovements = function (movements) {
     });
 };
 displayMovements(account1.movements);
+
+// ADD USER INITIALS TO OBJECTS
+// 1 - Input array of account names
+// 2 - Iterate through array, connect user names from corresponding object
+// 3 - Convert user names to initials
+// 4 - Add new value (initials) to user objects
+const createUsernames = function (accs) {
+    accs.forEach(function (acc) {
+        acc.username = acc.owner
+            .toLowerCase() // convert string to lower case
+            .split(' ') // Split string into array values
+            .map(name => name.at(0)) // iterate over array of split values using map + arrow function
+            .join(''); // join the array into a string
+    });
+};
+createUsernames(accounts);
+console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
