@@ -61,10 +61,11 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// TIPS
 // Good practice to pass data into a function
 // Rather than having a global variable
 
-// GENERATE TRANSACTION LIST
+// ⚙️ FN: GENERATE TRANSACTION LIST
 const displayMovements = function (movements) {
     // Empty the container to begin
     containerMovements.innerHTML = '';
@@ -88,7 +89,7 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
-// ADD USER INITIALS TO OBJECTS
+// ⚙️ FN: ADD USER INITIALS TO OBJECTS
 // 1 - Input array of account names
 // 2 - Iterate through array, connect user names from corresponding object
 // 3 - Convert user names to initials
@@ -103,7 +104,6 @@ const createUsernames = function (accs) {
     });
 };
 createUsernames(accounts);
-console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -116,6 +116,10 @@ const currencies = new Map([
 ]);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// Create a new array, of values that pass condition (= true)
+const deposits = movements.filter(move => move > 0);
+const withdrawals = movements.filter(move => move < 0);
 
 /////////////////////////////////////////////////
 
@@ -181,3 +185,5 @@ const moveList = movements.map(function (mov, i) {
 
 console.log(moveList);
 */
+
+///////////////////// Lecture 152 filter method
