@@ -35,6 +35,14 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
+const currencies = new Map([
+    ['USD', 'United States dollar'],
+    ['EUR', 'Euro'],
+    ['GBP', 'Pound sterling'],
+]);
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 // Elements
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -89,6 +97,17 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+// ⚙️ FN: CREATE GLOBAL BALANCE
+// Reduce all array values to one number value
+const calcDisplayBalance = function (movements) {
+    const balance = movements.reduce(
+        (accumulator, move) => accumulator + move,
+        0
+    );
+    labelBalance.innerText = `€${balance}`;
+};
+calcDisplayBalance(movements);
+
 // ⚙️ FN: ADD USER INITIALS TO OBJECTS
 // 1 - Input array of account names
 // 2 - Iterate through array, connect user names from corresponding object
@@ -105,23 +124,14 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-const currencies = new Map([
-    ['USD', 'United States dollar'],
-    ['EUR', 'Euro'],
-    ['GBP', 'Pound sterling'],
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
+// SEPARATE TRANSACTION TYPE
 // Create a new array, of values that pass condition (= true)
 const deposits = movements.filter(move => move > 0);
 const withdrawals = movements.filter(move => move < 0);
 
 /////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// LECTURES
 
 ///////////////////// Lecture 145 forEach with Map and Set
 
@@ -186,4 +196,17 @@ const moveList = movements.map(function (mov, i) {
 console.log(moveList);
 */
 
-///////////////////// Lecture 152 filter method
+///////////////////// Lecture 153 reduce method
+
+const maxValue = movements.reduce((acc, move) => {
+    // acc = track the current maximum value
+    // with the reduce method, you always have turn to return the accumulator to the next iteration
+    if (acc > move) {
+        return acc; // return accumulator, so it stays the same on the next iteration
+    } else {
+        return move; // return movement/transaction value as new accumulator value for next iteration
+    }
+}, movements[0]);
+// Use the first value of the array, when finding the max or min value
+
+console.log(maxValue);
