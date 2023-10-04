@@ -37,10 +37,16 @@ const account4 = {
 };
 
 //////////////////////////////////////////////////////////////////////////
-// VARIABLES
+// ACCOUNT REFERENCE
 
-// Used to access the objects above from functions
+// account objects are stored in an array
+// used to access the objects above from functions
+// using an array to store account objects enhances the maintainability, flexibility, and scalability of your code
+// simplifies various operations you might need to perform on the account data
 const accounts = [account1, account2, account3, account4];
+
+//////////////////////////////////////////////////////////////////////////
+// HELPERS
 
 const currencies = new Map([
     ['USD', 'United States dollar'],
@@ -48,12 +54,14 @@ const currencies = new Map([
     ['GBP', 'Pound sterling'],
 ]);
 
-const euroToUsd = 1.1; // used for conversion calculations
+// Used for conversion calculations
+const euroToUsd = 1.1;
 
+// Used for testing, not associated with an account
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //////////////////////////////////////////////////////////////////////////
-// ELEMENTS
+// DOM ELEMENTS
 
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -87,7 +95,10 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // Good practice to pass data into a function
 // Rather than having a global variable
 
+// -----------------------------------------------------------------------------
 // ⚙️ FN: GENERATE TRANSACTION LIST
+// -> displays the transaction history of an account
+// -----------------------------------------------------------------------------
 const displayMovements = function (movements) {
     // Empty the container to begin
     containerMovements.innerHTML = '';
@@ -109,9 +120,12 @@ const displayMovements = function (movements) {
         containerMovements.insertAdjacentHTML('afterbegin', html);
     });
 };
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
 
+// -----------------------------------------------------------------------------
 // ⚙️ FN: CREATE GLOBAL BALANCE
+// -> calculates and displays the account balance
+// -----------------------------------------------------------------------------
 // Reduce all array values to one number value
 const calcDisplayBalance = function (movements) {
     const balance = movements.reduce(
@@ -120,18 +134,22 @@ const calcDisplayBalance = function (movements) {
     );
     labelBalance.innerText = `€${balance}`;
 };
-calcDisplayBalance(movements);
+// calcDisplayBalance(movements);
 
+// -----------------------------------------------------------------------------
 // ⚙️ FN: CREATE BALANCE SUMMARIES
+// -> calculates and displays summaries of income, outgoing, and interest earned
+// -----------------------------------------------------------------------------
 // Chaining array methods inside a function
-const calcDisplaySummary = function (movements) {
+// account object passed in as parameter (via Login event handler)
+const calcDisplaySummary = function (acc) {
     // Filter and calculate total income
-    const incomes = movements
+    const incomes = acc.movements
         .filter(move => move > 0)
         .reduce((acc, move) => acc + move, 0);
     labelSumIn.innerText = `€${incomes}`;
     // Filter and calculate total outgoing
-    const outgoings = movements
+    const outgoings = acc.movements
         .filter(move => move < 0)
         .reduce((acc, move) => acc + move, 0);
     labelSumOut.innerText = `€${Math.abs(outgoings)}`;
@@ -140,21 +158,24 @@ const calcDisplaySummary = function (movements) {
     // 2 - Calculate interest on income values
     // 3 - filter out any interest less than 1
     // 4 - create total of all interest values
-    const interest = movements
+    const interest = acc.movements
         .filter(move => move > 0)
-        .map(deposit => (deposit * 1.2) / 100)
+        .map(deposit => (deposit * acc.interestRate) / 100)
         .filter((int, i, arr) => int >= 1)
         .reduce((acc, int) => acc + int, 0);
     labelSumInterest.innerText = `€${interest}`;
 };
-console.log(calcDisplaySummary(account1.movements));
+// console.log(calcDisplaySummary(account1.movements));
 
+// -----------------------------------------------------------------------------
 // ⚙️ FN: ADD USER INITIALS TO OBJECTS
-// 1 - Input array of account names
-// 2 - Iterate through array, connect user names from corresponding object
-// 3 - Convert user names to initials
-// 4 - Add new value (initials) to user objects
+// -> generates usernames for the accounts based on the owner's name
+// -----------------------------------------------------------------------------
 const createUsernames = function (accs) {
+    // 1 - Input array of account names
+    // 2 - Iterate through array, connect user names from corresponding object
+    // 3 - Convert user names to initials
+    // 4 - Add new value (initials) to user objects
     accs.forEach(function (acc) {
         acc.username = acc.owner
             .toLowerCase() // convert string to lower case
@@ -165,24 +186,46 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
-// ⚙️ FN: LOGIN - EVENT HANDLER
-// Assign variable outside function so it can be used elsewhere
+// -----------------------------------------------------------------------------
+// ⚙️ FN: LOGIN EVENT HANDLER
+// -----------------------------------------------------------------------------
+// variable declared outside of the function to make it accessible elsewhere in the code
 let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
     // Prevent form from submitting
     e.preventDefault();
-    // access initials in object, created by function (createUsernames)
+
+    // looks up user account based on the username entered in input
+    // access initials in objects, created by function (createUsernames)
+    // assigns it to the currentAccount variable
     currentAccount = accounts.find(
         acc => acc.username === inputLoginUsername.value
     );
-    console.log(currentAccount);
+
+    // Check if pin correct
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+        // Display UI and welcome message
+        // Get first name by using split method, then get first word of resulting array
+        labelWelcome.textContent = `Welcome back, ${
+            currentAccount.owner.split(' ')[0]
+        }`;
+        // Change opacity to visible of .app
+        containerApp.style.opacity = 100;
+        // Clear input fields
+        inputLoginUsername.value = inputLoginPin.value = '';
+        inputLoginPin.blur(); // input loses its focus
+        // Display calculated balance ⚙️FN
+        calcDisplayBalance(currentAccount.movements);
+        // Display summaries ⚙️FN
+        calcDisplaySummary(currentAccount);
+        // Display movements ⚙️FN
+        displayMovements(currentAccount.movements);
+        console.log(`LOGIN`);
+    }
 });
 
 // SEPARATE TRANSACTION TYPE
-// Create a new array, of values that pass condition (= true)
-const deposits = movements.filter(move => move > 0);
-const withdrawals = movements.filter(move => move < 0);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
