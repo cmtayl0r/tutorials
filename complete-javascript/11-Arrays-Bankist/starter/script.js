@@ -39,6 +39,7 @@ const account4 = {
 //////////////////////////////////////////////////////////////////////////
 // VARIABLES
 
+// Used to access the objects above from functions
 const accounts = [account1, account2, account3, account4];
 
 const currencies = new Map([
@@ -122,6 +123,7 @@ const calcDisplayBalance = function (movements) {
 calcDisplayBalance(movements);
 
 // ⚙️ FN: CREATE BALANCE SUMMARIES
+// Chaining array methods inside a function
 const calcDisplaySummary = function (movements) {
     // Filter and calculate total income
     const incomes = movements
@@ -162,6 +164,20 @@ const createUsernames = function (accs) {
     });
 };
 createUsernames(accounts);
+
+// ⚙️ FN: LOGIN - EVENT HANDLER
+// Assign variable outside function so it can be used elsewhere
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+    // Prevent form from submitting
+    e.preventDefault();
+    // access initials in object, created by function (createUsernames)
+    currentAccount = accounts.find(
+        acc => acc.username === inputLoginUsername.value
+    );
+    console.log(currentAccount);
+});
 
 // SEPARATE TRANSACTION TYPE
 // Create a new array, of values that pass condition (= true)
@@ -263,9 +279,28 @@ console.log(maxValue);
 // --> Result of filter, will be a new array
 // 2. Convert values to USD (map)
 // 3. Get total number of deposits in USD
+/*
 const totalDepositsUSD = movements
     .filter(mov => mov > 0)
     .map(mov => mov * euroToUsd)
     .reduce((acc, move) => acc + move, 0);
 
 console.log(totalDepositsUSD.toFixed(2));
+*/
+
+///////////////////// Lecture 157 find method
+
+/*
+// Does not return a new array
+// Returns the first value that meets the condition
+// 1 - Filter returns ALL the values meeting the condition
+// 2 - Filter returns a new array
+const firstWithdrawal = movements.find(mov => mov < 0); // True of false
+
+console.log(movements);
+console.log(firstWithdrawal);
+
+const account = accounts.find(acc => acc.owner === 'Anna Lohmann');
+console.log(account);
+// {owner: 'Anna Lohmann', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'al'}
+*/

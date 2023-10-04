@@ -84,6 +84,7 @@ const dogAges2 = [16, 6, 10, 5, 6, 1, 4];
 // CHALLENGE 3
 /////////////////////////////////////////////////
 
+/*
 const calcAvgHumanAge = ages =>
     ages
         .map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
@@ -105,3 +106,4 @@ const avgAge = ages =>
     ages.reduce((acc, age, i, arr) => acc + age / arr.length, 0).toFixed(1);
 
 console.log(avgAge(arrAges)); // 5.4
+*/
