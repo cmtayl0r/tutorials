@@ -1,10 +1,13 @@
 'use strict';
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// BANKIST APP
+//////////////////////////////////////////////////////////////////////////
+// 🏦 BANKIST APP
+//////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////
+// OBJECTS
 // Data: fake API data as objects
+
 const account1 = {
     owner: 'Chris Taylor',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
@@ -33,6 +36,9 @@ const account4 = {
     pin: 4444,
 };
 
+//////////////////////////////////////////////////////////////////////////
+// VARIABLES
+
 const accounts = [account1, account2, account3, account4];
 
 const currencies = new Map([
@@ -41,9 +47,13 @@ const currencies = new Map([
     ['GBP', 'Pound sterling'],
 ]);
 
+const euroToUsd = 1.1; // used for conversion calculations
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// Elements
+//////////////////////////////////////////////////////////////////////////
+// ELEMENTS
+
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
@@ -68,6 +78,9 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+//////////////////////////////////////////////////////////////////////////
+// FUNCTIONS
 
 // TIPS
 // Good practice to pass data into a function
@@ -107,6 +120,32 @@ const calcDisplayBalance = function (movements) {
     labelBalance.innerText = `€${balance}`;
 };
 calcDisplayBalance(movements);
+
+// ⚙️ FN: CREATE BALANCE SUMMARIES
+const calcDisplaySummary = function (movements) {
+    // Filter and calculate total income
+    const incomes = movements
+        .filter(move => move > 0)
+        .reduce((acc, move) => acc + move, 0);
+    labelSumIn.innerText = `€${incomes}`;
+    // Filter and calculate total outgoing
+    const outgoings = movements
+        .filter(move => move < 0)
+        .reduce((acc, move) => acc + move, 0);
+    labelSumOut.innerText = `€${Math.abs(outgoings)}`;
+    // Display interest
+    // 1 - Create array with only positive values
+    // 2 - Calculate interest on income values
+    // 3 - filter out any interest less than 1
+    // 4 - create total of all interest values
+    const interest = movements
+        .filter(move => move > 0)
+        .map(deposit => (deposit * 1.2) / 100)
+        .filter((int, i, arr) => int >= 1)
+        .reduce((acc, int) => acc + int, 0);
+    labelSumInterest.innerText = `€${interest}`;
+};
+console.log(calcDisplaySummary(account1.movements));
 
 // ⚙️ FN: ADD USER INITIALS TO OBJECTS
 // 1 - Input array of account names
@@ -198,6 +237,7 @@ console.log(moveList);
 
 ///////////////////// Lecture 153 reduce method
 
+/*
 const maxValue = movements.reduce((acc, move) => {
     // acc = track the current maximum value
     // with the reduce method, you always have turn to return the accumulator to the next iteration
@@ -210,3 +250,22 @@ const maxValue = movements.reduce((acc, move) => {
 // Use the first value of the array, when finding the max or min value
 
 console.log(maxValue);
+*/
+
+///////////////////// Lecture 155 chaining methods
+
+// You can only chain a method if the one before it returns an array
+// Don't over use chaining methods, it can affect performance on huge arrays
+// Bad practice to chain methods that mutate the underlying original array (splice method, or reverse method)
+
+// CHAINING METHOD PIPELINE
+// 1. Filter for only positive values
+// --> Result of filter, will be a new array
+// 2. Convert values to USD (map)
+// 3. Get total number of deposits in USD
+const totalDepositsUSD = movements
+    .filter(mov => mov > 0)
+    .map(mov => mov * euroToUsd)
+    .reduce((acc, move) => acc + move, 0);
+
+console.log(totalDepositsUSD.toFixed(2));

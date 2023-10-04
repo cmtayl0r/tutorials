@@ -79,3 +79,5 @@ const calcAvgHumanAge = function (ages) {
     console.log(adults);
     return `The human average age is ${average.toFixed(0)}`;
 };
+
+console.log(object);
