@@ -64,20 +64,44 @@ challenges.js:28 Dog number 8 is as Adult 🦮, and is 3 years old
 const dogAges1 = [5, 2, 4, 1, 15, 8, 3];
 const dogAges2 = [16, 6, 10, 5, 6, 1, 4];
 
-const calcAvgHumanAge = function (ages) {
-    // Create new array based on input array
-    // Calculate human ages from array values
-    const humanAges = ages.map(dogAge =>
-        dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4
-    );
-    // Filter ages for above 18 only, populate new array
-    const adults = humanAges.filter(age => age >= 18);
-    // Add all adult ages together using reduce method
-    // Calculate average by average / adults array length
-    const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
-    // Return output
-    console.log(adults);
-    return `The human average age is ${average.toFixed(0)}`;
-};
+// const calcAvgHumanAge = function (ages) {
+//     // Create new array based on input array
+//     // Calculate human ages from array values
+//     const humanAges = ages.map(dogAge =>
+//         dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4
+//     );
+//     // Filter ages for above 18 only, populate new array
+//     const adults = humanAges.filter(age => age >= 18);
+//     // Add all adult ages together using reduce method
+//     // Calculate average by average / adults array length
+//     const average = adults.reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+//     // Return output
+//     console.log(adults);
+//     return `The human average age is ${average.toFixed(0)}`;
+// };
 
-console.log(object);
+/////////////////////////////////////////////////
+// CHALLENGE 3
+/////////////////////////////////////////////////
+
+const calcAvgHumanAge = ages =>
+    ages
+        .map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+        .filter(age => age >= 18)
+        .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+
+console.log(calcAvgHumanAge(dogAges1));
+console.log(calcAvgHumanAge(dogAges2));
+
+const calcHumanAge = ages =>
+    ages.map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4));
+
+console.log(calcHumanAge(dogAges1));
+// [36, 4, 32, 2, 76, 48, 28]
+
+const arrAges = [5, 2, 4, 1, 15, 8, 3];
+
+const avgAge = ages =>
+    ages.reduce((acc, age, i, arr) => acc + age / arr.length, 0).toFixed(1);
+
+console.log(avgAge(arrAges)); // 5.4
