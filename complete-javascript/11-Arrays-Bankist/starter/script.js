@@ -170,6 +170,7 @@ const calcDisplaySummary = function (acc) {
 // -----------------------------------------------------------------------------
 // ⚙️ FN: ADD USER INITIALS TO OBJECTS
 // -> generates usernames for the accounts based on the owner's name
+// -> adds value (username) to object.
 // -----------------------------------------------------------------------------
 const createUsernames = function (accs) {
     // 1 - Input array of account names
