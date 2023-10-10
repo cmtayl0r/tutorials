@@ -127,12 +127,15 @@ const displayMovements = function (movements) {
 // -> calculates and displays the account balance
 // -----------------------------------------------------------------------------
 // Reduce all array values to one number value
-const calcDisplayBalance = function (movements) {
-    const balance = movements.reduce(
+const calcDisplayBalance = function (acc) {
+    // acc.balance creates and adds key pair to account object
+    // balance: <value>,
+    acc.balance = acc.movements.reduce(
         (accumulator, move) => accumulator + move,
         0
     );
-    labelBalance.innerText = `€${balance}`;
+    labelBalance.innerText = `€${acc.balance}`;
+    console.log(acc.balance);
 };
 // calcDisplayBalance(movements);
 
@@ -188,6 +191,19 @@ const createUsernames = function (accs) {
 createUsernames(accounts);
 
 // -----------------------------------------------------------------------------
+// ⚙️ FN: UPDATE UI VALUES
+// -----------------------------------------------------------------------------
+// Function used in other functions when affecting any value
+const updateUI = function (acc) {
+    // Display calculated balance ⚙️FN
+    calcDisplayBalance(acc);
+    // Display summaries ⚙️FN
+    calcDisplaySummary(acc);
+    // Display movements ⚙️FN
+    displayMovements(acc.movements);
+};
+
+// -----------------------------------------------------------------------------
 // ⚙️ FN: LOGIN EVENT HANDLER
 // -----------------------------------------------------------------------------
 // variable declared outside of the function to make it accessible elsewhere in the code
@@ -199,7 +215,7 @@ btnLogin.addEventListener('click', function (e) {
 
     // looks up user account based on the username entered in input
     // access initials in objects, created by function (createUsernames)
-    // assigns it to the currentAccount variable
+    // ⭐️ SETS currentAccount global variable
     currentAccount = accounts.find(
         acc => acc.username === inputLoginUsername.value
     );
@@ -216,17 +232,55 @@ btnLogin.addEventListener('click', function (e) {
         // Clear input fields
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur(); // input loses its focus
-        // Display calculated balance ⚙️FN
-        calcDisplayBalance(currentAccount.movements);
-        // Display summaries ⚙️FN
-        calcDisplaySummary(currentAccount);
-        // Display movements ⚙️FN
-        displayMovements(currentAccount.movements);
-        console.log(`LOGIN`);
+
+        // Update UI values
+        updateUI(currentAccount);
     }
 });
 
-// SEPARATE TRANSACTION TYPE
+// -----------------------------------------------------------------------------
+// ⚙️ FN: TRANSFERS
+// -----------------------------------------------------------------------------
+
+// form__btn--transfer
+// form__input--to
+// form__input--amount
+
+btnTransfer.addEventListener('click', function (e) {
+    e.preventDefault(); // Common prevent behavior default
+    const amount = Number(inputTransferAmount.value);
+
+    // 1 - Find and define receiver
+    const receiverAccount = accounts.find(
+        // looks up user account based on the username entered in input
+        // access initials in objects, created by function (createUsernames)
+        // if input matches a username in an account object
+        // assigns it to the receiverAccount variable, for account we which to transfer
+        acc => acc.username === inputTransferTo.value
+    );
+    console.log(amount, receiverAccount);
+
+    // 2 - Evaluate amount input
+    if (
+        // transfer amount is more than 0
+        amount > 0 &&
+        receiverAccount &&
+        // user has amount in balance to send
+        currentAccount.balance >= amount &&
+        // Cant transfer to self
+        // Optional chaining determines if receiver account existing, if not it becomes undefined and fails
+        receiverAccount?.username !== currentAccount.username
+    ) {
+        // Execute Transfer
+        // Add negative value to current user movements
+        currentAccount.movements.push(-amount);
+        // Add positive value to receiver user movements
+        receiverAccount.movements.push(amount);
+
+        // Update UI values
+        updateUI(currentAccount);
+    }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
