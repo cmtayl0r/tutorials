@@ -294,6 +294,19 @@ btnLoan.addEventListener('click', function (e) {
 
     // Connect input value to an amount variable
     const amount = Number(inputLoanAmount.value);
+
+    if (
+        amount > 0 &&
+        // there is a deposit that is at least 10% of loan request amount
+        currentAccount.movements.some(mov => mov >= amount * 0.1)
+    ) {
+        // add movement
+        currentAccount.movements.push(amount);
+        // update UI
+        updateUI(currentAccount);
+    }
+    // Clear input field
+    inputLoanAmount.value = '';
 });
 
 // -----------------------------------------------------------------------------
@@ -326,9 +339,6 @@ btnClose.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
-
-const anyDeposits = movements.some(mov => mov > 0);
-console.log(anyDeposits);
 
 ///////////////////// Lecture 145 forEach with Map and Set
 
@@ -445,4 +455,19 @@ console.log(firstWithdrawal);
 const account = accounts.find(acc => acc.owner === 'Anna Lohmann');
 console.log(account);
 // {owner: 'Anna Lohmann', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'al'}
+*/
+
+///////////////////// Lecture 161 some and every method
+
+/*
+// SOME
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+// EVERY
+// Returns true if all elements in array satisfy the condition passed in
+console.log(account4.movements.every(mov => mov > 0));
+
+// Separate callback
+const deposit = mov => mov > 0;
 */
