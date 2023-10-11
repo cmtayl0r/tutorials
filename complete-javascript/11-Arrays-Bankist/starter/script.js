@@ -194,6 +194,9 @@ createUsernames(accounts);
 // ⚙️ FN: UPDATE UI VALUES
 // -----------------------------------------------------------------------------
 // Function used in other functions when affecting any value
+// Use-case 1: Login event handler, set initial values
+// Use-case 2: Transfer function
+
 const updateUI = function (acc) {
     // Display calculated balance ⚙️FN
     calcDisplayBalance(acc);
@@ -207,6 +210,7 @@ const updateUI = function (acc) {
 // ⚙️ FN: LOGIN EVENT HANDLER
 // -----------------------------------------------------------------------------
 // variable declared outside of the function to make it accessible elsewhere in the code
+// Used in this and other functions to specify the current account
 let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
@@ -233,7 +237,7 @@ btnLogin.addEventListener('click', function (e) {
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur(); // input loses its focus
 
-        // Update UI values
+        // Update UI values function for current account
         updateUI(currentAccount);
     }
 });
@@ -241,10 +245,6 @@ btnLogin.addEventListener('click', function (e) {
 // -----------------------------------------------------------------------------
 // ⚙️ FN: TRANSFERS
 // -----------------------------------------------------------------------------
-
-// form__btn--transfer
-// form__input--to
-// form__input--amount
 
 btnTransfer.addEventListener('click', function (e) {
     e.preventDefault(); // Common prevent behavior default
@@ -271,16 +271,23 @@ btnTransfer.addEventListener('click', function (e) {
         // Optional chaining determines if receiver account existing, if not it becomes undefined and fails
         receiverAccount?.username !== currentAccount.username
     ) {
-        // Execute Transfer
+        // 2a - Execute Transfer
         // Add negative value to current user movements
         currentAccount.movements.push(-amount);
         // Add positive value to receiver user movements
         receiverAccount.movements.push(amount);
 
-        // Update UI values
+        // 2b - Update UI values
         updateUI(currentAccount);
     }
+
+    // 3 - Clear input fields
+    inputTransferAmount.value = inputTransferTo.value = '';
 });
+
+// -----------------------------------------------------------------------------
+// ⚙️ FN: CLOSE ACCOUNT
+// -----------------------------------------------------------------------------
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
