@@ -286,12 +286,49 @@ btnTransfer.addEventListener('click', function (e) {
 });
 
 // -----------------------------------------------------------------------------
+// ⚙️ FN: REQUEST LOAN
+// -----------------------------------------------------------------------------
+
+btnLoan.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Connect input value to an amount variable
+    const amount = Number(inputLoanAmount.value);
+});
+
+// -----------------------------------------------------------------------------
 // ⚙️ FN: CLOSE ACCOUNT
 // -----------------------------------------------------------------------------
+
+btnClose.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (
+        // If inputs match username and password
+        inputCloseUsername.value === currentAccount.username &&
+        Number(inputClosePin.value) === currentAccount.pin
+    ) {
+        const index = accounts.findIndex(
+            acc => acc.username === currentAccount.username
+        );
+        // Delete account
+        // Splice mutates the original array
+        accounts.splice(index, 1);
+
+        // Hide UI
+        containerApp.style.opacity = 0;
+    }
+
+    // Clear input fields
+    inputCloseUsername.value = inputClosePin.value = '';
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
 
 ///////////////////// Lecture 145 forEach with Map and Set
 
