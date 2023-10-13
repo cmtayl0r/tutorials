@@ -104,12 +104,13 @@ const displayMovements = function (movements, sort = false) {
     // Empty the container to begin
     containerMovements.innerHTML = '';
 
+    // 1 - Set sorting
     // slice() to take a copy of the movements array to sort
     // if sort true, sort in ascending order
-    // if sort false, revert to default (descending)
+    // if sort false, revert to default ordering (original array)
     const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-    // Add HTML elements to container
+    // 2 - Add HTML elements to container
     movs.forEach(function (mov, i) {
         // Ternary operator to determine if withdraw or deposit
         // Used on HTML value and class
@@ -127,7 +128,6 @@ const displayMovements = function (movements, sort = false) {
         containerMovements.insertAdjacentHTML('afterbegin', html);
     });
 };
-// displayMovements(account1.movements);
 
 // -----------------------------------------------------------------------------
 // ⚙️ FN: CREATE GLOBAL BALANCE
@@ -355,11 +355,14 @@ let sorted = false;
 // Function
 btnSort.addEventListener('click', function (e) {
     e.preventDefault();
+
     // execute display movements function
     // refer to current account as first parameter
     // using not operator, when sorted is false then we want to sort it (true)...
     // if sorted, we want it to not be sorted (false)
     displayMovements(currentAccount.movements, !sorted);
+
+    sorted = !sorted; // flip the sorted state
 });
 
 /////////////////////////////////////////////////
