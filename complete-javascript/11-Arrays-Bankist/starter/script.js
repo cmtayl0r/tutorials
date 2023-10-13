@@ -98,12 +98,19 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // -----------------------------------------------------------------------------
 // ⚙️ FN: GENERATE TRANSACTION LIST
 // -> displays the transaction history of an account
+// -> Set sorting to false as default
 // -----------------------------------------------------------------------------
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
     // Empty the container to begin
     containerMovements.innerHTML = '';
+
+    // slice() to take a copy of the movements array to sort
+    // if sort true, sort in ascending order
+    // if sort false, revert to default (descending)
+    const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
     // Add HTML elements to container
-    movements.forEach(function (mov, i) {
+    movs.forEach(function (mov, i) {
         // Ternary operator to determine if withdraw or deposit
         // Used on HTML value and class
         const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -336,6 +343,25 @@ btnClose.addEventListener('click', function (e) {
     inputCloseUsername.value = inputClosePin.value = '';
 });
 
+// -----------------------------------------------------------------------------
+// ⚙️ FN: SORT MOVEMENTS
+// -----------------------------------------------------------------------------
+
+// State variable, to monitor if currently sorting the array or not
+// Preserved every time the click function below is executed
+// default = false, array is not sorted
+let sorted = false;
+
+// Function
+btnSort.addEventListener('click', function (e) {
+    e.preventDefault();
+    // execute display movements function
+    // refer to current account as first parameter
+    // using not operator, when sorted is false then we want to sort it (true)...
+    // if sorted, we want it to not be sorted (false)
+    displayMovements(currentAccount.movements, !sorted);
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -471,7 +497,7 @@ console.log(account4.movements.every(mov => mov > 0));
 // Separate callback
 const deposit = mov => mov > 0;
 */
-
+/*
 const overallBalance = accounts
     .map(acc => acc.movements)
     .flat()
@@ -487,3 +513,28 @@ const overallBalance2 = accounts
 
 console.log(overallBalance2);
 // 17840
+*/
+
+///////////////////// Lecture 163 Sort
+
+// // Strings
+// const owners = ['Chris', 'Anna', 'Rob', 'Jana', 'Tom'];
+
+// console.log(owners.sort());
+
+// // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// // Numbers
+// // Callback function, a = current value, b = next value
+// // return < 0, A, B (keep order)
+// // return > 0, B, A (switch order)
+// // movements.sort((a, b) => {
+// //     if (a > b) {
+// //         return 1;
+// //     }
+// //     if (b > a) {
+// //         return -1;
+// //     }
+// // });
+// movements.sort((a, b) => a - b);
+// console.log(movements);
