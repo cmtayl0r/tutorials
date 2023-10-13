@@ -541,3 +541,32 @@ console.log(overallBalance2);
 // // });
 // movements.sort((a, b) => a - b);
 // console.log(movements);
+
+///////////////////// Lecture 164 creating and filling
+
+const diceRolls = Array.from(
+    { length: 100 },
+    () => Math.floor(Math.random() * 6) + 1
+);
+
+console.log(diceRolls);
+
+labelBalance.addEventListener('click', function () {
+    // Create an array (using from()) by query the DOM for all elements with a certain class
+    // this is a Nodelist, an array like structure
+    const movementsUI = Array.from(
+        document.querySelectorAll('.movements__value'),
+        el => Number(el.textContent.replace('€', ''))
+    );
+    console.log(movementsUI);
+});
+
+// [1300, 70, -130, -650, 3000, -400, 450, 200]
+
+// Create an array (using from()) by query the DOM for all elements with a certain class
+const transactionLi = Array.from(
+    document.querySelectorAll('.transaction__value'),
+    // as a 2nd argument, convert element (textContent) value to a number
+    // use method chaining to remove the Euro symbol text
+    el => Number(el.textContent.replace('€', ''))
+);
