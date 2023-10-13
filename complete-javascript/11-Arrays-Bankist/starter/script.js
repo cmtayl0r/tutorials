@@ -471,3 +471,19 @@ console.log(account4.movements.every(mov => mov > 0));
 // Separate callback
 const deposit = mov => mov > 0;
 */
+
+const overallBalance = accounts
+    .map(acc => acc.movements)
+    .flat()
+    .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overallBalance);
+// 17840
+
+// flatMap
+const overallBalance2 = accounts
+    .flatMap(acc => acc.movements)
+    .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overallBalance2);
+// 17840
