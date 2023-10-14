@@ -160,8 +160,7 @@ console.log(dogs.some(dog => dog.curFood === dog.recFood));
 // false
 
 // TASK 6
-
-// FUnction for checking if eating ratio is good
+// Function for checking if eating ratio is good
 const checkEatingOk = dog =>
     dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
 
@@ -177,27 +176,3 @@ const orderedDogs = dogs
     .slice() // create shallow copy
     .sort((dog1, dog2) => dog1.recFood - dog2.recFood); // sort by recFood ascending order
 console.log(orderedDogs);
-
-// dogs.sort( (a, b) => a > b ? 1 : -1);
-
-// // Strings
-// const owners = ['Chris', 'Anna', 'Rob', 'Jana', 'Tom'];
-
-// console.log(owners.sort());
-
-// // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-// // Numbers
-// // Callback function, a = current value, b = next value
-// // return < 0, A, B (keep order)
-// // return > 0, B, A (switch order)
-// // movements.sort((a, b) => {
-// //     if (a > b) {
-// //         return 1;
-// //     }
-// //     if (b > a) {
-// //         return -1;
-// //     }
-// // });
-// movements.sort((a, b) => a - b);
-// console.log(movements);

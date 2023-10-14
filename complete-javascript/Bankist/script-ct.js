@@ -13,18 +13,6 @@ const account1 = {
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
     interestRate: 1.2, // %
     pin: 1111,
-    movementsDates: [
-        '2019-11-18T21:31:17.178Z',
-        '2019-12-23T07:42:02.383Z',
-        '2020-01-28T09:15:04.904Z',
-        '2020-04-01T10:17:24.185Z',
-        '2020-05-08T14:11:59.604Z',
-        '2020-05-27T17:01:17.194Z',
-        '2020-07-11T23:36:17.929Z',
-        '2020-07-12T10:51:36.790Z',
-    ],
-    currency: 'EUR',
-    locale: 'pt-PT', // de-DE
 };
 
 const account2 = {
@@ -32,18 +20,6 @@ const account2 = {
     movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
     interestRate: 1.5,
     pin: 2222,
-    movementsDates: [
-        '2019-11-01T13:15:33.035Z',
-        '2019-11-30T09:48:16.867Z',
-        '2019-12-25T06:04:23.907Z',
-        '2020-01-25T14:18:46.235Z',
-        '2020-02-05T16:33:06.386Z',
-        '2020-04-10T14:43:26.374Z',
-        '2020-06-25T18:49:59.371Z',
-        '2020-07-26T12:01:20.894Z',
-    ],
-    currency: 'USD',
-    locale: 'en-US',
 };
 
 const account3 = {
@@ -51,18 +27,6 @@ const account3 = {
     movements: [200, -200, 340, -300, -20, 50, 400, -460],
     interestRate: 0.7,
     pin: 3333,
-    movementsDates: [
-        '2019-11-18T21:31:17.178Z',
-        '2019-12-23T07:42:02.383Z',
-        '2020-01-28T09:15:04.904Z',
-        '2020-04-01T10:17:24.185Z',
-        '2020-05-08T14:11:59.604Z',
-        '2020-05-27T17:01:17.194Z',
-        '2020-07-11T23:36:17.929Z',
-        '2020-07-12T10:51:36.790Z',
-    ],
-    currency: 'EUR',
-    locale: 'pt-PT', // de-DE
 };
 
 const account4 = {
@@ -70,18 +34,6 @@ const account4 = {
     movements: [430, 1000, 700, 50, 90],
     interestRate: 1,
     pin: 4444,
-    movementsDates: [
-        '2019-11-01T13:15:33.035Z',
-        '2019-11-30T09:48:16.867Z',
-        '2019-12-25T06:04:23.907Z',
-        '2020-01-25T14:18:46.235Z',
-        '2020-02-05T16:33:06.386Z',
-        '2020-04-10T14:43:26.374Z',
-        '2020-06-25T18:49:59.371Z',
-        '2020-07-26T12:01:20.894Z',
-    ],
-    currency: 'USD',
-    locale: 'en-US',
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -413,8 +365,268 @@ btnSort.addEventListener('click', function (e) {
     sorted = !sorted; // flip the sorted state
 });
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // LECTURES
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+
+///////////////////// Lecture 145 forEach with Map and Set
+
+// currencies.forEach(function (value, key, map) {
+//     console.log(`${key}: ${value}`);
+// });
+
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+// console.log(currenciesUnique);
+// currenciesUnique.forEach(function (value, key, map) {
+//     console.log(`${key}: ${value}`);
+// });
+
+///////////////////// Lecture 144 forEach
+/*
+for (const [i, movement] of movements.entries()) {
+    if (movement > 0) {
+        console.log(`Movement ${i}: You deposited ${movement}`);
+    } else if (movement < 0) {
+        // Math.abs() makes the value absolute, removing the minus symbol
+        console.log(`Movement ${i}: You withdrew ${Math.abs(movement)}`);
+    }
+}
+console.log(`------------ FOREACH ------------`);
+
+// forEach is technically a higher order function
+// Each iteration it calls the anonymous function as a callback function
+// first time with the argument 200, then 450, and so on. Until the end of the array.
+// Parameter order: Current element, current index, entire array
+movements.forEach(function (movement, i, arr) {
+    if (movement > 0) {
+        console.log(`Movement ${i}: You deposited ${movement}`);
+    } else if (movement < 0) {
+        // Math.abs() makes the value absolute, removing the minus symbol
+        console.log(`Movement ${i}: You withdrew ${Math.abs(movement)}`);
+    }
+});
+
+const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach(function (number) {
+    console.log(number);
+});
+*/
+
+///////////////////// Lecture 149 Data transformations: map, filter, reduce
+
+// 150 - map method
+
+/*
+const euroToUsd = 1.1;
+
+const movementsUSD = movements.map(value => (value * euroToUsd).toFixed(2));
+console.log(movementsUSD);
+
+const moveList = movements.map(function (mov, i) {
+    return `Movement ${
+        i + 1
+    }: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`;
+});
+
+console.log(moveList);
+*/
+
+///////////////////// Lecture 153 reduce method
+
+/*
+const maxValue = movements.reduce((acc, move) => {
+    // acc = track the current maximum value
+    // with the reduce method, you always have turn to return the accumulator to the next iteration
+    if (acc > move) {
+        return acc; // return accumulator, so it stays the same on the next iteration
+    } else {
+        return move; // return movement/transaction value as new accumulator value for next iteration
+    }
+}, movements[0]);
+// Use the first value of the array, when finding the max or min value
+
+console.log(maxValue);
+*/
+
+///////////////////// Lecture 155 chaining methods
+
+// You can only chain a method if the one before it returns an array
+// Don't over use chaining methods, it can affect performance on huge arrays
+// Bad practice to chain methods that mutate the underlying original array (splice method, or reverse method)
+
+// CHAINING METHOD PIPELINE
+// 1. Filter for only positive values
+// --> Result of filter, will be a new array
+// 2. Convert values to USD (map)
+// 3. Get total number of deposits in USD
+/*
+const totalDepositsUSD = movements
+    .filter(mov => mov > 0)
+    .map(mov => mov * euroToUsd)
+    .reduce((acc, move) => acc + move, 0);
+
+console.log(totalDepositsUSD.toFixed(2));
+*/
+
+///////////////////// Lecture 157 find method
+
+/*
+// Does not return a new array
+// Returns the first value that meets the condition
+// 1 - Filter returns ALL the values meeting the condition
+// 2 - Filter returns a new array
+const firstWithdrawal = movements.find(mov => mov < 0); // True of false
+
+console.log(movements);
+console.log(firstWithdrawal);
+
+const account = accounts.find(acc => acc.owner === 'Anna Lohmann');
+console.log(account);
+// {owner: 'Anna Lohmann', movements: Array(8), interestRate: 1.5, pin: 2222, username: 'al'}
+*/
+
+///////////////////// Lecture 161 some and every method
+
+/*
+// SOME
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+// EVERY
+// Returns true if all elements in array satisfy the condition passed in
+console.log(account4.movements.every(mov => mov > 0));
+
+// Separate callback
+const deposit = mov => mov > 0;
+*/
+/*
+const overallBalance = accounts
+    .map(acc => acc.movements)
+    .flat()
+    .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overallBalance);
+// 17840
+
+// flatMap
+const overallBalance2 = accounts
+    .flatMap(acc => acc.movements)
+    .reduce((acc, mov) => acc + mov, 0);
+
+console.log(overallBalance2);
+// 17840
+*/
+
+///////////////////// Lecture 163 Sort
+
+// // Strings
+// const owners = ['Chris', 'Anna', 'Rob', 'Jana', 'Tom'];
+
+// console.log(owners.sort());
+
+// // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// // Numbers
+// // Callback function, a = current value, b = next value
+// // return < 0, A, B (keep order)
+// // return > 0, B, A (switch order)
+// // movements.sort((a, b) => {
+// //     if (a > b) {
+// //         return 1;
+// //     }
+// //     if (b > a) {
+// //         return -1;
+// //     }
+// // });
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+///////////////////// Lecture 164 creating and filling
+
+// Generate array of 100 random numbers, between 1 and 6
+const diceRolls = Array.from(
+    { length: 100 },
+    () => Math.floor(Math.random() * 6) + 1
+);
+
+console.log(diceRolls);
+
+/*
+labelBalance.addEventListener('click', function () {
+    // Create an array (using from()) by query the DOM for all elements with a certain class
+    // this is a Nodelist, an array like structure
+    const movementsUI = Array.from(
+        document.querySelectorAll('.movements__value'),
+        el => Number(el.textContent.replace('€', ''))
+    );
+    console.log(movementsUI);
+});
+
+// [1300, 70, -130, -650, 3000, -400, 450, 200]
+*/
+
+///////////////////// Lecture 166 array methods practice
+/*
+// EXERCISE 1
+const bankDepositSum = accounts
+    .flatMap(acc => acc.movements)
+    .filter(acc => acc > 0)
+    .reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum); // 25180
+
+// EXERCISE 2
+// count how many deposit more than 1000
+
+const numDeposits1000 = accounts
+    .flatMap(acc => acc.movements)
+    .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDeposits1000);
+
+// EXERCISE 3
+// New object using reduce()
+// sum of deposits and withdrawals at the same time
+
+const { deposits, withdrawals } = accounts
+    .flatMap(acc => acc.movements)
+    .reduce(
+        (sums, cur) => {
+            // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+            sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+            return sums;
+        },
+        { deposits: 0, withdrawals: 0 }
+    );
+console.log(deposits, withdrawals);
+*/
+
+// EXERCISE 4
+/*
+const convertTitleCase = function (title) {
+    // Inner function = capitalize the first letter of a word
+    // Concatenating the uppercase letter with the rest of the string,
+    // The slice(1) method gets all the characters from the string starting from the second character to the end.
+    const capitalize = str => str[0].toUpperCase() + str.slice(1);
+    // Words that are an exception (should not be capitalized)
+    const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+    const titleCase = title
+        .toLowerCase() // first, make everything lowercase
+        .split(' ') // Split the title into individual words.
+        .map(
+            word =>
+                // if current is included in the exceptions array...
+                exceptions.includes(word)
+                    ? word // return that word
+                    : capitalize(word) // else, capitalise the first letter
+        )
+        .join(' '); // join words into a string again
+
+    return titleCase;
+};
+
+console.log(convertTitleCase('this is a nice title case'));
+console.log(convertTitleCase('this is a LONG title case'));
+*/
