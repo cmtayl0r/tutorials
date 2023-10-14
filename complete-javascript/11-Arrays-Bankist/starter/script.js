@@ -544,6 +544,7 @@ console.log(overallBalance2);
 
 ///////////////////// Lecture 164 creating and filling
 
+// Generate array of 100 random numbers, between 1 and 6
 const diceRolls = Array.from(
     { length: 100 },
     () => Math.floor(Math.random() * 6) + 1
@@ -551,6 +552,7 @@ const diceRolls = Array.from(
 
 console.log(diceRolls);
 
+/*
 labelBalance.addEventListener('click', function () {
     // Create an array (using from()) by query the DOM for all elements with a certain class
     // this is a Nodelist, an array like structure
@@ -562,11 +564,64 @@ labelBalance.addEventListener('click', function () {
 });
 
 // [1300, 70, -130, -650, 3000, -400, 450, 200]
+*/
 
-// Create an array (using from()) by query the DOM for all elements with a certain class
-const transactionLi = Array.from(
-    document.querySelectorAll('.transaction__value'),
-    // as a 2nd argument, convert element (textContent) value to a number
-    // use method chaining to remove the Euro symbol text
-    el => Number(el.textContent.replace('€', ''))
-);
+///////////////////// Lecture 166 array methods practice
+
+// EXERCISE 1
+const bankDepositSum = accounts
+    .flatMap(acc => acc.movements)
+    .filter(acc => acc > 0)
+    .reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum); // 25180
+
+// EXERCISE 2
+// count how many deposit more than 1000
+
+const numDeposits1000 = accounts
+    .flatMap(acc => acc.movements)
+    .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDeposits1000);
+
+// EXERCISE 3
+// New object using reduce()
+// sum of deposits and withdrawals at the same time
+
+const { deposits, withdrawals } = accounts
+    .flatMap(acc => acc.movements)
+    .reduce(
+        (sums, cur) => {
+            // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+            sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+            return sums;
+        },
+        { deposits: 0, withdrawals: 0 }
+    );
+console.log(deposits, withdrawals);
+
+// EXERCISE 4
+const convertTitleCase = function (title) {
+    // Function = capitalize the first letter of a word
+    const capitalize = str => str[0].toUpperCase() + str.slice(1);
+    // Words that are an exception
+    const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+    const titleCase = title
+        .toLowerCase()
+        .split(' ')
+        .map(
+            word =>
+                // if current is included in the exceptions array...
+                exceptions.includes(word)
+                    ? word // return that word
+                    : capitalize(word) // else, capitalise the first letter
+        )
+        .join(' '); // join words into a string again
+
+    return titleCase;
+};
+
+console.log(convertTitleCase('this is a nice title case'));
+console.log(convertTitleCase('this is a LONG title case'));
