@@ -567,7 +567,7 @@ labelBalance.addEventListener('click', function () {
 */
 
 ///////////////////// Lecture 166 array methods practice
-
+/*
 // EXERCISE 1
 const bankDepositSum = accounts
     .flatMap(acc => acc.movements)
@@ -600,17 +600,21 @@ const { deposits, withdrawals } = accounts
         { deposits: 0, withdrawals: 0 }
     );
 console.log(deposits, withdrawals);
+*/
 
 // EXERCISE 4
+/*
 const convertTitleCase = function (title) {
-    // Function = capitalize the first letter of a word
+    // Inner function = capitalize the first letter of a word
+    // Concatenating the uppercase letter with the rest of the string,
+    // The slice(1) method gets all the characters from the string starting from the second character to the end.
     const capitalize = str => str[0].toUpperCase() + str.slice(1);
-    // Words that are an exception
+    // Words that are an exception (should not be capitalized)
     const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with'];
 
     const titleCase = title
-        .toLowerCase()
-        .split(' ')
+        .toLowerCase() // first, make everything lowercase
+        .split(' ') // Split the title into individual words.
         .map(
             word =>
                 // if current is included in the exceptions array...
@@ -625,3 +629,4 @@ const convertTitleCase = function (title) {
 
 console.log(convertTitleCase('this is a nice title case'));
 console.log(convertTitleCase('this is a LONG title case'));
+*/

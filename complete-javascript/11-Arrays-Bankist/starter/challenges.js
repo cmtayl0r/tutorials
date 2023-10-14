@@ -107,3 +107,75 @@ const avgAge = ages =>
 
 console.log(avgAge(arrAges)); // 5.4
 */
+
+/////////////////////////////////////////////////
+// CHALLENGE 4
+/////////////////////////////////////////////////
+
+const dogs = [
+    { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+    { weight: 8, curFood: 200, owners: ['Matilda'] },
+    { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+    { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+/*
+HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
+
+HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+*/
+
+// TASK 1
+
+dogs.forEach(dog => {
+    const recommendedFood = ((dog.weight ** 0.75 * 28) / 1000).toFixed(2);
+    dog.recFood = Number(recommendedFood);
+    console.log(recommendedFood);
+});
+
+console.log(dogs);
+
+// TASK 2
+
+const dogWithSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogWithSarah);
+
+const ownersEatTooLittle = [];
+const ownersEatTooMuch = [];
+
+const foodCalc = function (dog) {
+    const current = (dog.curFood / 1000).toFixed(2);
+    const recommended = dog.recFood;
+
+    console.log(current, recommended);
+    if (current > recommended * 0.9 && current < recommended * 1.1) {
+        console.log(`Dog is eating juuuuuust right 🐶👍`);
+    } else if (current < recommended * 0.9) {
+        console.log(`Eating to little 😫`);
+        ownersEatTooLittle.push(dog.owners);
+    } else if (current > recommended * 1.1) {
+        console.log(`Eating too much 😫`);
+        ownersEatTooMuch.push(dog.owners);
+    }
+};
+dogs.forEach(dog => foodCalc(dog));
+
+// TASK 3
+
+console.log(ownersEatTooLittle.flat());
+console.log(ownersEatTooMuch.flat());
+
+// TASK 4
+
+console.log(
+    `${ownersEatTooLittle.flat().join(' and ')}'s dogs eat too little!`
+);
+console.log(`${ownersEatTooMuch.flat().join(' and ')}'s dogs eat too much!`);
+
+// TASK 5
+
+
+
+// foodCalc(dogWithSarah);
+// const owners = [...dogWithSarah.owners];
+// console.log(owners);
