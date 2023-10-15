@@ -420,3 +420,41 @@ btnSort.addEventListener("click", function (e) {
 // LECTURES
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+labelBalance.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  [...document.querySelectorAll(".movements__row")].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = "orangered";
+    if (i % 3 === 0) row.style.backgroundColor = "blue";
+  });
+});
+
+// ---------------
+// Dates and times
+
+// Create a date (4 ways in javascript)
+
+const now = new Date();
+console.log(now);
+// Sun Oct 15 2023 16:20:03 GMT+0200 (GMT+02:00)
+
+console.log(new Date("Dec 24, 2015"));
+// Thu Dec 24 2015 00:00:00 GMT+0100 (GMT+01:00)
+
+console.log(new Date(account1.movementsDates[0]));
+// Mon Nov 18 2019 22:31:17 GMT+0100 (GMT+01:00)
+
+// Working with dates
+
+const future = new Date(2037, 10, 19, 15, 23);
+// Mon Nov 18 2019 22:31:17 GMT+0100 (GMT+01:00)
+
+console.log(future.getFullYear()); // 2037
+console.log(future.getMonth()); // 10
+console.log(future.getDate()); // 19
+console.log(future.getDay()); // 4 (Thursday, 4th day of week)
+console.log(future.getHours()); // 15
+console.log(future.getMinutes()); // 23
+console.log(future.getSeconds()); // 0
+console.log(future.getTime());
