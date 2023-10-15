@@ -171,7 +171,7 @@ const displayMovements = function (movements, sort = false) {
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">${mov.toFixed(2)}</div>
         </div>`;
     // Insert HTML into DOM element
     // Parameter: Position, HTML string to be parsed and inserted
@@ -191,7 +191,7 @@ const calcDisplayBalance = function (acc) {
     (accumulator, move) => accumulator + move,
     0
   );
-  labelBalance.innerText = `€${acc.balance}`;
+  labelBalance.innerText = `€${acc.balance.toFixed(2)}`;
   console.log(acc.balance);
 };
 // calcDisplayBalance(movements);
@@ -207,12 +207,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(move => move > 0)
     .reduce((acc, move) => acc + move, 0);
-  labelSumIn.innerText = `€${incomes}`;
+  labelSumIn.innerText = `€${incomes.toFixed(2)}`;
   // Filter and calculate total outgoing
   const outgoings = acc.movements
     .filter(move => move < 0)
     .reduce((acc, move) => acc + move, 0);
-  labelSumOut.innerText = `€${Math.abs(outgoings)}`;
+  labelSumOut.innerText = `€${Math.abs(outgoings).toFixed(2)}`;
   // Display interest
   // 1 - Create array with only positive values
   // 2 - Calculate interest on income values
@@ -223,7 +223,7 @@ const calcDisplaySummary = function (acc) {
     .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => int >= 1)
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.innerText = `€${interest}`;
+  labelSumInterest.innerText = `€${interest.toFixed(2)}`;
 };
 // console.log(calcDisplaySummary(account1.movements));
 
@@ -350,7 +350,7 @@ btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
 
   // Connect input value to an amount variable
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (
     amount > 0 &&
