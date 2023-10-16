@@ -169,6 +169,7 @@ const displayMovements = function (acc, sort = false) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     // looping over the movement dates array at the same time as movements
+    // refernce index (i) from function callback
     const date = new Date(acc.movementsDates[i]);
     // Dates on each movement
     const day = `${date.getDate()}`.padStart(2, 0); // if 7, become 07 etc
@@ -309,14 +310,16 @@ btnLogin.addEventListener("click", function (e) {
     }`;
     // Change opacity to visible of .app
     containerApp.style.opacity = 100;
+
     // Display date and time of now
     const now = new Date();
     const day = `${now.getDate()}`.padStart(2, 0); // if 7, become 07 etc
     const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
-    const hour = now.getHours();
+    const hour = `${now.getHours()}`.padStart(2, 0);
     const minutes = `${now.getMinutes()}`.padStart(2, 0);
     labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
+
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur(); // input loses its focus
@@ -361,7 +364,11 @@ btnTransfer.addEventListener("click", function (e) {
     // Add positive value to receiver user movements
     receiverAccount.movements.push(amount);
 
-    // 2b - Update UI values
+    // 2b - Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAccount.movementsDates.push(new Date().toISOString());
+
+    // 2c - Update UI values
     updateUI(currentAccount);
   }
 
@@ -386,6 +393,10 @@ btnLoan.addEventListener("click", function (e) {
   ) {
     // add movement
     currentAccount.movements.push(amount);
+
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+
     // update UI
     updateUI(currentAccount);
   }
@@ -460,10 +471,11 @@ labelBalance.addEventListener("click", function (e) {
 // ---------------
 // Dates and times
 
+/*
 // Create a date (4 ways in javascript)
 
 const now2 = new Date();
-console.log(now);
+// console.log(now);
 // Sun Oct 15 2023 16:20:03 GMT+0200 (GMT+02:00)
 
 console.log(new Date("Dec 24, 2015"));
@@ -489,3 +501,4 @@ console.log(future.getTime());
 future.setFullYear(2024);
 console.log(future);
 // Tue Nov 19 2024 15:23:00 GMT+0100 (GMT+01:00)
+*/
