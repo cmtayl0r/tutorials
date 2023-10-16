@@ -150,7 +150,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 // -> displays the transaction history of an account
 // -> Set sorting to false as default
 // -----------------------------------------------------------------------------
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   // Empty the container to begin
   containerMovements.innerHTML = "";
 
@@ -158,20 +158,32 @@ const displayMovements = function (movements, sort = false) {
   // slice() to take a copy of the movements array to sort
   // if sort true, sort in ascending order
   // if sort false, revert to default ordering (original array)
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   // 2 - Add HTML elements to container
   movs.forEach(function (mov, i) {
     // Ternary operator to determine if withdraw or deposit
     // Used on HTML value and class
     const type = mov > 0 ? "deposit" : "withdrawal";
+
+    // looping over the movement dates array at the same time as movements
+    const date = new Date(acc.movementsDates[i]);
+    // Dates on each movement
+    const day = `${date.getDate()}`.padStart(2, 0); // if 7, become 07 etc
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
+
     // HTML content for row
     const html = `
         <div class="movements__row">
-          <div class="movements__type movements__type--${type}">${
+            <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__value">${mov.toFixed(2)}</div>
+            <div class="movements__date">${displayDate}</div>
+            <div class="movements__value">${mov.toFixed(2)}</div>
         </div>`;
     // Insert HTML into DOM element
     // Parameter: Position, HTML string to be parsed and inserted
@@ -260,7 +272,7 @@ const updateUI = function (acc) {
   // Display summaries ⚙️FN
   calcDisplaySummary(acc);
   // Display movements ⚙️FN
-  displayMovements(acc.movements);
+  displayMovements(acc);
 };
 
 // -----------------------------------------------------------------------------
@@ -269,6 +281,13 @@ const updateUI = function (acc) {
 // variable declared outside of the function to make it accessible elsewhere in the code
 // Used in this and other functions to specify the current account
 let currentAccount;
+
+// FAKE ALWAYS LOGGED IN
+// -------------------------------
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+// -------------------------------
 
 btnLogin.addEventListener("click", function (e) {
   // Prevent form from submitting
@@ -290,6 +309,14 @@ btnLogin.addEventListener("click", function (e) {
     }`;
     // Change opacity to visible of .app
     containerApp.style.opacity = 100;
+    // Display date and time of now
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0); // if 7, become 07 etc
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const minutes = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur(); // input loses its focus
@@ -410,7 +437,7 @@ btnSort.addEventListener("click", function (e) {
   // refer to current account as first parameter
   // using not operator, when sorted is false then we want to sort it (true)...
   // if sorted, we want it to not be sorted (false)
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
 
   sorted = !sorted; // flip the sorted state
 });
@@ -435,7 +462,7 @@ labelBalance.addEventListener("click", function (e) {
 
 // Create a date (4 ways in javascript)
 
-const now = new Date();
+const now2 = new Date();
 console.log(now);
 // Sun Oct 15 2023 16:20:03 GMT+0200 (GMT+02:00)
 
@@ -458,3 +485,7 @@ console.log(future.getHours()); // 15
 console.log(future.getMinutes()); // 23
 console.log(future.getSeconds()); // 0
 console.log(future.getTime());
+
+future.setFullYear(2024);
+console.log(future);
+// Tue Nov 19 2024 15:23:00 GMT+0100 (GMT+01:00)
