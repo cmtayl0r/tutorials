@@ -326,17 +326,56 @@ const updateUI = function (acc) {
 };
 
 // -----------------------------------------------------------------------------
+// ⚙️ FN: LOGOUT TIMER
+// -----------------------------------------------------------------------------
+
+const startLogOutTimer = function () {
+    const tick = function () {
+        const min = String(Math.trunc(time / 60)).padStart(2, 0);
+        const sec = String(time % 60).padStart(2, 0);
+        // In each call, print the remaining time to UI
+        labelTimer.textContent = `${min}:${sec}`;
+
+        // When 0 seconds, stop timer and logout user
+        if (time === 0) {
+            // stop timer
+            clearInterval(timer);
+            // Update welcome message
+            labelWelcome.textContent = 'Log in to get started';
+            // Change opacity to visible of .app
+            containerApp.style.opacity = 0;
+            // reset time
+        }
+
+        // Decrease 1s
+        time--;
+    };
+
+    // Set timer to 5 minutes
+    let time = 300;
+
+    // Call the tick function every second
+    tick();
+    const timer = setInterval(tick, 1000);
+    console.log(time);
+
+    // Return timer to check if timer running when user logs in
+    return timer;
+};
+
+// -----------------------------------------------------------------------------
 // ⚙️ FN: LOGIN EVENT HANDLER
 // -----------------------------------------------------------------------------
 // variable declared outside of the function to make it accessible elsewhere in the code
-// Used in this and other functions to specify the current account
-let currentAccount;
+// Used in this and other functions to, 1 - specify the current account
+// 2 - Check logout timer status
+let currentAccount, timer;
 
 // FAKE ALWAYS LOGGED IN
 // -------------------------------
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 // -------------------------------
 
 btnLogin.addEventListener('click', function (e) {
@@ -382,6 +421,10 @@ btnLogin.addEventListener('click', function (e) {
         // Clear input fields
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur(); // input loses its focus
+
+        // Start logout timer
+        if (timer) clearInterval(timer); // If timer exists, clear it
+        timer = startLogOutTimer(); // attach function to global variable, start timer
 
         // Update UI values function for current account
         updateUI(currentAccount);
@@ -429,6 +472,10 @@ btnTransfer.addEventListener('click', function (e) {
 
         // 2c - Update UI values
         updateUI(currentAccount);
+
+        // 2d - Reset timer
+        clearInterval(timer); // timer global variable
+        timer = startLogOutTimer(); // start timer again
     }
 
     // 3 - Clear input fields
@@ -450,14 +497,21 @@ btnLoan.addEventListener('click', function (e) {
         // there is a deposit that is at least 10% of loan request amount
         currentAccount.movements.some(mov => mov >= amount * 0.1)
     ) {
-        // add movement
-        currentAccount.movements.push(amount);
+        // Delay to approve loan (2.5s)
+        setTimeout(function () {
+            // add movement
+            currentAccount.movements.push(amount);
 
-        // Add transfer date
-        currentAccount.movementsDates.push(new Date().toISOString());
+            // Add transfer date
+            currentAccount.movementsDates.push(new Date().toISOString());
 
-        // update UI
-        updateUI(currentAccount);
+            // update UI
+            updateUI(currentAccount);
+
+            // Reset timer
+            clearInterval(timer); // timer global variable
+            timer = startLogOutTimer(); // start timer again
+        }, 2500);
     }
     // Clear input field
     inputLoanAmount.value = '';
@@ -573,6 +627,7 @@ console.log(future);
 // const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
 // console.log(days1);
 
+/*
 const num = 26752332.23;
 
 const options = {
@@ -586,3 +641,49 @@ console.log(new Intl.NumberFormat('en-US', options).format(num)); // 26,752,332.
 console.log(new Intl.NumberFormat('de-DE', options).format(num)); // 26.752.332,23
 console.log(new Intl.NumberFormat('ar-SY', options).format(num)); // ٢٦٬٧٥٢٬٣٣٢٫٢٣
 console.log(new Intl.NumberFormat(navigator.language, options).format(num)); // 26,752,332.23
+*/
+/*
+// setTimeout
+const ingredients = ['Jalepenos', 'Mushrooms'];
+
+// 1st arg - Callback function
+// 2nd arg - Time to trigger function
+const pizzaTimer = setTimeout(
+    (ing1, ing2) =>
+        console.log(`Here is your Pizza 🍕 with ${ing1} and ${ing2}`),
+    3000,
+    ...ingredients // spread array, make them ing1 and ing 2 arguments
+);
+console.log('Waiting...');
+
+if (ingredients.includes('Spinach')) clearTimeout(pizzaTimer);
+*/
+
+// setInterval
+
+/*
+setInterval(function () {
+    // Create Javascript date object
+    const now2 = new Date();
+    // Date object
+    const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        day: '2-digit',
+        month: 'long', // long, 2-digit
+        year: 'numeric', // 2-digit
+    };
+    // Format and define date & time using Intl API
+    const formatTimer = new Intl.DateTimeFormat(
+        navigator.language,
+        options
+    ).format(now2);
+    // Output
+    console.log(formatTimer);
+}, 3000);
+*/
+
+// 16 October 2023 at 14:53:02
+// 16 October 2023 at 14:53:05
+// 16 October 2023 at 14:53:08
