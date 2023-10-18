@@ -38,3 +38,58 @@ document.addEventListener('keydown', function (e) {
         closeModal();
     }
 });
+
+////////////////////////////////////////////////////////////////////////////////
+// LECTURE 186
+/*
+//------------------------
+// SELECTION
+//------------------------
+
+const header = document.querySelector('.header');
+// 👍 USE THIS
+// specific element with class name
+
+const allSections = document.querySelectorAll('.section');
+// 👍 USE THIS
+// All elements with class name
+// output as a NodeList
+console.log(allSections);
+
+document.getElementById('section--1');
+// specific ID element
+// 👴🏻 OLD METHOD
+
+const allButtons = document.getElementsByTagName('button');
+// all elements by tag name
+// HTMLCollection, a "live collection"
+// 👴🏻 OLD METHOD
+console.log(allButtons);
+
+//------------------------
+// CREATING AND INSERTING
+//------------------------
+
+// 👍 USE THIS
+// insertAdjacentHTML
+
+// Return DOM element
+const message = document.createElement('div');
+// add class to DOM element
+message.classList.add('cookie-message');
+// Add HTML to DOM element
+message.innerHTML =
+    'We use cookies for improved analytics <button class="btn btn-close-cookie">Got it!</button>';
+// Append (and insert) DOM element to another element
+header.append(message);
+
+//------------------------
+// DELETION
+//------------------------
+
+document
+    .querySelector('.btn-close-cookie')
+    .addEventListener('click', function () {
+        message.remove();
+    });
+*/
