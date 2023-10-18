@@ -1,7 +1,7 @@
 'use strict';
 
 // -----------------------------------------------------------------------------
-// ⚙️ MODAL WINDOW
+// 🧩 MODAL WINDOW
 // -----------------------------------------------------------------------------
 
 // DOM elements
@@ -10,7 +10,7 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
-// Open modal function
+// ⚙️ FN: Open modal function
 const openModal = function (e) {
     // Stop # on a links moving page to top
     e.preventDefault();
@@ -18,7 +18,7 @@ const openModal = function (e) {
     overlay.classList.remove('hidden');
 };
 
-// Close modal function
+// ⚙️ FN: Close modal function
 const closeModal = function () {
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
