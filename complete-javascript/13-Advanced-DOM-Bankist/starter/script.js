@@ -73,29 +73,7 @@ btnScrollTo.addEventListener('click', function (e) {
 // 🧩 PAGE NAVIGATION
 // -----------------------------------------------------------------------------
 
-// WITHOUT DELEGATION
-// Issue: forEach creates multiple copies of the function...
-// copies for every navigation element which impacts performance
-/*
-document.querySelectorAll('.nav__link').forEach(function (el) {
-    el.addEventListener('click', function (e) {
-        // Prevent anchor jump to section
-        e.preventDefault();
-        // Get ID attribute of link
-        // this === this element
-        const id = this.getAttribute('href');
-
-        document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-    });
-});
-*/
-
-// WITH DELEGATION
-// Put the event handler on the parent container..
-// when user clicks the links, the event is generated and bubbles up...
-// you catch the event in the parent container and handle it there.
-// Figure out where the event occurred using the e.target property
-
+// EVENT DELEGATION
 // Step 1 - add event listener to common parent element of all the elements we interested in
 // Step 2 - determine what element originated the event
 
@@ -104,7 +82,8 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     // Prevent anchor jump to section
     e.preventDefault();
     // Matching strategy
-    // match only the elements we are interested in (the links)
+    // --> match only the elements we are interested in (the links)
+    // --> enables you to ignore clicks on the parent container (nav__links)
     if (e.target.classList.contains('nav__link')) {
         // Get ID attribute of link
         // e.target === this element
