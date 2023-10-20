@@ -39,5 +39,57 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
+// -----------------------------------------------------------------------------
+// 🧩 SMOOTH SCROLLING
+// -----------------------------------------------------------------------------
+
+// btn--scroll-to
+// id="section--1"
+
+// DOM Elements
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+    const s1coords = section1.getBoundingClientRect();
+    console.log(s1coords);
+});
+
 ////////////////////////////////////////////////////////////////////////////////
-// LECTURE 186
+// LECTURE 186 - Styles attributes and classes
+
+/*
+// Creating and inserting elements
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+// message.textContent = 'We use cookied for improved functionality and analytics.';
+message.innerHTML =
+    'We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+
+// Header
+const header = document.querySelector('.header');
+header.append(message);
+
+// Styles
+// Creating inline styles
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+// CSS variables
+// :root equivalent to document
+// document.documentElement.style.setProperty('--color-primary', 'orangeRed');
+
+// Attributes
+const logo = document.querySelector('.nav__logo');
+
+console.log(logo.className); // nav__logo
+console.log(logo.getAttribute('src')); // img/logo.png
+console.log(logo.setAttribute('company', 'Bankist'));
+
+const link = document.querySelector('.twitter-link');
+console.log(link.getAttribute('href'));
+
+// Data attributes
+console.log(logo.dataset.versionNumber);
+
+*/
