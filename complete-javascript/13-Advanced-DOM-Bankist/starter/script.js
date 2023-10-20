@@ -43,16 +43,26 @@ document.addEventListener('keydown', function (e) {
 // 🧩 SMOOTH SCROLLING
 // -----------------------------------------------------------------------------
 
-// btn--scroll-to
-// id="section--1"
-
 // DOM Elements
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
+    // Get coordinates of section 1
+    console.log('clicked!');
     const s1coords = section1.getBoundingClientRect();
-    console.log(s1coords);
+    // Scrolling
+    // --> OLD SCHOOL WAY
+    // window.scrollTo({
+    //     // .top is relevant to viewport, NOT top of the page
+    //     // add (+ window) position relevant to the page
+    //     // current position + current scroll
+    //     left: s1coords.left + window.pageXOffset,
+    //     top: s1coords.top + window.pageYOffset,
+    //     behavior: 'smooth',
+    // });
+    // --> NEW SCHOOL WAY
+    section1.scrollIntoView({ behavior: 'smooth' });
 });
 
 ////////////////////////////////////////////////////////////////////////////////
