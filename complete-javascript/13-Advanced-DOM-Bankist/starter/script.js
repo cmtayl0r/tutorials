@@ -104,8 +104,10 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 // -----------------------------------------------------------------------------
 
 // Define the handleHover function which is triggered on a mouse event
+// the variable 'e' refers to the event object that gets automatically passed when an event listener triggers the function
 const handleHover = function (e) {
-    // 01 - Matching strategy (Event Delegation)
+    // console.log(this); // 1 or 0.5
+    // Matching strategy (Event Delegation)
     // --> Check if the target of the event (the element being hovered) has a class 'nav__link'
     if (e.target.classList.contains('nav__link')) {
         // Store the actual link that's being hovered in the variable 'link'
@@ -115,24 +117,62 @@ const handleHover = function (e) {
         // then query all elements with class 'nav__link' within it to get the siblings (all the other links)
         const siblings = link.closest('.nav').querySelectorAll('.nav__link');
 
+        // Find the closest ancestor element with class 'nav'
+        // then query for an 'img' element (likely the logo) within it.
         const logo = link.closest('.nav').querySelector('img');
 
+        // Iterate over each link in 'siblings'.
         // Fade out links NOT hovered (!== link)
         siblings.forEach(el => {
+            // If the current link in the iteration isn't the one being hovered...
+            // set its opacity to the value of 'this' (0.5 or 1, based on binding)
             if (el !== link) el.style.opacity = this;
         });
-        // Fade out logo on hover
+
+        // Set the opacity of the logo to the value of 'this' (0.5 or 1, based on binding)
         logo.style.opacity = this;
     }
 };
 
 // Attach an event listener to the 'nav' element (parent container)
+
 // --> When the mouse is over the 'nav' element...
 // --> the handleHover function is invoked with 'this' set to 0.5 (reduce opacity).
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 // --> When the mouse leaves the 'nav' element...
 // --> the handleHover function is invoked with 'this' set to 1 (restore opacity).
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// NOTE: When using the bind() method...
+// the first argument is used to set the value of 'this' inside the bound function
+
+// -----------------------------------------------------------------------------
+// ⚙️ FN: STICKY NAV BAR
+// -----------------------------------------------------------------------------
+
+// const initialCoords = section1.getBoundingClientRect();
+
+// window.addEventListener('scroll', function (e) {
+//     console.log(window.scrollY);
+//     if (window.scrollY > initialCoords.top) {
+//         nav.classList.add('sticky');
+//     } else {
+//         nav.classList.remove('sticky');
+//     }
+// });
+
+const obsCallback = function (entries, observer) {
+    entries.forEach(entry => {
+        console.log(entry);
+    });
+};
+const obsOptions = {
+    root: null,
+    threshold: 0.1,
+};
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(section1);
 
 // -----------------------------------------------------------------------------
 // 🧩 TABS
