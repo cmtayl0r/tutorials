@@ -93,36 +93,53 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     }
 });
 
+// -----------------------------------------------------------------------------
+// 🧩 TABS
+// -----------------------------------------------------------------------------
+
+// DOM selections
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// Event handlers
+// using forEach is bad practice for performance, use event delegation
+// Apply eventListener to parent element, catch child bubbling
+tabsContainer.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // 01 - Matching strategy (Event Delegation)
+    // --> Each button has a <span> in it which creates an issue, we need .closest
+    // --> When we click the button or the span, we get the button
+    const clicked = e.target.closest('.operations__tab');
+
+    // 02 - Ignore clicks on container (return null)
+    // --> A "Guard clause", stop code being executed if true by returning asap
+    if (!clicked) return;
+
+    // 03 - Remove active classes
+    // --> Remove active style on other tabs
+    tabs.forEach(t => t.classList.remove('operations__tab--active'));
+    // --> Remove visibility of tab content for all tabs
+    tabsContent.forEach(tc =>
+        tc.classList.remove('operations__content--active')
+    );
+
+    // 04 - Activate tabs
+    // --> Toggle active state on tab
+    // --> Add class to create active state on clicked tab
+    clicked.classList.add('operations__tab--active');
+
+    // 05 - Activate content area
+    // --> make visible relevant content area
+    // --> We leverage the data-set attribute on the HTML of each content area
+    document
+        .querySelector(`.operations__content--${clicked.dataset.tab}`)
+        .classList.add('operations__content--active');
+});
+
 ////////////////////////////////////////////////////////////////////////////////
 // LECTURE 193 - DOM Traversing
-
-const h1 = document.querySelector('h1');
-
-// 1 - Going downwards / Selecting child elements
-console.log(h1.querySelectorAll('.highlight'));
-console.log(h1.childNodes);
-// NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text]
-console.log(h1.children);
-// HTMLCollection(3) [span.highlight, br, span.highlight]
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'orangered';
-
-// 2 - Going upwards / Parents
-console.log(h1.parentNode);
-console.log(h1.parentElement);
-
-// h1.closest('.header').style.background = 'var(--gradient-secondary)';
-
-// 3 - Sideways / Siblings
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
-
-// get siblings via parent
-console.log(h1.parentElement.children);
-
-[...h1.parentElement.children].forEach(function (el) {
-    if (el !== h1) el.style.transform = 'scale(0.5)';
-});
 
 /*
 // Creating and inserting elements
