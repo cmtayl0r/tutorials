@@ -11,8 +11,14 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
 // Navigation
+const nav = document.querySelector('.nav');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+
+// Tabs
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
 // -----------------------------------------------------------------------------
 // 🧩 MODAL WINDOW
@@ -70,7 +76,7 @@ btnScrollTo.addEventListener('click', function (e) {
 });
 
 // -----------------------------------------------------------------------------
-// 🧩 PAGE NAVIGATION
+// ⚙️ FN: PAGE ANCHORS
 // -----------------------------------------------------------------------------
 
 // EVENT DELEGATION
@@ -94,13 +100,43 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // -----------------------------------------------------------------------------
-// 🧩 TABS
+// ⚙️ FN: MENU FADE ANIMATION
 // -----------------------------------------------------------------------------
 
-// DOM selections
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
+// Define the handleHover function which is triggered on a mouse event
+const handleHover = function (e) {
+    // 01 - Matching strategy (Event Delegation)
+    // --> Check if the target of the event (the element being hovered) has a class 'nav__link'
+    if (e.target.classList.contains('nav__link')) {
+        // Store the actual link that's being hovered in the variable 'link'
+        const link = e.target;
+
+        // Find the closest ancestor element with class 'nav' (likely the navbar container)
+        // then query all elements with class 'nav__link' within it to get the siblings (all the other links)
+        const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+
+        const logo = link.closest('.nav').querySelector('img');
+
+        // Fade out links NOT hovered (!== link)
+        siblings.forEach(el => {
+            if (el !== link) el.style.opacity = this;
+        });
+        // Fade out logo on hover
+        logo.style.opacity = this;
+    }
+};
+
+// Attach an event listener to the 'nav' element (parent container)
+// --> When the mouse is over the 'nav' element...
+// --> the handleHover function is invoked with 'this' set to 0.5 (reduce opacity).
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+// --> When the mouse leaves the 'nav' element...
+// --> the handleHover function is invoked with 'this' set to 1 (restore opacity).
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+// -----------------------------------------------------------------------------
+// 🧩 TABS
+// -----------------------------------------------------------------------------
 
 // Event handlers
 // using forEach is bad practice for performance, use event delegation
@@ -118,7 +154,7 @@ tabsContainer.addEventListener('click', function (e) {
     if (!clicked) return;
 
     // 03 - Remove active classes
-    // --> Remove active style on other tabs
+    // --> Remove active style on tabs
     tabs.forEach(t => t.classList.remove('operations__tab--active'));
     // --> Remove visibility of tab content for all tabs
     tabsContent.forEach(tc =>
