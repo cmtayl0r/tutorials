@@ -94,7 +94,35 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// LECTURE 186 - Styles attributes and classes
+// LECTURE 193 - DOM Traversing
+
+const h1 = document.querySelector('h1');
+
+// 1 - Going downwards / Selecting child elements
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+// NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text]
+console.log(h1.children);
+// HTMLCollection(3) [span.highlight, br, span.highlight]
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+// 2 - Going upwards / Parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+// 3 - Sideways / Siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+// get siblings via parent
+console.log(h1.parentElement.children);
+
+[...h1.parentElement.children].forEach(function (el) {
+    if (el !== h1) el.style.transform = 'scale(0.5)';
+});
 
 /*
 // Creating and inserting elements
