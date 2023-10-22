@@ -175,10 +175,10 @@ headerObserver.observe(header);
 // ⚙️ FN: REVEAL SECTIONS
 // -----------------------------------------------------------------------------
 
-// creates node list of each section
+// 01 - creates node list of each section
 const allSections = document.querySelectorAll('.section');
 
-// Callback functino for observer
+// 02 - Callback function for observer
 const revealSection = function (entries, observer) {
     const [entry] = entries; // use destructuring
     // guard clause
@@ -190,13 +190,14 @@ const revealSection = function (entries, observer) {
     observer.unobserve(entry.target);
 };
 
+// 03 - Create Intersection observer
 const sectionObserver = new IntersectionObserver(revealSection, {
     // Observe object options
     root: null,
     threshold: 0.15,
 });
 
-// loop over sections node list
+// 04 - loop over sections node list to observe
 allSections.forEach(section => {
     // observe each element (section) from node list
     sectionObserver.observe(section);
@@ -238,7 +239,7 @@ const imageObserver = new IntersectionObserver(loadImg, {
     rootMargin: '200px', // Extend the 'viewport' by 200 pixels on all sides.
 });
 
-// Loop over node list from DOM element
+// 04 - Loop over node list from DOM element to observe
 // Observe each image with the IntersectionObserver.
 imgTargets.forEach(img => imageObserver.observe(img));
 
@@ -247,7 +248,7 @@ imgTargets.forEach(img => imageObserver.observe(img));
 // -----------------------------------------------------------------------------
 
 // Event handlers
-// using forEach is bad practice for performance, use event delegation
+// Using forEach is bad practice for performance, use event delegation
 // Apply eventListener to parent element, catch child bubbling
 tabsContainer.addEventListener('click', function (e) {
     e.preventDefault();
@@ -255,7 +256,7 @@ tabsContainer.addEventListener('click', function (e) {
     // 01 - Matching strategy (Event Delegation)
     // --> Each button has a <span> in it which creates an issue, we need .closest
     // --> When we click the button or the span, we get the button
-    const clicked = e.target.closest('.operations__tab');
+    const clicked = e.target.closest('.operations__tab');***
 
     // 02 - Ignore clicks on container (return null)
     // --> A "Guard clause", stop code being executed if true by returning asap
@@ -282,5 +283,11 @@ tabsContainer.addEventListener('click', function (e) {
         .classList.add('operations__content--active');
 });
 
+// -----------------------------------------------------------------------------
+// 🧩 SLIDER
+// -----------------------------------------------------------------------------
+
 ////////////////////////////////////////////////////////////////////////////////
-// LECTURE 193 - DOM Traversing
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
