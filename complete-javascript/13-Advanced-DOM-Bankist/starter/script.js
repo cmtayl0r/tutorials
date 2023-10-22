@@ -172,6 +172,40 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 headerObserver.observe(header);
 
 // -----------------------------------------------------------------------------
+// ⚙️ FN: REVEAL SECTIONS
+// -----------------------------------------------------------------------------
+// section--hidden
+
+// creates node list of each section
+const allSections = document.querySelectorAll('.section');
+
+// Callback functino for observer
+const revealSection = function (entries, observer) {
+    const [entry] = entries; // use destructuring
+    // guard clause
+    // if not intersecting, just cancel the function right away
+    if (!entry.isIntersecting) return;
+    // Make section visible (remove hidden class)
+    entry.target.classList.remove('section--hidden');
+    // Unobserve after event triggered first time
+    observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+    // Observe object options
+    root: null,
+    threshold: 0.15,
+});
+
+// loop over sections node list
+allSections.forEach(section => {
+    // observe each element (section) from node list
+    sectionObserver.observe(section);
+    // Hide all sections when page loads (add hidden class)
+    section.classList.add('section--hidden');
+});
+
+// -----------------------------------------------------------------------------
 // 🧩 TABS
 // -----------------------------------------------------------------------------
 
@@ -213,39 +247,3 @@ tabsContainer.addEventListener('click', function (e) {
 
 ////////////////////////////////////////////////////////////////////////////////
 // LECTURE 193 - DOM Traversing
-
-/*
-// Creating and inserting elements
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-// message.textContent = 'We use cookied for improved functionality and analytics.';
-message.innerHTML =
-    'We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
-
-// Header
-const header = document.querySelector('.header');
-header.append(message);
-
-// Styles
-// Creating inline styles
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
-
-// CSS variables
-// :root equivalent to document
-// document.documentElement.style.setProperty('--color-primary', 'orangeRed');
-
-// Attributes
-const logo = document.querySelector('.nav__logo');
-
-console.log(logo.className); // nav__logo
-console.log(logo.getAttribute('src')); // img/logo.png
-console.log(logo.setAttribute('company', 'Bankist'));
-
-const link = document.querySelector('.twitter-link');
-console.log(link.getAttribute('href'));
-
-// Data attributes
-console.log(logo.dataset.versionNumber);
-
-*/
