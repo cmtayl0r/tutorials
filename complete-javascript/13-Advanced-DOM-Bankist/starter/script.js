@@ -174,7 +174,6 @@ headerObserver.observe(header);
 // -----------------------------------------------------------------------------
 // ⚙️ FN: REVEAL SECTIONS
 // -----------------------------------------------------------------------------
-// section--hidden
 
 // creates node list of each section
 const allSections = document.querySelectorAll('.section');
@@ -204,6 +203,44 @@ allSections.forEach(section => {
     // Hide all sections when page loads (add hidden class)
     section.classList.add('section--hidden');
 });
+
+// -----------------------------------------------------------------------------
+// ⚙️ FN: LAZY LOADING IMAGES
+// -----------------------------------------------------------------------------
+
+// 01 - Select all <img> elements that have a data-src attribute.
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+// 02 - Define a function called loadImg to handle lazy loading of images.
+const loadImg = function (entries, observer) {
+    // Destructure the first entry from the array of entries.
+    const [entry] = entries;
+    // Guard clause
+    // If the image isn't intersecting the viewport, exit the function.
+    if (!entry.isIntersecting) return;
+    // Switch from low res img to actual img
+    // Set the src attribute of the image element to the value of the data-src attribute.
+    entry.target.src = entry.target.dataset.src;
+    // Add an event listener that removes the 'lazy-img' class from the image once it's loaded.
+    // "Un blurs" the image
+    entry.target.addEventListener('load', () =>
+        entry.target.classList.remove('lazy-img')
+    );
+    // Stop observing the image now that it has started loading.
+    observer.unobserve(entry.target);
+};
+
+// 03 - Create a new IntersectionObserver instance with the specified callback and options.
+const imageObserver = new IntersectionObserver(loadImg, {
+    // Observer object options
+    root: null, // Observe the intersection relative to the viewport.
+    threshold: 0, // Observe when even a single pixel of the target is visible.
+    rootMargin: '200px', // Extend the 'viewport' by 200 pixels on all sides.
+});
+
+// Loop over node list from DOM element
+// Observe each image with the IntersectionObserver.
+imgTargets.forEach(img => imageObserver.observe(img));
 
 // -----------------------------------------------------------------------------
 // 🧩 TABS
