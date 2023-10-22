@@ -20,6 +20,10 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 
+// Sticky nav
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height; // 90px
+
 // -----------------------------------------------------------------------------
 // 🧩 MODAL WINDOW
 // -----------------------------------------------------------------------------
@@ -150,52 +154,13 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // ⚙️ FN: STICKY NAV BAR
 // -----------------------------------------------------------------------------
 
-// METHOD - Not recommended
-
-// const initialCoords = section1.getBoundingClientRect();
-
-// window.addEventListener('scroll', function (e) {
-//     console.log(window.scrollY);
-//     if (window.scrollY > initialCoords.top) {
-//         nav.classList.add('sticky');
-//     } else {
-//         nav.classList.remove('sticky');
-//     }
-// });
-
-// METHOD - Using Intersection Observer API
-/*
-// Observer callback function
-// entries = an array of threshold entries
-const obsCallback = function (entries, observer) {
-    // loop over entries
-    entries.forEach(entry => {
-        console.log(entry);
-    });
-};
-
-// Observer options
-const obsOptions = {
-    root: null, // the viewport
-    threshold: [0, 0.2],
-};
-
-// Create InstersectionObserver
-// pass in: Function and object of options
-const observer = new IntersectionObserver(obsCallback, obsOptions);
-// Use observer to observe a target
-observer.observe(section1);
-*/
-
-const header = document.querySelector('.header');
-const navHeight = nav.getBoundingClientRect().height; // 90px
-
-const stickyNav = function (entries) {
+const stickyNav = ([entry]) => {
     // same as writing entries [0], but using destructuring
-    const [entry] = entries;
+    // const [entry] = entries;
     // If entry isIntersecting = false, add sticky class
-    if (!entry.isIntersecting) nav.classList.add('sticky');
-    else nav.classList.remove('sticky');
+    entry.isIntersecting
+        ? nav.classList.remove('sticky')
+        : nav.classList.add('sticky');
 };
 
 const headerObserver = new IntersectionObserver(stickyNav, {
