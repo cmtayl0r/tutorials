@@ -287,19 +287,24 @@ tabsContainer.addEventListener('click', function (e) {
 // 🧩 SLIDER
 // -----------------------------------------------------------------------------
 
+// Defines a function named "slider"
 // Create wrapping function, so not to pollute the global namespace
 const slider = function () {
+    // DOM elements
     const slides = document.querySelectorAll('.slide');
     const btnLeft = document.querySelector('.slider__btn--left');
     const btnRight = document.querySelector('.slider__btn--right');
     const dotContainer = document.querySelector('.dots');
 
+    // Initializes a variable for the current slide with the value of 0
     let currentSlide = 0;
+    // Initializes a variable with the total number of slides
     const maxSlide = slides.length;
 
-    // dots__dot
+    // Function to create dots based on the number of slides
     const createDots = function () {
         slides.forEach(function (_, i) {
+            // Inserts a button for each slide into the dotContainer
             dotContainer.insertAdjacentHTML(
                 'beforeend',
                 `<button class="dots__dot" data-slide="${i}"></button>`
@@ -307,43 +312,55 @@ const slider = function () {
         });
     };
 
+    // Function to activate the dot corresponding to the current slide
     const activateDot = function (slide) {
+        // Removes the active class from all dots
         document
             .querySelectorAll('.dots__dot')
             .forEach(dot => dot.classList.remove('dots__dot--active'));
-
+        // Adds the active class to the dot that corresponds to the current slide
         document
             .querySelector(`.dots__dot[data-slide="${slide}"]`)
             .classList.add('dots__dot--active');
     };
 
+    // Function to move to a specific slide
     const goToSlide = function (slide) {
-        // console.log(slide); // Slide = 0, 1, 2, 3
+        // For every slide s at index i, the function applies a CSS transform to move the slide horizontally
         slides.forEach(
+            // works on 0%, 100%, 200%, 300%  width etc
+            // Multiplying by 100 gives the percentage of the viewport width by which the slide should be shifted.
             (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
         );
     };
 
+    // Function to navigate to the next slide
     const nextSlide = function () {
+        // If on the last slide, wrap around to the first
         if (currentSlide === maxSlide - 1) {
             currentSlide = 0;
         } else {
+            // Otherwise, move to the next slide
             currentSlide++;
         }
         goToSlide(currentSlide);
         activateDot(currentSlide);
     };
 
+    // Function to navigate to the previous slide
     const prevSlide = function () {
+        // If on the first slide, wrap around to the last
         if (currentSlide === 0) {
             currentSlide = maxSlide - 1;
         } else {
+            // Otherwise, move to the previous slide
             currentSlide--;
         }
         goToSlide(currentSlide);
         activateDot(currentSlide);
     };
 
+    // Initializes the slider on page load
     const init = function () {
         goToSlide(0);
         createDots();
@@ -351,15 +368,17 @@ const slider = function () {
     };
     init();
 
+    // Adds click event listeners to the navigation buttons
     btnRight.addEventListener('click', nextSlide);
     btnLeft.addEventListener('click', prevSlide);
 
+    // Allows for navigation using keyboard arrow keys
     document.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowLeft') prevSlide();
         else if (e.key === 'ArrowRight') nextSlide();
     });
 
-    // dots__dot--active
+    // Enables clicking on dots to navigate to a specific slide
     dotContainer.addEventListener('click', function (e) {
         if (e.target.classList.contains('dots__dot')) {
             const { slide } = e.target.dataset;
@@ -368,4 +387,6 @@ const slider = function () {
         }
     });
 };
+
+// Invokes the slider function
 slider();
