@@ -161,6 +161,8 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 //     }
 // });
 
+// Using Intersection Observer API
+
 const obsCallback = function (entries, observer) {
     entries.forEach(entry => {
         console.log(entry);
@@ -171,7 +173,10 @@ const obsOptions = {
     threshold: 0.1,
 };
 
+// Create InstersectionObserver
+// pass in: Function and object of options
 const observer = new IntersectionObserver(obsCallback, obsOptions);
+// Use observer to observe a target
 observer.observe(section1);
 
 // -----------------------------------------------------------------------------
