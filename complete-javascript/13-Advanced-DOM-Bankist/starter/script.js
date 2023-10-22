@@ -150,6 +150,8 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // ⚙️ FN: STICKY NAV BAR
 // -----------------------------------------------------------------------------
 
+// METHOD - Not recommended
+
 // const initialCoords = section1.getBoundingClientRect();
 
 // window.addEventListener('scroll', function (e) {
@@ -161,16 +163,21 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 //     }
 // });
 
-// Using Intersection Observer API
-
+// METHOD - Using Intersection Observer API
+/*
+// Observer callback function
+// entries = an array of threshold entries
 const obsCallback = function (entries, observer) {
+    // loop over entries
     entries.forEach(entry => {
         console.log(entry);
     });
 };
+
+// Observer options
 const obsOptions = {
-    root: null,
-    threshold: 0.1,
+    root: null, // the viewport
+    threshold: [0, 0.2],
 };
 
 // Create InstersectionObserver
@@ -178,6 +185,26 @@ const obsOptions = {
 const observer = new IntersectionObserver(obsCallback, obsOptions);
 // Use observer to observe a target
 observer.observe(section1);
+*/
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height; // 90px
+
+const stickyNav = function (entries) {
+    // same as writing entries [0], but using destructuring
+    const [entry] = entries;
+    // If entry isIntersecting = false, add sticky class
+    if (!entry.isIntersecting) nav.classList.add('sticky');
+    else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+    // Observer options direct in argument
+    root: null,
+    threshold: 0,
+    rootMargin: `-${navHeight}px`, // Height of navigation, margin before threshold
+});
+headerObserver.observe(header);
 
 // -----------------------------------------------------------------------------
 // 🧩 TABS
