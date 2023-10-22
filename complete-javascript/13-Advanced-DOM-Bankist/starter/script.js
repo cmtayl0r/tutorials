@@ -256,7 +256,7 @@ tabsContainer.addEventListener('click', function (e) {
     // 01 - Matching strategy (Event Delegation)
     // --> Each button has a <span> in it which creates an issue, we need .closest
     // --> When we click the button or the span, we get the button
-    const clicked = e.target.closest('.operations__tab');***
+    const clicked = e.target.closest('.operations__tab');
 
     // 02 - Ignore clicks on container (return null)
     // --> A "Guard clause", stop code being executed if true by returning asap
@@ -287,7 +287,85 @@ tabsContainer.addEventListener('click', function (e) {
 // 🧩 SLIDER
 // -----------------------------------------------------------------------------
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+// Create wrapping function, so not to pollute the global namespace
+const slider = function () {
+    const slides = document.querySelectorAll('.slide');
+    const btnLeft = document.querySelector('.slider__btn--left');
+    const btnRight = document.querySelector('.slider__btn--right');
+    const dotContainer = document.querySelector('.dots');
+
+    let currentSlide = 0;
+    const maxSlide = slides.length;
+
+    // dots__dot
+    const createDots = function () {
+        slides.forEach(function (_, i) {
+            dotContainer.insertAdjacentHTML(
+                'beforeend',
+                `<button class="dots__dot" data-slide="${i}"></button>`
+            );
+        });
+    };
+
+    const activateDot = function (slide) {
+        document
+            .querySelectorAll('.dots__dot')
+            .forEach(dot => dot.classList.remove('dots__dot--active'));
+
+        document
+            .querySelector(`.dots__dot[data-slide="${slide}"]`)
+            .classList.add('dots__dot--active');
+    };
+
+    const goToSlide = function (slide) {
+        // console.log(slide); // Slide = 0, 1, 2, 3
+        slides.forEach(
+            (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+        );
+    };
+
+    const nextSlide = function () {
+        if (currentSlide === maxSlide - 1) {
+            currentSlide = 0;
+        } else {
+            currentSlide++;
+        }
+        goToSlide(currentSlide);
+        activateDot(currentSlide);
+    };
+
+    const prevSlide = function () {
+        if (currentSlide === 0) {
+            currentSlide = maxSlide - 1;
+        } else {
+            currentSlide--;
+        }
+        goToSlide(currentSlide);
+        activateDot(currentSlide);
+    };
+
+    const init = function () {
+        goToSlide(0);
+        createDots();
+        activateDot(0);
+    };
+    init();
+
+    btnRight.addEventListener('click', nextSlide);
+    btnLeft.addEventListener('click', prevSlide);
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') prevSlide();
+        else if (e.key === 'ArrowRight') nextSlide();
+    });
+
+    // dots__dot--active
+    dotContainer.addEventListener('click', function (e) {
+        if (e.target.classList.contains('dots__dot')) {
+            const { slide } = e.target.dataset;
+            goToSlide(slide);
+            activateDot(slide);
+        }
+    });
+};
+slider();
