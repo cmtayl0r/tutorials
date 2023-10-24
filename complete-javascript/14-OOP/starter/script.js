@@ -268,11 +268,7 @@ const chris = new StudentCl('Chris Taylor', 1980, 'Computer Science');
 
 // LESSON 222 - ANOTHER CLASS EXAMPLE
 
-// Public fields
-// Private fields
-// Public methods
-// Private methods
-
+/*
 class Account {
     // Public fields
     locale = navigator.language;
@@ -319,3 +315,110 @@ const acc1 = new Account('Chris', 'EUR', 1111);
 acc1.deposit(300).deposit(500).withdraw(35).requestLoan(2000);
 console.log(acc1);
 console.log(acc1.getMovements());
+*/
+
+// -----------------------------------------------------------------------------
+// CHALLENGE 4
+// -----------------------------------------------------------------------------
+
+class CarCl {
+    constructor(make, speed) {
+        this.speed = speed;
+        this.make = make;
+    }
+
+    accelerate() {
+        console.log(`${this.make} going ${(this.speed += 10)} km/h`);
+    }
+
+    brake() {
+        console.log(`${this.make} going ${(this.speed -= 5)} km/h`);
+    }
+}
+
+class EVCl extends CarCl {
+    #charge;
+    constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+    }
+
+    chargeBattery(chargeTo) {
+        this.#charge = chargeTo;
+        return this;
+    }
+
+    accelerate() {
+        this.speed += 20;
+        this.#charge--;
+        console.log(
+            `${this.make} is going at ${this.speed} km/h with a charge of ${
+                this.#charge
+            }% 🚗`
+        );
+        return this;
+    }
+}
+
+const tesla = new EVCl('Tesla', 120, 23);
+
+tesla.accelerate();
+tesla.chargeBattery(90);
+tesla.brake();
+tesla.brake();
+tesla.brake();
+console.log(tesla.speed);
+tesla.accelerate();
+
+tesla
+    .accelerate()
+    .chargeBattery(100)
+    .accelerate()
+    .accelerate()
+    .accelerate()
+    .accelerate();
+
+// const bmw = new CarCl('BMW', 120);
+// const mercedes = new CarCl('Mercedes', 95);
+// const audi = new CarCl('Audi');
+
+/*
+// Parent "class"
+const Car = function (make, speed) {
+    this.speed = speed;
+    this.make = make;
+};
+
+// Parent methods
+Car.prototype.accelerate = function () {
+    console.log(`${this.make} going ${(this.speed += 10)} km/h`);
+};
+
+Car.prototype.brake = function () {
+    console.log(`${this.make} going ${(this.speed -= 5)} km/h`);
+};
+
+// Child "class"
+const EV = function (make, speed, charge) {
+    Car.call(this, make, speed);
+    this.charge = charge;
+};
+// Link prototypes
+EV.prototype = Object.create(Car.prototype);
+
+// Child methods
+EV.prototype.chargeBattery = function (chargeTo) {
+    this.charge = chargeTo;
+};
+// accelerate method used as its the first in the prototype chain for the EV object
+EV.prototype.accelerate = function () {
+    this.speed += 20;
+    this.charge--;
+    console.log(
+        `${this.make} is going at ${this.speed} km/h with a charge of ${this.charge}% 🚗`
+    );
+};
+
+// EV objects
+const tesla = new EV('Tesla', 120, 23);
+*/
