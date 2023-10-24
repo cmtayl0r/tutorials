@@ -90,6 +90,7 @@ account.latest = 50;
 console.log(account.movements); // [200, 498, 3038, 306, 567, 50]
 */
 
+/*
 class PersonCl {
     constructor(firstName, birthYear) {
         this.firstName = firstName;
@@ -111,6 +112,9 @@ class PersonCl {
         if (name.includes(' ')) this._firstName = name;
         else alert(`${name} is not a full name!`);
     }
+    static hey() {
+        console.log('Hey 👋');
+    }
 }
 
 const chris = new PersonCl('Chris Taylor', 1980);
@@ -119,7 +123,49 @@ chris.greet(); // Hey Chris!
 
 console.log(chris.age); // 57
 console.log(chris);
+console.log(chris.hey); // undefined
+console.log(PersonCl.hey()); // Hey 👋
+*/
 
 // -----------------------------------------------------------------------------
 // CHALLENGE 2
 // -----------------------------------------------------------------------------
+
+class CarCl {
+    constructor(make, speed) {
+        this.speed = speed;
+        this.make = make;
+    }
+
+    accelerate = function () {
+        // log new speed to console
+        console.log(`${this.make} going ${(this.speed += 10)} km/h`);
+    };
+
+    brake = function () {
+        // decrease speed by 5
+        // log new speed to console
+        console.log(`${this.make} going ${(this.speed -= 5)} km/h`);
+    };
+
+    get speedUS() {
+        return this.speed / 1.6;
+    }
+
+    set speedUS(value) {
+        this.speed = value * 1.6;
+    }
+}
+
+const bmw = new CarCl('BMW', 120);
+const mercedes = new CarCl('Mercedes', 95);
+const audi = new CarCl('Audi');
+
+console.log(audi);
+
+audi.speedUS = 100;
+
+console.log(audi);
+
+console.log(bmw.speedUS);
+console.log(bmw);
