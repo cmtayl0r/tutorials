@@ -131,6 +131,7 @@ console.log(PersonCl.hey()); // Hey 👋
 // CHALLENGE 2
 // -----------------------------------------------------------------------------
 
+/*
 class CarCl {
     constructor(make, speed) {
         this.speed = speed;
@@ -161,11 +162,10 @@ const bmw = new CarCl('BMW', 120);
 const mercedes = new CarCl('Mercedes', 95);
 const audi = new CarCl('Audi');
 
+audi.speedUS = 50;
 console.log(audi);
+*/
 
-audi.speedUS = 100;
-
-console.log(audi);
-
-console.log(bmw.speedUS);
-console.log(bmw);
+// -----------------------------------------------------------------------------
+// CHALLENGE 3
+// -----------------------------------------------------------------------------
