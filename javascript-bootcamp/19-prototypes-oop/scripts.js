@@ -7,6 +7,7 @@
 // We add some methods
 // Then we return the object
 
+/*
 const makeColor = function (r, g, b) {
     const color = {};
     color.r = r;
@@ -26,6 +27,7 @@ const makeColor = function (r, g, b) {
 };
 
 const myColor = makeColor(25, 83, 150);
+*/
 
 /*
 console.log(myColor.rgb()); // rgb(25,83,150)
@@ -74,7 +76,7 @@ console.log(firstCol.rgba(0.5)); // rgb(12,150,56,0.5)
 
 // CLASSES
 // -------------------------------
-
+/*
 class ColorCl {
     constructor(r, g, b, name) {
         this.r = r;
@@ -85,9 +87,6 @@ class ColorCl {
 
     innerRGB() {
         const { r, g, b } = this;
-        /* 
-        Without destructuring, you would have to prefix each usage with this., e.g., this.r, this.g, and this.b. This can become visually noisy, especially in more complex methods.
-        */
         return `${r},${g},${b}`;
     }
 
@@ -116,4 +115,65 @@ console.log(myColor1.rgb()); // rgb(12,150,56)
 console.log(myColor1.rgba(0.7)); // rgb(12,150,56,0.7)
 console.log(myColor2.hex()); //#0c96ff
 console.log(myColor2.name); // bluey
-console.log(myColor2.rgba(0.4));
+console.log(myColor2.rgba(0.4)); // rgb(12,150,255,0.4)
+*/
+
+// --------------------------------------------------------------
+// DESTRUCTURING
+// --------------------------------------------------------------
+
+// PARAMETER DESTRUCTURING
+
+const response = ['HTTP/1.1', '200 OK', 'application/json'];
+
+const parseResponse = function ([protocol, statusCode, contentType]) {
+    console.log(`Status: ${statusCode}`);
+};
+
+parseResponse(response); // Status: 200 OK
+
+// SPREAD
+
+// Define a function that takes an array
+const getStats = arr => {
+    // Calc the max number from all the array values
+    const max = Math.max(...arr);
+    // Calc the min number from all the array values
+    const min = Math.min(...arr);
+    // Calc the sum value of all the numbers in the array
+    // Reduce iterates over all values in the array, adding each value to sum
+    const sum = arr.reduce((sum, val) => sum + val);
+    // Calc the avg number from all array values
+    const avg = sum / arr.length;
+    // Return an object containing calculated values for min, mac, sum, avg
+    return {
+        max,
+        min,
+        sum,
+        avg,
+    };
+};
+
+// Array to use function on
+const reviews = [4.5, 5.0, 3.44, 2.8, 3.5, 4.0, 3.5];
+
+// Call the getStats function with the array as its argument
+// Attach the returned object to a variable
+const stats = getStats(reviews);
+
+console.log(stats); // {max: 5, min: 2.8, sum: 26.74, avg: 3.82}
+
+///////
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+
+const calcSum = function (...nums) {
+    let result = 0;
+    // iterate over the array to calculate the number
+    for (const num of nums) {
+        result += num;
+    }
+    return result;
+};
+
+console.log(calcSum(1, 2, 3, 4, 5, 6));
