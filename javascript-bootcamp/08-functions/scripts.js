@@ -39,4 +39,39 @@ console.log(isValidPassword('9Fjjimnsdave', 'dave'));
 */
 
 // -----------------------------------------------------------------------------
-// CHALLENGE 2 -- PASSWORD VALIDATION
+// CHALLENGE 2 -- AVERAGE NUMBER
+
+/*
+const avg = function (arr) {
+    let total = 0;
+    for (let num of arr) {
+        total += num;
+    }
+    return total / arr.length;
+};
+
+console.log(avg([50, 0])); // 25
+console.log(avg([75, 76, 80, 95, 100])); // 85.2
+*/
+
+// -----------------------------------------------------------------------------
+// CHALLENGE 3 -- PANGRAM
+
+const isPangram = function (str) {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    const sentence = str.toLowerCase();
+
+    for (let letter of alphabet) {
+        // if sentence does not include a letter from alphabet, return false
+        if (!sentence.includes(letter)) {
+            return false;
+        }
+    }
+    // If we make it here, every letter was found
+    return true;
+};
+
+// isPangram('The five boxing wizards jump quickly'); // true
+// isPangram('The five boxing wizards jump quick'); // false
+console.log(isPangram('The five boxing wizards jump quickly'));
+// console.log(isPangram('The five boxing wizards jump quickl'));
