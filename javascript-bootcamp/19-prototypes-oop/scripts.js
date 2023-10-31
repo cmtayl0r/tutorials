@@ -163,17 +163,46 @@ const stats = getStats(reviews);
 
 console.log(stats); // {max: 5, min: 2.8, sum: 26.74, avg: 3.82}
 
-///////
+//////
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-
-const calcSum = function (...nums) {
-    let result = 0;
-    // iterate over the array to calculate the number
-    for (const num of nums) {
-        result += num;
-    }
-    return result;
+const pickCard = function (arr) {
+    // Calculates a random index based on the length of the array given
+    // Math.random() returns a number between 0 and 1
+    // This number is then multiplied by the array's length to get a value in the range
+    // Math.floor() rounds down to the nearest whole number
+    const index = Math.floor(Math.random() * arr.length);
+    // Return element from array based on random index
+    return arr[index];
 };
 
-console.log(calcSum(1, 2, 3, 4, 5, 6));
+const getCard = function () {
+    // Initializes an array of card values (1 through King).
+    const values = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        'J',
+        'Q',
+        'K',
+    ];
+    // Initializes an array of card suits
+    const suits = ['clubs', 'spades', 'hearts', 'diamonds'];
+    // Calls the `pickCard` function to get a random value from the `values` array
+    const value = pickCard(values);
+    // Calls the `pickCard` function to get a random suit from the `suits` array
+    const suit = pickCard(suits);
+    // Returns an object representing a card with randomly chosen value and suit
+    return {
+        value: value,
+        suit: suit,
+    };
+};
+
+console.log(getCard());
