@@ -87,12 +87,11 @@ const warriorsGames = [
     },
 ];
 
-// create ul
-const ulParent = document.createElement('ul');
-
 // FN: Create list of games
 // Pass in data object & a target team
 const createList = function (games, targetTeam) {
+    // create containingul
+    const ulParent = document.createElement('ul');
     // Loop over each game object in the games array
     for (let game of games) {
         // 1 - Create li element to populate
@@ -146,13 +145,14 @@ const getScoreline = function ({ homeTeam, awayTeam }) {
     return `${teamNames} ${score}`;
 };
 
-// Select the body of the document.
-const container = document.querySelector('body');
+// Select target containers for each team
+const gswSection = document.querySelector('#gs');
+const hrSection = document.querySelector('#hr');
 
 // Calling the createList function for both teams and storing the resulting 'ul's
-const chart1 = createList(warriorsGames, 'Golden State');
-const chart2 = createList(warriorsGames, 'Houston');
+const gswChart = createList(warriorsGames, 'Golden State');
+const hrChart = createList(warriorsGames, 'Houston');
 
-// Appending both 'ul's to the body of the document.
-container.append(chart1);
-container.append(chart2);
+// Appending both 'ul's to their relevant sections
+gswSection.appendChild(gswChart);
+hrSection.appendChild(hrChart);
