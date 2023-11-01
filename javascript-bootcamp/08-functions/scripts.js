@@ -61,6 +61,7 @@ const isPangram = function (str) {
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     const sentence = str.toLowerCase();
 
+    // Loop over every letter of the alphabet string
     for (let letter of alphabet) {
         // if sentence does not include a letter from alphabet, return false
         if (!sentence.includes(letter)) {
@@ -71,7 +72,46 @@ const isPangram = function (str) {
     return true;
 };
 
-// isPangram('The five boxing wizards jump quickly'); // true
-// isPangram('The five boxing wizards jump quick'); // false
 console.log(isPangram('The five boxing wizards jump quickly'));
-// console.log(isPangram('The five boxing wizards jump quickl'));
+console.log(isPangram('The five boxing wizards jump quickl'));
+
+// -----------------------------------------------------------------------------
+// CHALLENGE 4 -- Get playing card
+
+const random = function (arr) {
+    const random = Math.floor(Math.random() * arr.length);
+    return arr[random];
+};
+
+const getCard = function () {
+    // array of values
+    const values = [
+        'A',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        'J',
+        'Q',
+        'K',
+    ];
+    // array of suits
+    const suits = ['Spades', 'Clubs', 'Hearts', 'Diamonds'];
+
+    // Connect output values to random function
+    const value = random(values);
+    const suit = random(suits);
+
+    // return object including function output
+    return {
+        value: value,
+        suit: suit,
+    };
+};
+
+// getCard()
