@@ -90,46 +90,69 @@ const warriorsGames = [
 // create ul
 const ulParent = document.createElement('ul');
 
-const createList = function (games) {
-    // Loop over object
+// FN: Create list of games
+// Pass in data object & a target team
+const createList = function (games, targetTeam) {
+    // Loop over each game object in the games array
     for (let game of games) {
-        // Destructure each child object to get easy access to each team object
-        const { homeTeam, awayTeam } = game;
-
-        // Destructure further to isolate the team name and the points
-        const { team: hTeam, points: hScore } = homeTeam;
-        const { team: aTeam, points: aScore } = awayTeam;
-
-        // Create li element
+        // 1 - Create li element to populate
         const gameLi = document.createElement('li');
-        // Add initial text content to li
-        const teamNames = (gameLi.textContent = `${aTeam} @ ${hTeam}`);
 
-        // Apply bold tag to winning score
-        let score;
-        if (aScore > hScore) {
-            score = `<b>${aScore}</b>-${hScore}`;
-        } else {
-            score = `${aScore}-<b>${hScore}</b>`;
-        }
+        // 2 - Get score string
+        // --> Set li content to result of function
+        // --> function applied to each game object
+        gameLi.innerHTML = getScoreline(game);
 
-        // Apply winner or loser bg color to warriors
-        const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
-        gameLi.classList.add(warriors.isWinner ? 'win' : 'lose');
+        // 3 - Apply winner or loser styling to target team
+        // --> If the result of isWinner() function is true, add 'win' class to the 'li', else add 'lose'.
+        // --> Applies win or loss class to targetTeam
+        gameLi.classList.add(isWinner(game, targetTeam) ? 'win' : 'lose');
 
-        // Combine each text element into each li
-        gameLi.innerHTML = `${teamNames} ${score}`;
-        // Append each li to ul to create list
+        // 4 - Append each li to ul to create list
         ulParent.appendChild(gameLi);
     }
-    // Return generated list
+    // Return the 'ul' containing the 'li' elements.
     return ulParent;
 };
 
+// FN: Determine if the target team won
+// --> Pass in destructured game object to get home and away team objects
+const isWinner = function ({ homeTeam, awayTeam }, targetTeam) {
+    // If the home team's name matches the target team's name, select the home team, else select the away team
+    const target = homeTeam.team === targetTeam ? homeTeam : awayTeam;
+    // Return true if the selected team won, else false.
+    return target.isWinner;
+};
+
+// FN: Generate a score string
+const getScoreline = function ({ homeTeam, awayTeam }) {
+    // 1 - Further destructuring to get the name and score of both teams.
+    const { team: hTeam, points: hScore } = homeTeam;
+    const { team: aTeam, points: aScore } = awayTeam;
+
+    // 2 - Generating the team names string
+    const teamNames = `${aTeam} @ ${hTeam}`;
+
+    // 3 - Compare the scores and bold the score of the winning team
+    // --> score variable block scoped if defined in if else statement
+    // --> initialized outside to ensure that it's accessible after the conditionals
+    let score;
+    if (aScore > hScore) {
+        score = `<b>${aScore}</b>-${hScore}`;
+    } else {
+        score = `${aScore}-<b>${hScore}</b>`;
+    }
+    // Return the string in the format "teamNames score".
+    return `${teamNames} ${score}`;
+};
+
+// Select the body of the document.
 const container = document.querySelector('body');
 
-const chart1 = createList(warriorsGames);
-container.append(chart1);
+// Calling the createList function for both teams and storing the resulting 'ul's
+const chart1 = createList(warriorsGames, 'Golden State');
+const chart2 = createList(warriorsGames, 'Houston');
 
-const chart2 = createList(warriorsGames);
+// Appending both 'ul's to the body of the document.
+container.append(chart1);
 container.append(chart2);
