@@ -86,3 +86,50 @@ const warriorsGames = [
         },
     },
 ];
+
+// create ul
+const ulParent = document.createElement('ul');
+
+const createList = function (games) {
+    // Loop over object
+    for (let game of games) {
+        // Destructure each child object to get easy access to each team object
+        const { homeTeam, awayTeam } = game;
+
+        // Destructure further to isolate the team name and the points
+        const { team: hTeam, points: hScore } = homeTeam;
+        const { team: aTeam, points: aScore } = awayTeam;
+
+        // Create li element
+        const gameLi = document.createElement('li');
+        // Add initial text content to li
+        const teamNames = (gameLi.textContent = `${aTeam} @ ${hTeam}`);
+
+        // Apply bold tag to winning score
+        let score;
+        if (aScore > hScore) {
+            score = `<b>${aScore}</b>-${hScore}`;
+        } else {
+            score = `${aScore}-<b>${hScore}</b>`;
+        }
+
+        // Apply winner or loser bg color to warriors
+        const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
+        gameLi.classList.add(warriors.isWinner ? 'win' : 'lose');
+
+        // Combine each text element into each li
+        gameLi.innerHTML = `${teamNames} ${score}`;
+        // Append each li to ul to create list
+        ulParent.appendChild(gameLi);
+    }
+    // Return generated list
+    return ulParent;
+};
+
+const container = document.querySelector('body');
+
+const chart1 = createList(warriorsGames);
+container.append(chart1);
+
+const chart2 = createList(warriorsGames);
+container.append(chart2);
