@@ -97,12 +97,12 @@ const createList = function (games, targetTeam) {
         // 1 - Create li element to populate
         const gameLi = document.createElement('li');
 
-        // 2 - Get score string
+        // 2 - Get score string via FN
         // --> Set li content to result of function
         // --> function applied to each game object
         gameLi.innerHTML = getScoreline(game);
 
-        // 3 - Apply winner or loser styling to target team
+        // 3 - Apply winner or loser styling to target team via FN
         // --> If the result of isWinner() function is true, add 'win' class to the 'li', else add 'lose'.
         // --> Applies win or loss class to targetTeam
         gameLi.classList.add(isWinner(game, targetTeam) ? 'win' : 'lose');
@@ -124,6 +124,7 @@ const isWinner = function ({ homeTeam, awayTeam }, targetTeam) {
 };
 
 // FN: Generate a score string
+// --> Pass in destructured game object to get home and away team objects
 const getScoreline = function ({ homeTeam, awayTeam }) {
     // 1 - Further destructuring to get the name and score of both teams.
     const { team: hTeam, points: hScore } = homeTeam;
