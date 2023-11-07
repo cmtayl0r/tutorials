@@ -153,10 +153,12 @@ class App {
         // Check if numbers inputted are positive
         const allPositive = (...inputs) => inputs.every(inp => inp > 0);
 
-        // 1 - Get data from the form
+        // 1a - Get data from the form
         const type = inputType.value;
         const distance = +inputDistance.value; // + = convert to number
         const duration = +inputDuration.value; // + = convert to number
+
+        // 1b - Set block scope variables to use throughout function
         // Extracts latitude and longitude from the map click event object
         // --> Destructure property (latlng) from click object
         const { lat, lng } = this.#mapEvent.latlng;
@@ -223,6 +225,7 @@ class App {
 
     renderWorkoutMarker(workout) {
         // Display/create Leaflet marker on map at the clicked location
+        // pass in workout object coordinates (lat+lng)
         L.marker(workout.coords)
             .addTo(this.#map) // Adds the marker to the map
             .bindPopup(
