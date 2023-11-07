@@ -25,7 +25,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
     // Key properties
     date = new Date();
-    id = (Date.now() + '').slice(-10);
+    id = (Date.now() + '').slice(-10); // temp ID solution
 
     constructor(coords, distance, duration) {
         this.coords = coords; // [lat, long]
@@ -34,7 +34,9 @@ class Workout {
     }
 }
 
+// CHILDREN CLASSES
 class Running extends Workout {
+    type = 'running';
     constructor(coords, distance, duration, cadence) {
         super(coords, distance, duration);
         this.cadence = cadence;
@@ -48,6 +50,7 @@ class Running extends Workout {
     }
 }
 class Cycling extends Workout {
+    type = 'cycling';
     constructor(coords, distance, duration, elevationGain) {
         super(coords, distance, duration);
         this.elevationGain = elevationGain;
@@ -61,18 +64,15 @@ class Cycling extends Workout {
     }
 }
 
-const run1 = new Running([29, -12], 5.2, 24, 178);
-const cycle1 = new Cycling([29, -12], 27, 95, 523);
-console.log(run1, cycle1);
-
 // -----------------------------------------------------------------------------
 // 🛠️ CLASS: APP
 // -> Application architecture containing all the app methods
 // -----------------------------------------------------------------------------
 class App {
-    // Private classes used similar to global variables
+    // Public properties used similar to global variables
     #map; // Private class field declaration for storing the map instance
     #mapEvent; // Private class field to store map click event data
+    #workouts = []; // Empty array to store workouts
 
     constructor() {
         // Invokes a method to get the user's current geographical position
@@ -142,19 +142,88 @@ class App {
     _newWorkout(e) {
         e.preventDefault();
 
+        // ⚙️ Helper function 1 --> for form validation
+        // Use rest operator to take any amount of arguments in the form of a created array
+        // Loop over array of form input values, and check if each number is finite
+        // Returns true or false
+        const validInputs = (...inputs) =>
+            inputs.every(inp => Number.isFinite(inp));
+
+        // ⚙️ Helper function 2 --> for form validation
+        // Check if numbers inputted are positive
+        const allPositive = (...inputs) => inputs.every(inp => inp > 0);
+
+        // 1 - Get data from the form
+        const type = inputType.value;
+        const distance = +inputDistance.value; // + = convert to number
+        const duration = +inputDuration.value; // + = convert to number
+        // Extracts latitude and longitude from the map click event object
+        // --> Destructure property (latlng) from click object
+        const { lat, lng } = this.#mapEvent.latlng;
+        // Make workout variable available across function scope
+        let workout;
+
+        // 2a - If activity running, create running object
+        // 'running' is value from select input
+        if (type === 'running') {
+            const cadence = +inputCadence.value; // + = convert to number
+            // Check if data is valid
+            // Guard. If not number, return instantly with alert (error)
+            if (
+                // !Number.isFinite(distance) ||
+                // !Number.isFinite(duration) ||
+                // !Number.isFinite(cadence)
+                // Use helper functions to reduce duplication
+                !validInputs(distance, duration, cadence) ||
+                !allPositive(distance, duration, cadence)
+            )
+                return alert('Inputs have to be positive numbers');
+
+            // If valid, create new Class object with values
+            workout = new Running([lat, lng], distance, duration, cadence);
+        }
+
+        // 2b - If activity cycling, create cycling object
+        // 'cycling' is value from select input
+        if (type === 'cycling') {
+            const elevation = +inputElevation.value; // + = convert to number
+            // Check if data is valid
+            // Guard. If not number, return instantly with alert (error)
+            if (
+                // Same helper function approach as running
+                !validInputs(distance, duration, elevation) ||
+                !allPositive(distance, duration, elevation)
+            )
+                return alert('Inputs have to be positive numbers');
+
+            // If valid, create new Class object with values
+            workout = new Cycling([lat, lng], distance, duration, elevation);
+        }
+
+        // 2c - Add new workout to workouts array
+        this.#workouts.push(workout);
+
+        console.log(this.#workouts);
+
+        // 3 - Add new object to workout array
+
+        // 4 - Render workout on map as marker
+        this.renderWorkoutMarker(workout);
+
+        // TODO: Render workout on list
+
+        // TODO: Hide form + Clear fields
         // Clears all the input fields of workout form by setting their values to an empty string
         inputDistance.value =
             inputDuration.value =
             inputCadence.value =
             inputElevation.value =
                 '';
+    }
 
-        // Display Leaflet marker on map
-        // Extracts latitude and longitude from the map click event stored earlier
-        // --> Destructure property (latlng) from click object
-        const { lat, lng } = this.#mapEvent.latlng;
-        // Creates a marker on the map at the clicked location
-        L.marker([lat, lng])
+    renderWorkoutMarker(workout) {
+        // Display/create Leaflet marker on map at the clicked location
+        L.marker(workout.coords)
             .addTo(this.#map) // Adds the marker to the map
             .bindPopup(
                 // Binds a popup to the marker
@@ -163,10 +232,10 @@ class App {
                     minWidth: 100,
                     autoClose: false,
                     closeOnClick: false, // Prevents the popup from closing when the user clicks on the map
-                    className: 'running-popup', // Adds a custom class name to the popup for styling
+                    className: `${workout.type}-popup`, // Adds a custom class name to the popup for styling
                 })
             )
-            .setPopupContent('Workout') // Sets the content of the popup
+            .setPopupContent('workout') // Sets the content of the popup
             .openPopup(); // Opens the popup immediately
     }
 }
