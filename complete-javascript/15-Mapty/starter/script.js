@@ -19,8 +19,55 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 // -----------------------------------------------------------------------------
+// 🛠️ CLASS: WORKOUT
+// -----------------------------------------------------------------------------
+
+class Workout {
+    // Key properties
+    date = new Date();
+    id = (Date.now() + '').slice(-10);
+
+    constructor(coords, distance, duration) {
+        this.coords = coords; // [lat, long]
+        this.distance = distance; // in km
+        this.duration = duration; // in min
+    }
+}
+
+class Running extends Workout {
+    constructor(coords, distance, duration, cadence) {
+        super(coords, distance, duration);
+        this.cadence = cadence;
+        this.calcPace();
+    }
+
+    calcPace() {
+        // min/km
+        this.pace = this.duration / this.distance;
+        return this.pace;
+    }
+}
+class Cycling extends Workout {
+    constructor(coords, distance, duration, elevationGain) {
+        super(coords, distance, duration);
+        this.elevationGain = elevationGain;
+        this.calcSpeed();
+    }
+
+    calcSpeed() {
+        // min/km
+        this.speed = this.distance / (this.duration / 60);
+        return this.speed;
+    }
+}
+
+const run1 = new Running([29, -12], 5.2, 24, 178);
+const cycle1 = new Cycling([29, -12], 27, 95, 523);
+console.log(run1, cycle1);
+
+// -----------------------------------------------------------------------------
 // 🛠️ CLASS: APP
-// -> Containing all the app methods
+// -> Application architecture containing all the app methods
 // -----------------------------------------------------------------------------
 class App {
     // Private classes used similar to global variables
@@ -59,7 +106,7 @@ class App {
         const { longitude } = position.coords; // Destructuring to get longitude from the position object
         const coords = [latitude, longitude]; // Creates an array with latitude and longitude
 
-        // Connect leaflet map to map id on html page
+        // Connect leaflet map (L) to map id on html page
         // Initializes a Leaflet map and sets the view to the user's coordinates with a zoom level of 13
         this.#map = L.map('map').setView(coords, 13);
 
