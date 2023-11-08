@@ -78,6 +78,7 @@ class Cycling extends Workout {
 class App {
     // Public properties used similar to global variables
     #map; // Private class field declaration for storing the map instance
+    #mapZoomLevel = 13;
     #mapEvent; // Private class field to store map click event data
     #workouts = []; // Empty array to store workouts
 
@@ -88,6 +89,11 @@ class App {
         form.addEventListener('submit', this._newWorkout.bind(this));
         // Adds an event listener to input element (select) for detecting changes and toggling the elevation input field
         inputType.addEventListener('change', this._toggleElevationField);
+        // Adds an event listener to x so when you click workout in list it moves to pin on map
+        containerWorkouts.addEventListener(
+            'click',
+            this._moveToPopup.bind(this)
+        );
     }
 
     _getPosition() {
@@ -115,7 +121,7 @@ class App {
 
         // Connect leaflet map (L) to map id on html page
         // Initializes a Leaflet map and sets the view to the user's coordinates with a zoom level of 13
-        this.#map = L.map('map').setView(coords, 13);
+        this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
 
         // Sets the tile layer for the map using OpenStreetMap tiles with Leaflet
         L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -310,6 +316,23 @@ class App {
             `;
         }
         form.insertAdjacentHTML('afterend', html);
+    }
+
+    _moveToPopup(e) {
+        const workoutEl = e.target.closest('.workout');
+        // Guard clause. If no workout clicked (so null) just return
+        if (!workoutEl) return;
+
+        const workout = this.#workouts.find(
+            work => work.id === workoutEl.dataset.id
+        );
+
+        this.#map.setView(workout.coords, this.#mapZoomLevel, {
+            animate: true,
+            pan: {
+                duration: 1,
+            },
+        });
     }
 }
 
