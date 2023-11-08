@@ -137,13 +137,15 @@ class App {
         inputDistance.focus();
     }
     _hideForm() {
-        // empty inputs
+        // Clears all the input fields of workout form by setting their values to an empty string
         inputDistance.value =
             inputDuration.value =
             inputCadence.value =
             inputElevation.value =
                 '';
         // Add the 'hidden' class from the form to make it invisible
+        // FIXME: hack here to remove form on new workout submit ...
+        // ... then change display value to get ready for next animation of form
         form.style.display = 'none';
         form.classList.add('hidden');
         setTimeout(() => (form.style.display = 'grid'), 1000);
@@ -224,9 +226,7 @@ class App {
         // 2c - Add new workout to workouts array
         this.#workouts.push(workout);
 
-        console.log(this.#workouts);
-
-        // 3 - Add new object to workout array
+        // TODO: 3 - Add new object to workout array
 
         // 4 - Render workout on map as marker
         this._renderWorkoutMarker(workout);
@@ -235,7 +235,6 @@ class App {
         this._renderWorkout(workout);
 
         // 6 - Hide form + Clear fields
-        // Clears all the input fields of workout form by setting their values to an empty string
         this._hideForm();
     }
 
