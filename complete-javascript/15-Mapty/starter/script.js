@@ -345,6 +345,7 @@ class App {
         });
     }
 
+    // Turn created workouts into a JSOn string to be saved in local storage
     _setLocalStorage() {
         localStorage.setItem('workouts', JSON.stringify(this.#workouts));
     }
@@ -352,7 +353,6 @@ class App {
     _getLocalStorage() {
         // Turn JSON string (from _setLocalStorage) into object
         const data = JSON.parse(localStorage.getItem('workouts'));
-        console.log(data);
 
         // guard clause, if no data exists
         if (!data) return;
@@ -365,6 +365,7 @@ class App {
         });
     }
 
+    // Remove all workouts
     reset() {
         localStorage.removeItem('workouts');
         location.reload();
