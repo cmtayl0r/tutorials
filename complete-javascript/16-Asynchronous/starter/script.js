@@ -1,78 +1,83 @@
 'use strict';
 
+// https://countries-api-836d.onrender.com/countries/
+
+// Selecting DOM elements
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
 
-// https://countries-api-836d.onrender.com/countries/
+// Render country on web page
+const renderCountry = function (data, className = '') {
+    console.log(data);
 
-// AJAX call country 1
-const getCountryData = function (country, className = '') {
-    const request = new XMLHttpRequest();
-    request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
-    request.send();
+    const languageKey = Object.keys(data.languages || {})[0];
+    const language = languageKey ? data.languages[languageKey] : 'N/A';
+    const currencyKey = Object.keys(data.currencies || {})[0];
+    const currency = currencyKey ? data.currencies[currencyKey] : 'N/A';
 
-    // Function to render country
-    const renderCountry = function (data) {
-        // Access first values of nested object values in API
-        const firstLanguageKey = Object.keys(data.languages)[0];
-        const firstLanguage = data.languages[firstLanguageKey];
-        const firstCurrencyKey = Object.keys(data.currencies)[0];
-        const firstCurrency = data.currencies[firstCurrencyKey].name;
-
-        // Calc population = use + to convert to number, then calculate
-        const html = `
-        <article class="country ${className}">
-          <img class="country__img" src="${data.flags.png}" />
-          <div class="country__data">
-            <h3 class="country__name">${data.name.common}</h3>
-            <h4 class="country__region">${data.region}</h4>
-            <p class="country__row"><span>👫</span>${(
-                +data.population / 1000000
-            ).toFixed(1)} people</p>
-            <p class="country__row"><span>🗣️</span>${firstLanguage}</p>
-            <p class="country__row"><span>💰</span>${firstCurrency}</p>
-          </div>
-        </article>
-        `;
-
-        countriesContainer.insertAdjacentHTML('beforeend', html);
-        countriesContainer.style.opacity = 1;
-    };
-
-    request.addEventListener('load', function () {
-        //this = the request
-        // Convert JSON string into an object (JSON.parse)
-        // Destructure to directly extract the first element from the array...
-        // ... without having to access it with an index like array[0]
-        const [data] = JSON.parse(this.responseText);
-        console.log(data);
-
-        // Render country 1
-        renderCountry(data);
-
-        const neighbour = data.borders?.[0];
-
-        // Guard claus eif no neighbours exists
-        if (!neighbour) return;
-
-        // AJAX call country 2
-        const request2 = new XMLHttpRequest();
-        request2.open(
-            'GET',
-            `https://restcountries.com/v3.1/alpha?codes=${neighbour}`
-        );
-        request2.send();
-
-        request2.addEventListener('load', function () {
-            const [data2] = JSON.parse(this.responseText);
-            console.log(data2);
-
-            // Render country 2
-            renderCountry(data2, 'neighbour');
-        });
-    });
+    const html = `
+    <article class="country ${className}">
+      <img class="country__img" src="${data.flags.png}" />
+      <div class="country__data">
+        <h3 class="country__name">${data.name.common}</h3>
+        <h4 class="country__region">${data.region}</h4>
+        <p class="country__row"><span>👫</span>${(
+            +data.population / 1000000
+        ).toFixed(1)}m people</p>
+        <p class="country__row"><span>🗣️</span>${language}</p>
+        <p class="country__row"><span>💰</span>${currency.name}</p>
+      </div>
+    </article>
+    `;
+    countriesContainer.insertAdjacentHTML('beforeend', html);
 };
 
-getCountryData('usa');
+// Render error on promise errors
+const renderError = function (msg) {
+    countriesContainer.insertAdjacentText('beforeend', msg);
+};
+
+const getCountryData = function (country) {
+    // Chaining promises
+
+    // Country 1
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        // Convert response from API to JSON
+        .then(response => response.json())
+        .then(data => {
+            // render first country
+            renderCountry(data[0]);
+            const neighbour = data[0].borders[0];
+
+            // Guard clause if no neighbour exists
+            if (!neighbour) return;
+
+            // Country 2
+            // return a new promise
+            return fetch(
+                `https://restcountries.com/v3.1/alpha?codes=${neighbour}`
+            );
+        })
+        // Convert response from API to JSON
+        .then(response => response.json())
+        // render second country
+        .then(data => renderCountry(data[0], 'neighbour'))
+        // Catch any errors that occur in this promise chain
+        .catch(err => {
+            renderError(
+                `Something went wrong 💥💥💥 ${err.message}. Try again!`
+            );
+        })
+        // 'finally' executes code regardless of the promises fate
+        // example - show loading spinner, hide when promise fulfilled
+        // this example, fade in the country, OR the error message
+        .finally(() => {
+            countriesContainer.style.opacity = 1;
+        });
+};
+
+btn.addEventListener('click', function () {
+    getCountryData('united kingdom');
+});
