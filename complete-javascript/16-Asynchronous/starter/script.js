@@ -34,7 +34,7 @@ const renderCountry = function (data, className = '') {
     countriesContainer.insertAdjacentHTML('beforeend', html);
 };
 
-// Render error on promise errors
+// Render error on API promise errors
 const renderError = function (msg) {
     countriesContainer.insertAdjacentText('beforeend', msg);
 };
