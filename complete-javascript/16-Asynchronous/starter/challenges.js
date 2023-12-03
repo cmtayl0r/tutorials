@@ -2,6 +2,7 @@
 
 // CHALLENGE 1
 
+/*
 const whereAmI = function (lat, lng) {
     // Fetch data from Geocode API
     fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
@@ -31,6 +32,7 @@ const whereAmI = function (lat, lng) {
             return renderCountry(data[0]);
         })
         .catch(err => {
+            // Run error function
             renderError(`Summat went wrong bruv ${err.message}`);
         })
         .finally(() => {
@@ -39,3 +41,4 @@ const whereAmI = function (lat, lng) {
 };
 
 whereAmI('52.508', '13.381');
+*/

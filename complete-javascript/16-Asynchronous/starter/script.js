@@ -155,5 +155,30 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-    getCountryData('australia');
+    getCountryData('austria');
 });
+
+/*
+--------------------------------------------------------------------------------
+THE EVENT LOOP IN PRACTICE
+--------------------------------------------------------------------------------
+*/
+
+console.log('Test start');
+setTimeout(() => console.log('0 sec timer'), 0);
+Promise.resolve('Resolved Promise 1').then(res => console.log(res));
+Promise.resolve('Resolved Promise 2').then(res => {
+    for (let i = 0; i < 1000000000; i++) {
+        // Simulate microtask is taking a long time
+    }
+    console.log(res);
+});
+console.log('Test end');
+
+/*
+Execution order:
+Test start (synchronous executed first)
+Test end (synchronous executed first)
+Resolved Promise 1 (microtask queue prioritised over callback queue)
+0 sec timer (callback queue)
+*/
