@@ -112,6 +112,7 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
     });
 };
 
+/*
 const getCountryData = function (country) {
     // Country 1
     getJSON(
@@ -157,6 +158,7 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
     getCountryData('austria');
 });
+*/
 
 /*
 --------------------------------------------------------------------------------
@@ -164,21 +166,127 @@ THE EVENT LOOP IN PRACTICE
 --------------------------------------------------------------------------------
 */
 
+/*
 console.log('Test start');
 setTimeout(() => console.log('0 sec timer'), 0);
 Promise.resolve('Resolved Promise 1').then(res => console.log(res));
 Promise.resolve('Resolved Promise 2').then(res => {
     for (let i = 0; i < 1000000000; i++) {
         // Simulate microtask is taking a long time
+        // setTimeout will only be executed after the microtask (promise)
     }
     console.log(res);
 });
 console.log('Test end');
+*/
 
 /*
 Execution order:
 Test start (synchronous executed first)
 Test end (synchronous executed first)
 Resolved Promise 1 (microtask queue prioritised over callback queue)
+Resolved Promise 2 (microtask queue prioritised over callback queue)
 0 sec timer (callback queue)
 */
+
+/*
+--------------------------------------------------------------------------------
+BUILDING A SIMPLE PROMISE
+--------------------------------------------------------------------------------
+*/
+
+// Promise constructor = special kind of object in JavaScript
+// Takes 1 argument, the "executor function"
+// The executer function passes in 2 arguments as functions (resolve and reject)
+/*
+const lotteryPromise = new Promise(function (resolve, reject) {
+    if (Math.random() >= 0.5) {
+        resolve('you WIN! 💰');
+    } else {
+        reject(new Error('You lost your money 💩'));
+    }
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+*/
+/*
+// A function that returns a promise
+// Just like the Fetch API function
+// Promisifying setTimeout
+const wait = function (seconds) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, seconds * 1000);
+    });
+};
+
+// Consume the promise
+// chain promises then by return the function containing a promise
+wait(2)
+    .then(() => {
+        console.log('I waited for 2 seconds');
+        return wait(1);
+    })
+    .then(() => {
+        console.log('I waited for 1 second');
+        return wait(3);
+    })
+    .then(() => {
+        console.log('I waited for 3 seconds');
+    });
+*/
+
+/*
+--------------------------------------------------------------------------------
+Promisifying the Geolocation API
+--------------------------------------------------------------------------------
+*/
+
+const getPosition = function () {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(
+            position => resolve(position),
+            err => reject(err)
+        );
+    });
+};
+
+// getPosition().then(pos => console.log(pos));
+
+const whereAmI = function () {
+    getPosition()
+        .then(pos => {
+            const { latitude: lat, longitude: lng } = pos.coords;
+            console.log(lat, lng);
+            return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+        })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Problem with geocoding ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            console.log(data);
+            console.log(`You are in ${data.city}, ${data.country}`);
+            return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
+        })
+        .then(res => {
+            if (!res.ok) throw new Error(`Country not found (${res.status})`);
+            return res.json();
+        })
+        // Run helper function to render country
+        .then(data => renderCountry(data[0]))
+        .catch(err => {
+            console.error(`${err.message} 💥`);
+            renderError(
+                `Something went wrong 💥💥💥 ${err.message}. Try again!`
+            );
+        })
+        // 'finally' executes code regardless of the promises fate
+        // example - show loading spinner, hide when promise fulfilled
+        // this example, fade in the country, OR the error message
+        .finally(() => {
+            countriesContainer.style.opacity = 1;
+        });
+};
+
+btn.addEventListener('click', whereAmI);
