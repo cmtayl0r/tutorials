@@ -1,6 +1,8 @@
 'use strict';
 
+// -----------------------------------------------------------------------------
 // CHALLENGE 1
+// -----------------------------------------------------------------------------
 
 /*
 const whereAmI = function (lat, lng) {
@@ -42,3 +44,37 @@ const whereAmI = function (lat, lng) {
 
 whereAmI('52.508', '13.381');
 */
+
+// -----------------------------------------------------------------------------
+// CHALLENGE 2
+// -----------------------------------------------------------------------------
+
+const imageContainer = document.querySelector('.images');
+
+// CREATE THE PROMISE
+
+const createImage = function (imgPath) {
+    return new Promise(function (resolve, reject) {
+        // 1. CReate image element in DOM, set src attribute
+        const image = document.createElement('img');
+        image.setAttribute('src', imgPath);
+
+        // 2. When image done loading
+        image.addEventListener('load', function () {
+            // Append image to container
+            imageContainer.append(image);
+            // Resolve the promise
+            // Resolve vale should be the image
+            resolve(image);
+        });
+        // 3. If error occurs in loading
+        image.addEventListener('error', function () {
+            // Reject the promise
+            reject(new Error('Image not found 💥'));
+        });
+    });
+};
+
+createImage('img/img-1.jpg');
+
+// CONSUME THE PROMISE

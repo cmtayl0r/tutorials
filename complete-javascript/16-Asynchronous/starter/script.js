@@ -255,26 +255,31 @@ const getPosition = function () {
 const whereAmI = function () {
     getPosition()
         .then(pos => {
+            // destructure latitude and longitude values from geolocation object
             const { latitude: lat, longitude: lng } = pos.coords;
-            console.log(lat, lng);
+            // Return new promise and fetch data from Geocode API
             return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
         })
         .then(res => {
+            // Use response object returned by geocode
+            // Reject promise if geocode data not found
             if (!res.ok)
                 throw new Error(`Problem with geocoding ${res.status}`);
+            // Convert the response to JSON and return it as a new promise
             return res.json();
         })
         .then(data => {
-            console.log(data);
             console.log(`You are in ${data.city}, ${data.country}`);
             return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
         })
         .then(res => {
+            // Use response object returned by restcountries
+            // Reject promise if geocode data not found
             if (!res.ok) throw new Error(`Country not found (${res.status})`);
+            // Convert the response to JSON and return it as a new promise
             return res.json();
         })
-        // Run helper function to render country
-        .then(data => renderCountry(data[0]))
+        // Run helper function to render country card
         .catch(err => {
             console.error(`${err.message} 💥`);
             renderError(
@@ -283,7 +288,7 @@ const whereAmI = function () {
         })
         // 'finally' executes code regardless of the promises fate
         // example - show loading spinner, hide when promise fulfilled
-        // this example, fade in the country, OR the error message
+        // this example, fade in the country card, OR the error message
         .finally(() => {
             countriesContainer.style.opacity = 1;
         });
