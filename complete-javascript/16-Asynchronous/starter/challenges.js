@@ -49,7 +49,15 @@ whereAmI('52.508', '13.381');
 // CHALLENGE 2
 // -----------------------------------------------------------------------------
 
+// DOM elements
 const imageContainer = document.querySelector('.images');
+
+// Helper function
+const waitFn = function (seconds) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, seconds * 1000);
+    });
+};
 
 // CREATE THE PROMISE
 
@@ -75,6 +83,36 @@ const createImage = function (imgPath) {
     });
 };
 
-createImage('img/img-1.jpg');
+// Set global variable to hide images in promise chain
+let currentImg;
 
-// CONSUME THE PROMISE
+// CONSUME THE PROMISE'
+createImage('img/img-1.jpg')
+    // Receive 'image' as the resolved value
+    .then(image => {
+        currentImg = image;
+        console.log('Image 1 loaded');
+        return waitFn(2);
+    })
+    .then(() => {
+        currentImg.style.display = 'none';
+        return createImage('img/img-2.jpg');
+    })
+    .then(image => {
+        currentImg = image;
+        console.log('Image 2 loaded');
+        return waitFn(2);
+    })
+    .then(() => {
+        currentImg.style.display = 'none';
+        return createImage('img/img-3.jpg');
+    })
+    .then(image => {
+        currentImg = image;
+        console.log('Image 3 loaded');
+        return waitFn(2);
+    })
+    .then(() => {
+        currentImg.style.display = 'none';
+    })
+    .catch(err => console.error(`${err.message}`));

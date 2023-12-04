@@ -213,6 +213,7 @@ lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 // A function that returns a promise
 // Just like the Fetch API function
 // Promisifying setTimeout
+*/
 const wait = function (seconds) {
     return new Promise(function (resolve) {
         setTimeout(resolve, seconds * 1000);
@@ -221,19 +222,18 @@ const wait = function (seconds) {
 
 // Consume the promise
 // chain promises then by return the function containing a promise
-wait(2)
-    .then(() => {
-        console.log('I waited for 2 seconds');
-        return wait(1);
-    })
-    .then(() => {
-        console.log('I waited for 1 second');
-        return wait(3);
-    })
-    .then(() => {
-        console.log('I waited for 3 seconds');
-    });
-*/
+// wait(2)
+//     .then(() => {
+//         console.log('I waited for 2 seconds');
+//         return wait(1);
+//     })
+//     .then(() => {
+//         console.log('I waited for 1 second');
+//         return wait(3);
+//     })
+//     .then(() => {
+//         console.log('I waited for 3 seconds');
+//     });
 
 /*
 --------------------------------------------------------------------------------
