@@ -55,7 +55,7 @@ const imageContainer = document.querySelector('.images');
 
 const createImage = function (imgPath) {
     return new Promise(function (resolve, reject) {
-        // 1. CReate image element in DOM, set src attribute
+        // 1. Create image element in DOM, set src attribute
         const image = document.createElement('img');
         image.setAttribute('src', imgPath);
 
