@@ -34,11 +34,13 @@ const renderCountry = function (data, className = '') {
     </article>
     `;
     countriesContainer.insertAdjacentHTML('beforeend', html);
+    countriesContainer.style.opacity = 1;
 };
 
 // Render error on API promise errors
 const renderError = function (msg) {
     countriesContainer.insertAdjacentText('beforeend', msg);
+    countriesContainer.style.opacity = 1;
 };
 
 /*
@@ -252,6 +254,7 @@ const getPosition = function () {
 
 // getPosition().then(pos => console.log(pos));
 
+/*
 const whereAmI = function () {
     getPosition()
         .then(pos => {
@@ -295,3 +298,39 @@ const whereAmI = function () {
 };
 
 btn.addEventListener('click', whereAmI);
+*/
+
+/*
+--------------------------------------------------------------------------------
+ASYNC / AWAIT
+--------------------------------------------------------------------------------
+*/
+
+// Async await is syntactic sugar over then() in promises
+
+// Function runs asynchronously in the background, not blocking the call stack
+const whereAmI = async function () {
+    // 1 - Geolocation
+    // Await until promise fulfilled
+    const position = await getPosition();
+    // Destructure values from Geolocation object
+    const { latitude: lat, longitude: lng } = position.coords;
+    // 2 - Reverse geocoding
+    // Await until promise fulfilled
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    // Use the JSON from the response, return a new promise
+    // Await until promise fulfilled
+    const dataGeo = await resGeo.json();
+    // 3 - Country data
+    // Await until promise fulfilled
+    const res = await fetch(
+        `https://restcountries.com/v3.1/name/${dataGeo.country}`
+    );
+    // Use the JSON from the response, return a new promise
+    // Await until promise fulfilled
+    const data = await res.json();
+    // Run helper function to generate country card
+    renderCountry(data[0]);
+};
+
+whereAmI();
