@@ -346,11 +346,22 @@ const whereAmI = async function () {
 
         // Run helper function to generate country card from API data
         renderCountry(data[0]);
+
+        return `You are in ${dataGeo.city}, ${dataGeo.country}`;
     } catch {
         console.error(err);
     }
 };
 
 console.log('1: Will get location');
-whereAmI();
-console.log('2: Finished getting location');
+(async function () {
+    try {
+        // display returned value from whereAmI() async function
+        const returnValue = await whereAmI();
+        console.log(`2: ${returnValue}`);
+    } catch {
+        console.log(`2: ${err.message} `);
+    }
+    // Outside try catch blocks is like "finally()" in promises
+    console.log('3: Finished getting location');
+})();
