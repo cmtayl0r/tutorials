@@ -385,16 +385,54 @@ const get3countries = async function (c1, c2, c3) {
         // );
         // console.log([data1.capital[0], data2.capital[0], data3.capital[0]]);
 
-        // Take in an array of promises and return a new promise at the same time
+        // Run promises in parallel ("Combinator" function)
+        // Receive an array of promises, and returns a promise
         const data = await Promise.all([
             getJSON(`https://restcountries.com/v3.1/name/${c1}`),
             getJSON(`https://restcountries.com/v3.1/name/${c2}`),
             getJSON(`https://restcountries.com/v3.1/name/${c3}`),
         ]);
-        // Loop over returned arrays and get value we need  (d = the array)
+        // Loop over returned arrays and get value we need (Capital city)
+        // d = the array
         console.log(data.map(d => d[0].capital[0]));
     } catch {
         console.error(err);
     }
 };
 get3countries('germany', 'canada', 'tanzania');
+
+/*
+--------------------------------------------------------------------------------
+PROMISE COMBINATORS
+--------------------------------------------------------------------------------
+*/
+
+// Promise.race
+// Receive an array of promises, and returns a promise
+// promise settled as soon as one of the input promises settle
+// Useful for "never ending" long running promises, a timeout promise
+
+(async function () {
+    // Whichever promise wins the race, will be returned
+    const res = await Promise.race([
+        getJSON(`https://restcountries.com/v3.1/name/italy`),
+        getJSON(`https://restcountries.com/v3.1/name/denmark`),
+        getJSON(`https://restcountries.com/v3.1/name/japan`),
+    ]);
+    console.log(res[0].capital[0]);
+})();
+
+// const timeout = function (sec) {
+//     return new Promise(function (_, reject) {
+//         setTimeout(function () {
+//             reject(new Error('Request took too long!'));
+//         }, sec);
+//     });
+// };
+
+// Promise.race([
+//     getJSON(`https://restcountries.com/v3.1/name/australia`),
+//     timeout(1),
+// ]).then(res => console.log(res[0]););
+
+// Promise.allSettled
