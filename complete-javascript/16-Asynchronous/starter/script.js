@@ -14,11 +14,13 @@ const countriesContainer = document.querySelector('.countries');
 const renderCountry = function (data, className = '') {
     console.log(data);
 
+    // Specific values from API data
     const languageKey = Object.keys(data.languages || {})[0];
     const language = languageKey ? data.languages[languageKey] : 'N/A';
     const currencyKey = Object.keys(data.currencies || {})[0];
     const currency = currencyKey ? data.currencies[currencyKey] : 'N/A';
 
+    // Render HTML with API data values
     const html = `
     <article class="country ${className}">
       <img class="country__img" src="${data.flags.png}" />
@@ -34,12 +36,14 @@ const renderCountry = function (data, className = '') {
     </article>
     `;
     countriesContainer.insertAdjacentHTML('beforeend', html);
+    // Make Card container visible
     countriesContainer.style.opacity = 1;
 };
 
 // Render error on API promise errors
 const renderError = function (msg) {
     countriesContainer.insertAdjacentText('beforeend', msg);
+    // Make Card container visible
     countriesContainer.style.opacity = 1;
 };
 
@@ -310,27 +314,43 @@ ASYNC / AWAIT
 
 // Function runs asynchronously in the background, not blocking the call stack
 const whereAmI = async function () {
-    // 1 - Geolocation
-    // Await until promise fulfilled
-    const position = await getPosition();
-    // Destructure values from Geolocation object
-    const { latitude: lat, longitude: lng } = position.coords;
-    // 2 - Reverse geocoding
-    // Await until promise fulfilled
-    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-    // Use the JSON from the response, return a new promise
-    // Await until promise fulfilled
-    const dataGeo = await resGeo.json();
-    // 3 - Country data
-    // Await until promise fulfilled
-    const res = await fetch(
-        `https://restcountries.com/v3.1/name/${dataGeo.country}`
-    );
-    // Use the JSON from the response, return a new promise
-    // Await until promise fulfilled
-    const data = await res.json();
-    // Run helper function to generate country card
-    renderCountry(data[0]);
+    try {
+        // 1 - Geolocation
+        // Await until promise fulfilled
+        const position = await getPosition();
+        // Destructure values from Geolocation object
+        const { latitude: lat, longitude: lng } = position.coords;
+        // Defined in promise (getPromise()), any error here will get caught in the catch block
+
+        // 2 - Reverse geocoding
+        // Await until promise fulfilled
+        const resGeo = await fetch(
+            `https://geocode.xyz/${lat},${lng}?geoit=json`
+        );
+        // Guard clause - handles any error in the fetch
+        if (!resGeo.ok) throw new Error('Problem getting location data');
+        // Use the JSON from the response, return a new promise
+        // Await until promise fulfilled
+        const dataGeo = await resGeo.json();
+
+        // 3 - Country data
+        // Await until promise fulfilled
+        const res = await fetch(
+            `https://restcountries.com/v3.1/name/${dataGeo.country}`
+        );
+        // Guard clause - handles any error in the fetch
+        if (!res.ok) throw new Error('Problem getting country');
+        // Use the JSON from the response, return a new promise
+        // Await until promise fulfilled
+        const data = await res.json();
+
+        // Run helper function to generate country card from API data
+        renderCountry(data[0]);
+    } catch {
+        console.error(err);
+    }
 };
 
+console.log('1: Will get location');
 whereAmI();
+console.log('2: Finished getting location');
