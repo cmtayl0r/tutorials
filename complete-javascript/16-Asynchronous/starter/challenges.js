@@ -49,7 +49,6 @@ whereAmI('52.508', '13.381');
 // CHALLENGE 2
 // -----------------------------------------------------------------------------
 
-/*
 // DOM elements
 const imageContainer = document.querySelector('.images');
 
@@ -86,6 +85,7 @@ const createImage = function (imgPath) {
 // Set global variable to hide images in promise chain
 let currentImg;
 
+/*
 // CONSUME THE PROMISE
 createImage('img/img-1.jpg')
     // Receive 'image' as the resolved value
@@ -117,3 +117,36 @@ createImage('img/img-1.jpg')
     })
     .catch(err => console.error(`${err.message}`));
 */
+
+// -----------------------------------------------------------------------------
+// CHALLENGE 3
+// -----------------------------------------------------------------------------
+
+const loadNPause = async function () {
+    try {
+        // Load image 1
+        let img = await createImage('img/img-1.jpg');
+        console.log('Image 1 loaded');
+        await waitFn(2);
+        img.style.display = 'none';
+        // Load image 2
+        img = await createImage('img/img-2.jpg');
+        console.log('Image 2 loaded');
+        await waitFn(2);
+        img.style.display = 'none';
+        // Load image 3
+        img = await createImage('img/img-3.jpg');
+        console.log('Image 3 loaded');
+    } catch (err) {
+        console.error(err);
+    }
+};
+// loadNPause();
+
+const imgArr = ['img/img-1.jpg', 'img/img-2.jpg', 'img/img- 3.jpg'];
+
+const loadAll = async function (imgArr) {
+    const imgs = imgArr.map(path => console.log(path));
+    console.log(imgs);
+};
+loadAll();

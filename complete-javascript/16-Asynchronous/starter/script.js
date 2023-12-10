@@ -104,19 +104,19 @@ const getCountryData = function (country) {
 
 // Helper function to reduce code duplication in promise
 // This function will return a promise (because of 'then' usage)
-const getJSON = function (url, errorMsg = 'Something went wrong') {
-    return fetch(url).then(response => {
-        // If response not "ok"
-        if (!response.ok) {
-            // throw immediately terminates a function
-            // rejected promise always jumps to catch
-            // Handles error content in err.message
-            throw new Error(`${errorMsg} (${response.status})`);
-        }
-        // Convert the response to JSON and return it as a new promise
-        return response.json();
-    });
-};
+// const getJSON = function (url, errorMsg = 'Something went wrong') {
+//     return fetch(url).then(response => {
+//         // If response not "ok"
+//         if (!response.ok) {
+//             // throw immediately terminates a function
+//             // rejected promise always jumps to catch
+//             // Handles error content in err.message
+//             throw new Error(`${errorMsg} (${response.status})`);
+//         }
+//         // Convert the response to JSON and return it as a new promise
+//         return response.json();
+//     });
+// };
 
 /*
 const getCountryData = function (country) {
@@ -310,6 +310,7 @@ ASYNC / AWAIT
 --------------------------------------------------------------------------------
 */
 
+/*
 // Async await is syntactic sugar over then() in promises
 
 // Function runs asynchronously in the background, not blocking the call stack
@@ -365,6 +366,7 @@ console.log('1: Will get location');
     // Outside try catch blocks is like "finally()" in promises
     console.log('3: Finished getting location');
 })();
+*/
 
 /*
 --------------------------------------------------------------------------------
@@ -372,34 +374,24 @@ RUNNING PROMISES IN PARALLEL
 --------------------------------------------------------------------------------
 */
 
-const get3countries = async function (c1, c2, c3) {
-    try {
-        // const [data1] = await getJSON(
-        //     `https://restcountries.com/v3.1/name/${c1}`
-        // );
-        // const [data2] = await getJSON(
-        //     `https://restcountries.com/v3.1/name/${c2}`
-        // );
-        // const [data3] = await getJSON(
-        //     `https://restcountries.com/v3.1/name/${c3}`
-        // );
-        // console.log([data1.capital[0], data2.capital[0], data3.capital[0]]);
+// const get3countries = async function (c1, c2, c3) {
+//     try {
 
-        // Run promises in parallel ("Combinator" function)
-        // Receive an array of promises, and returns a promise
-        const data = await Promise.all([
-            getJSON(`https://restcountries.com/v3.1/name/${c1}`),
-            getJSON(`https://restcountries.com/v3.1/name/${c2}`),
-            getJSON(`https://restcountries.com/v3.1/name/${c3}`),
-        ]);
-        // Loop over returned arrays and get value we need (Capital city)
-        // d = the array
-        console.log(data.map(d => d[0].capital[0]));
-    } catch {
-        console.error(err);
-    }
-};
-get3countries('germany', 'canada', 'tanzania');
+//         // Run promises in parallel ("Combinator" function)
+//         // Receive an array of promises, and returns a promise
+//         const data = await Promise.all([
+//             getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+//             getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+//             getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+//         ]);
+//         // Loop over returned arrays and get value we need (Capital city)
+//         // d = the array
+//         console.log(data.map(d => d[0].capital[0]));
+//     } catch {
+//         console.error(err);
+//     }
+// };
+// get3countries('germany', 'canada', 'tanzania');
 
 /*
 --------------------------------------------------------------------------------
@@ -412,15 +404,15 @@ PROMISE COMBINATORS
 // promise settled as soon as one of the input promises settle
 // Useful for "never ending" long running promises, a timeout promise
 
-(async function () {
-    // Whichever promise wins the race, will be returned
-    const res = await Promise.race([
-        getJSON(`https://restcountries.com/v3.1/name/italy`),
-        getJSON(`https://restcountries.com/v3.1/name/denmark`),
-        getJSON(`https://restcountries.com/v3.1/name/japan`),
-    ]);
-    console.log(res[0].capital[0]);
-})();
+// (async function () {
+//     // Whichever promise wins the race, will be returned
+//     const res = await Promise.race([
+//         getJSON(`https://restcountries.com/v3.1/name/italy`),
+//         getJSON(`https://restcountries.com/v3.1/name/denmark`),
+//         getJSON(`https://restcountries.com/v3.1/name/japan`),
+//     ]);
+//     console.log(res[0].capital[0]);
+// })();
 
 // const timeout = function (sec) {
 //     return new Promise(function (_, reject) {
