@@ -145,13 +145,21 @@ const loadNPause = async function () {
 // loadNPause();
 // PART 2
 
+// asynchronous function that takes an array (imgArr) of image paths
 const loadAll = async function (imgArr) {
     try {
+        // Maps over each image path in imgArr,
+        // calling createImage() for each one and awaiting its resolution.
+        // This results in an array of promises.
         const imgs = imgArr.map(async img => await createImage(img));
-        console.log(imgs);
-        const imgEl = await Promise.all(imgs);
-        console.log(imgEl);
+        console.log(imgs); // [Promise, Promise, Promise]
 
+        // Awaits the resolution of all promises in the imgs array using Promise.all
+        // resulting in an array of image element
+        const imgEl = await Promise.all(imgs);
+        console.log(imgEl); // [img, img, img]
+
+        // Adds the class parallel to each image element in the imgEl array.
         imgEl.forEach(img => img.classList.add('parallel'));
     } catch (err) {
         console.error(err);
