@@ -12,7 +12,7 @@ const countriesContainer = document.querySelector('.countries');
 // Helper function
 // Render country on web page
 const renderCountry = function (data, className = '') {
-    console.log(data);
+    // console.log(data);
 
     // Specific values from API data
     const languageKey = Object.keys(data.languages || {})[0];
@@ -365,3 +365,36 @@ console.log('1: Will get location');
     // Outside try catch blocks is like "finally()" in promises
     console.log('3: Finished getting location');
 })();
+
+/*
+--------------------------------------------------------------------------------
+RUNNING PROMISES IN PARALLEL
+--------------------------------------------------------------------------------
+*/
+
+const get3countries = async function (c1, c2, c3) {
+    try {
+        // const [data1] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c1}`
+        // );
+        // const [data2] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c2}`
+        // );
+        // const [data3] = await getJSON(
+        //     `https://restcountries.com/v3.1/name/${c3}`
+        // );
+        // console.log([data1.capital[0], data2.capital[0], data3.capital[0]]);
+
+        // Take in an array of promises and return a new promise at the same time
+        const data = await Promise.all([
+            getJSON(`https://restcountries.com/v3.1/name/${c1}`),
+            getJSON(`https://restcountries.com/v3.1/name/${c2}`),
+            getJSON(`https://restcountries.com/v3.1/name/${c3}`),
+        ]);
+        // Loop over returned arrays and get value we need  (d = the array)
+        console.log(data.map(d => d[0].capital[0]));
+    } catch {
+        console.error(err);
+    }
+};
+get3countries('germany', 'canada', 'tanzania');
