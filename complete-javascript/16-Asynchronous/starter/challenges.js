@@ -122,6 +122,7 @@ createImage('img/img-1.jpg')
 // CHALLENGE 3
 // -----------------------------------------------------------------------------
 
+// PART 1
 const loadNPause = async function () {
     try {
         // Load image 1
@@ -142,11 +143,19 @@ const loadNPause = async function () {
     }
 };
 // loadNPause();
-
-const imgArr = ['img/img-1.jpg', 'img/img-2.jpg', 'img/img- 3.jpg'];
+// PART 2
 
 const loadAll = async function (imgArr) {
-    const imgs = imgArr.map(path => console.log(path));
-    console.log(imgs);
+    try {
+        const imgs = imgArr.map(async img => await createImage(img));
+        console.log(imgs);
+        const imgEl = await Promise.all(imgs);
+        console.log(imgEl);
+
+        imgEl.forEach(img => img.classList.add('parallel'));
+    } catch (err) {
+        console.error(err);
+    }
 };
-loadAll();
+
+loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);
