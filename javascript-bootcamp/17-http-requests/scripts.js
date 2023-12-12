@@ -69,20 +69,42 @@ const populateHeader = function (obj) {
     myPara.textContent = `Hometown: ${obj.homeTown} // Formed ${obj.formed}`;
     header.appendChild(myPara);
 };
+
 // 2 - Helper function - INFO CARDS
 const populateHeroes = function (obj) {
     const heroes = obj.members;
 
     // for of loop
     for (let hero of heroes) {
-        // article
+        // 1 - Create elements
         const myArticle = document.createElement('article');
-        // h2, para1, para2 , para3, powerList
-        // text content
-        // sub for of loop for powers list
-        // append to article
-        myArticle.textContent = `${hero.name}`;
+        const myh2 = document.createElement('h2');
+        const myPara1 = document.createElement('p');
+        const myPara2 = document.createElement('p');
+        const myPara3 = document.createElement('p');
+        const myList = document.createElement('ul');
+
+        // 2 - Generate content
+        myh2.textContent = `${hero.name}`;
+        myPara1.textContent = `Age: ${hero.age}`;
+        myPara2.textContent = `Secret Identity: ${hero.secretIdentity}`;
+        myPara3.textContent = `Superpowers:`;
+
+        // Sub-loop for powers list items
+        const powers = hero.powers;
+        for (let power of powers) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${power}`;
+            myList.appendChild(listItem);
+        }
+
+        // 3 - Append to article
         section.appendChild(myArticle);
+        myArticle.appendChild(myh2);
+        myArticle.appendChild(myPara1);
+        myArticle.appendChild(myPara2);
+        myArticle.appendChild(myPara3);
+        myArticle.appendChild(myList);
     }
 };
 
@@ -101,6 +123,7 @@ const populate = function () {
         .then(data => {
             // Process the data resolved from the promise
             console.log(data);
+            // Execute helper functions, pass resolved data
             populateHeader(data);
             populateHeroes(data);
         })
