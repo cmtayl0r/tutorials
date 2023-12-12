@@ -173,7 +173,7 @@ const moveX = function (element, delay, amount) {
     // Return a promise that resolves with moving an element after a delay
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            // Detect screen boundaries
+            // Detect screen boundaries to see if exceed the screen width
             const bodyBoundary = document.body.clientWidth;
             // Get right side of element x value
             const elRight = element.getBoundingClientRect().right;
@@ -182,7 +182,8 @@ const moveX = function (element, delay, amount) {
 
             if (elRight + amount > bodyBoundary) {
                 // If element next move greater than boundary, reject
-                reject();
+                // Pass through object of values when rejected
+                reject({ bodyBoundary, elRight, amount });
             } else {
                 // Move element on x axis by specified amount in px after delay
                 element.style.transform = `translateX(${currLeft + amount}px)`;
@@ -196,9 +197,13 @@ const moveX = function (element, delay, amount) {
 // 2 - Consume promise
 // Chaining the promises when consuming them
 moveX(btn, 1000, 200)
+    // implicitly return new promises created by successive calls to moveX()
     .then(() => moveX(btn, 1000, 200)) // Implicit return another promise
     .then(() => moveX(btn, 1000, 200)) // Implicit return another promise
     .then(() => moveX(btn, 1000, 200)) // Implicit return another promise
     .then(() => moveX(btn, 1000, 200)) // Implicit return another promise
     .then(() => moveX(btn, 1000, 200)) // Implicit return another promise
-    .catch(() => console.error('Error: Out of Space'));
+    .catch(err => {
+        console.error(`Error: At ${err.bodyBoundary}px you ran out of space.`);
+        console.log(`You moved ${err.elRight} pixels across.`);
+    });
