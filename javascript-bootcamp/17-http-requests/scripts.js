@@ -70,67 +70,73 @@ const populateHeader = function (obj) {
     header.appendChild(myPara);
 };
 
-// 2 - Helper function - INFO CARDS
+// 2 - Helper function - CREATE ELEMENTS IN INFO CARDS
+const createElement = function (type, parent, textContent = '') {
+    const element = document.createElement(type);
+    element.textContent = textContent;
+    parent.appendChild(element);
+    return element;
+};
+
+// 3 - Helper function - INFO CARDS
 const populateHeroes = function (obj) {
     const heroes = obj.members;
 
-    // for of loop
+    // for of loop to generate cards
     for (let hero of heroes) {
-        // 1 - Create elements
-        const myArticle = document.createElement('article');
-        const myh2 = document.createElement('h2');
-        const myPara1 = document.createElement('p');
-        const myPara2 = document.createElement('p');
-        const myPara3 = document.createElement('p');
-        const myList = document.createElement('ul');
+        // 1 - Create container element using helper function
+        const myArticle = createElement('article', section);
 
-        // 2 - Generate content
-        myh2.textContent = `${hero.name}`;
-        myPara1.textContent = `Age: ${hero.age}`;
-        myPara2.textContent = `Secret Identity: ${hero.secretIdentity}`;
-        myPara3.textContent = `Superpowers:`;
+        // 2 - Execute helper function to create and populate card elements
+        createElement('h2', myArticle, hero.name);
+        createElement('p', myArticle, `Age: ${hero.age}`);
+        createElement(
+            'p',
+            myArticle,
+            `Secret Identity: ${hero.secretIdentity}`
+        );
+        createElement('p', myArticle, `Superpowers:`);
 
-        // Sub-loop for powers list items
+        // 3 - Create sub-container element
+        const myList = createElement('ul', myArticle);
+
+        // 4 - Sub-loop for items in sub-container
         const powers = hero.powers;
         for (let power of powers) {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${power}`;
-            myList.appendChild(listItem);
+            createElement('li', myList, `${power}`);
         }
-
-        // 3 - Append to article
-        section.appendChild(myArticle);
-        myArticle.appendChild(myh2);
-        myArticle.appendChild(myPara1);
-        myArticle.appendChild(myPara2);
-        myArticle.appendChild(myPara3);
-        myArticle.appendChild(myList);
     }
 };
 
-// Top-level function
-const populate = function () {
-    fetch(
-        'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json'
-    )
-        .then(response => {
-            // Guard clause to trigger error if HTTP response status indicates an error
-            if (!response.ok)
-                throw new Error(`Status Code: ${response.status}`);
-            // Parse response object as JSON and return a promise containing the parsed data
+// Create promise-based function
+// Receive url as argument
+const fetchData = function (url) {
+    // Fetch returns a promise
+    // No need to wrap fetch in a "new Promise" (promise wrapping)
+    return fetch(url).then(response => {
+        if (response.ok) {
+            // Return parsed response object
             return response.json();
-        })
-        .then(data => {
-            // Process the data resolved from the promise
-            console.log(data);
-            // Execute helper functions, pass resolved data
-            populateHeader(data);
-            populateHeroes(data);
-        })
-        .catch(err => {
-            console.error(err);
-        });
+        } else {
+            // Response not ok, throw error
+            // throw to external handling (catch) when function called
+            throw new Error('Data response was not ok 🥺');
+        }
+    });
 };
 
-// Call function
-populate();
+// Call promise-based function
+fetchData(
+    'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json'
+)
+    .then(data => {
+        // Process data
+        console.log(data);
+        // Execute helper functions, pass resolved data object
+        populateHeader(data);
+        populateHeroes(data);
+    })
+    .catch(err => {
+        // Handle errors specific to this fetchData call
+        console.error(err);
+    });
