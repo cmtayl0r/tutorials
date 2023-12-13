@@ -100,11 +100,10 @@ const populateHeroes = function (obj) {
         // 3 - Create sub-container element
         const myList = createElement('ul', myArticle);
 
-        // 4 - Sub-loop for items in sub-container
-        const powers = hero.powers;
-        for (let power of powers) {
+        // 4 - Iterate over array to create list items
+        hero.powers.forEach(power => {
             createElement('li', myList, `${power}`);
-        }
+        });
     }
 };
 
