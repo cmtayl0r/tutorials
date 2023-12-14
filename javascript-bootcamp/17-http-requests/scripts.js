@@ -50,92 +50,78 @@ fetch('https://swapi.dev/api/planets/')
 
 /*
 --------------------------------------------------------------------------------
-SUPER HEROES - https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON
+GIPHY - https://www.theodinproject.com/lessons/node-path-javascript-working-with-apis
 --------------------------------------------------------------------------------
 */
+// 'https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=cats'
 
-// DOM ELEMENTS
-const header = document.querySelector('header');
-const section = document.querySelector('section');
+const img = document.querySelector('#gif');
+const loadingGif = document.querySelector('#loadingGif');
+const container = document.querySelector('section');
+const btnNew = document.querySelector('.btn--new');
+const btnFind = document.querySelector('.form__btn');
+const formFind = document.querySelector('.form');
+const inputFind = document.querySelector('.form__input');
+const queryTitle = document.querySelector('h2');
 
-// 1 - Helper function - HEADER
-const populateHeader = function (obj) {
-    // Header
-    const myH1 = document.createElement('h1');
-    myH1.textContent = obj.squadName;
-    header.appendChild(myH1);
-    // Description
-    const myPara = document.createElement('p');
-    myPara.textContent = `Hometown: ${obj.homeTown} // Formed ${obj.formed}`;
-    header.appendChild(myPara);
-};
-
-// 2 - Helper function - CREATE ELEMENTS IN INFO CARDS
-const createElement = function (type, parent, textContent = '') {
-    const element = document.createElement(type);
-    element.textContent = textContent;
-    parent.appendChild(element);
-    return element;
-};
-
-// 3 - Helper function - INFO CARDS
-const populateHeroes = function (obj) {
-    const heroes = obj.members;
-
-    // for of loop to generate cards
-    for (let hero of heroes) {
-        // 1 - Create container element using helper function
-        const myArticle = createElement('article', section);
-
-        // 2 - Execute helper function to create and populate card elements
-        createElement('h2', myArticle, hero.name);
-        createElement('p', myArticle, `Age: ${hero.age}`);
-        createElement(
-            'p',
-            myArticle,
-            `Secret Identity: ${hero.secretIdentity}`
-        );
-        createElement('p', myArticle, `Superpowers:`);
-
-        // 3 - Create sub-container element
-        const myList = createElement('ul', myArticle);
-
-        // 4 - Iterate over array to create list items
-        hero.powers.forEach(power => {
-            createElement('li', myList, `${power}`);
-        });
-    }
-};
+let searchQuery;
 
 // Create promise-based function
 // Receive url as argument
-const fetchData = function (url) {
+const fetchData = function (keyword) {
+    // // Show the loading GIF and hide image at the start
+    loadingGif.style.display = 'block';
+    img.style.display = 'none';
+
+    // Assigns the passed 'keyword' to the global variable 'searchQuery'
+    searchQuery = keyword;
+
     // Fetch returns a promise
     // No need to wrap fetch in a "new Promise" (promise wrapping)
-    return fetch(url).then(response => {
-        if (response.ok) {
-            // Return parsed response object
-            return response.json();
-        } else {
-            // Response not ok, throw error
-            // throw to external handling (catch) when function called
-            throw new Error('Data response was not ok 🥺');
-        }
-    });
+    return fetch(
+        `https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=${keyword}`,
+        { mode: 'cors' }
+    )
+        .then(response => {
+            if (response.ok) {
+                // Return parsed response object
+                return response.json();
+            } else {
+                // Response not ok, throw error
+                // throw to external handling (catch) when function called
+                throw new Error('Data response was not ok 🥺');
+            }
+        })
+        .then(data => {
+            // Process data
+            queryTitle.textContent = `Showing: ${searchQuery}`;
+            img.setAttribute('src', data.data.images.original.url);
+            loadingGif.style.display = 'none';
+            img.style.display = 'block';
+        })
+        .catch(err => {
+            // Handle errors specific to this fetchData call
+            console.error(err);
+            // show error image
+        })
+        .finally(() => {
+            // In case of error, ensure the loading GIF is hidden
+            if (img.style.display !== 'block') {
+                loadingGif.style.display = 'none';
+            }
+        });
 };
 
-// Call promise-based function
-fetchData(
-    'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json'
-)
-    .then(data => {
-        // Process data
-        console.log(data);
-        // Execute helper functions, pass resolved data object
-        populateHeader(data);
-        populateHeroes(data);
-    })
-    .catch(err => {
-        // Handle errors specific to this fetchData call
-        console.error(err);
-    });
+// Run function on page load, set default GIF query
+fetchData('dogs');
+
+// Refresh GIF based on current query
+btnNew.addEventListener('click', () => fetchData(searchQuery));
+
+// Input to set new GIF topic
+formFind.addEventListener('submit', evt => {
+    evt.preventDefault();
+    searchQuery = inputFind.value; // Attach input value to variable
+    fetchData(searchQuery); // Run function
+    inputFind.value = ''; // Clear the input field
+});

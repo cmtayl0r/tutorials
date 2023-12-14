@@ -16,10 +16,52 @@
             h3 {
                 margin: 0;
             }
+            section {
+                display: flex;
+                padding: 2.4rem 0;
+            }
+            button {
+                font-size: x-large;
+                cursor: pointer;
+            }
+            .input--find {
+                margin: 0;
+                padding: 0;
+                padding-block: 0;
+                padding-inline: 0;
+                height: 28px;
+            }
+            #gif {
+                display: none;
+            }
+            .display {
+                flex-direction: column;
+                max-width: 20rem;
+            }
         </style>
         <script defer src="scripts.js"></script>
     </head>
     <body>
         <h1>Section 17: Making HTTP Requests</h1>
+        <section>
+            <div>
+                <form action="" class="form">
+                    <input
+                        type="search"
+                        class="form__input"
+                        placeholder="Search GIF topic"
+                    />
+                    <button class="form__btn" type="submit">🔎 Find GIF</button>
+                </form>
+            </div>
+        </section>
+        <section class="display">
+            <div>
+                <h2></h2>
+                <button class="btn--new" type="submit">🔁 Refresh</button>
+            </div>
+            <img src="loading.gif" id="loadingGif" />
+            <img src="#" id="gif" />
+        </section>
     </body>
 </html>
