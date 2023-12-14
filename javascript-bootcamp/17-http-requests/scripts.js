@@ -70,7 +70,7 @@ let searchQuery;
 // Create promise-based function
 // Receive query keyword as argument
 const fetchData = function (keyword) {
-    // // Show the loading GIF and hide image at the start
+    // Show the loading GIF and hide image at the start
     loadingGif.style.display = 'block';
     img.style.display = 'none';
 
