@@ -53,8 +53,8 @@ fetch('https://swapi.dev/api/planets/')
 GIPHY - https://www.theodinproject.com/lessons/node-path-javascript-working-with-apis
 --------------------------------------------------------------------------------
 */
-// 'https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=cats'
 
+// DOM elments
 const img = document.querySelector('#gif');
 const loadingGif = document.querySelector('#loadingGif');
 const container = document.querySelector('section');
@@ -64,10 +64,11 @@ const formFind = document.querySelector('.form');
 const inputFind = document.querySelector('.form__input');
 const queryTitle = document.querySelector('h2');
 
+// Global variable for search query
 let searchQuery;
 
 // Create promise-based function
-// Receive url as argument
+// Receive query keyword as argument
 const fetchData = function (keyword) {
     // // Show the loading GIF and hide image at the start
     loadingGif.style.display = 'block';
@@ -79,7 +80,7 @@ const fetchData = function (keyword) {
     // Fetch returns a promise
     // No need to wrap fetch in a "new Promise" (promise wrapping)
     return fetch(
-        `https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=${keyword}`,
+        `https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=${searchQuery}`,
         { mode: 'cors' }
     )
         .then(response => {
@@ -94,29 +95,35 @@ const fetchData = function (keyword) {
         })
         .then(data => {
             // Process data
-            queryTitle.textContent = `Showing: ${searchQuery}`;
-            img.setAttribute('src', data.data.images.original.url);
-            loadingGif.style.display = 'none';
-            img.style.display = 'block';
+            console.log(data);
+
+            // Handle no results error
+            // If no results Giphy returns an empty array
+            // Check if certain data exists to determine if to show No results image
+            if (data.data.images) {
+                queryTitle.textContent = `Showing: ${searchQuery}`;
+                img.setAttribute('src', data.data.images.original.url);
+                img.style.display = 'block';
+            } else {
+                queryTitle.textContent = `No results, enter a new search query`;
+                img.setAttribute('src', 'no-result.png');
+                img.style.display = 'block';
+            }
         })
         .catch(err => {
             // Handle errors specific to this fetchData call
-            console.error(err);
-            // show error image
+            console.error('ERROR ERROR', err.message);
+            // show API error image
+            img.setAttribute('src', 'api-error.png');
+            img.style.display = 'block';
         })
         .finally(() => {
-            // In case of error, ensure the loading GIF is hidden
-            if (img.style.display !== 'block') {
-                loadingGif.style.display = 'none';
-            }
+            document.getElementById('loadingGif').style.display = 'none';
         });
 };
 
 // Run function on page load, set default GIF query
 fetchData('dogs');
-
-// Refresh GIF based on current query
-btnNew.addEventListener('click', () => fetchData(searchQuery));
 
 // Input to set new GIF topic
 formFind.addEventListener('submit', evt => {
@@ -125,3 +132,6 @@ formFind.addEventListener('submit', evt => {
     fetchData(searchQuery); // Run function
     inputFind.value = ''; // Clear the input field
 });
+
+// Refresh GIF based on current query
+btnNew.addEventListener('click', () => fetchData(searchQuery));
