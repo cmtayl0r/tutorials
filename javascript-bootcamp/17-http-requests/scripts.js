@@ -54,7 +54,7 @@ GIPHY - https://www.theodinproject.com/lessons/node-path-javascript-working-with
 --------------------------------------------------------------------------------
 */
 
-// DOM elments
+// DOM elements
 const img = document.querySelector('#gif');
 const loadingGif = document.querySelector('#loadingGif');
 const container = document.querySelector('section');
@@ -122,7 +122,7 @@ const fetchData = function (keyword) {
         });
 };
 
-// Run function on page load, set default GIF query
+// Run function on page load, set default GIF topic
 fetchData('dogs');
 
 // Input to set new GIF topic
@@ -133,5 +133,5 @@ formFind.addEventListener('submit', evt => {
     inputFind.value = ''; // Clear the input field
 });
 
-// Refresh GIF based on current query
+// Refresh GIF topic based on current query
 btnNew.addEventListener('click', () => fetchData(searchQuery));
