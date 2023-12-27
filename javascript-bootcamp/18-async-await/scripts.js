@@ -123,6 +123,7 @@ animateRight(btn, 100).catch(err => {
 //   }
 // };
 
+/*
 // PARALLEL REQUESTs
 const get3Pokemon = async function () {
   try {
@@ -161,6 +162,7 @@ const printPokemon = function (results) {
 
 // get3Pokemon().then(res => console.log(res));
 get3Pokemon();
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -196,7 +198,31 @@ const fetchOperation = function (num) {
   });
 };
 
+// Calling the async function
 myAsyncFunction();
+
+///////////////////////////////////////////////
+
+async function pokeCatchAll(pokeIds) {
+  try {
+    let promises = pokeIds.map(id =>
+      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    );
+    let responses = await Promise.all(promises);
+    let data = await Promise.all(responses.map(res => res.json()));
+    printPokemon(data);
+  } catch (error) {
+    console.error("Error fetching pokemon:", error);
+  }
+}
+
+const printPokemon = function (results) {
+  for (let poke of results) {
+    console.log(poke.name);
+  }
+};
+
+pokeCatchAll([1, 6, 11]);
 
 /*
 function changeBodyColor(color, delay) {
