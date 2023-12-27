@@ -203,6 +203,7 @@ myAsyncFunction();
 
 ///////////////////////////////////////////////
 
+// Async function
 async function pokeCatchAll(pokeIds) {
   try {
     let promises = pokeIds.map(id =>
@@ -216,6 +217,7 @@ async function pokeCatchAll(pokeIds) {
   }
 }
 
+// Helper function
 const printPokemon = function (results) {
   for (let poke of results) {
     console.log(poke.name);
