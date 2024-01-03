@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /*
 --------------------------------------------------------------------------------
 GIPHY - https://www.theodinproject.com/lessons/node-path-javascript-async-and-await
@@ -6,7 +6,7 @@ GIPHY - https://www.theodinproject.com/lessons/node-path-javascript-async-and-aw
 */
 
 // DOM elements
-const img = document.querySelector("#gif");
+const img = document.querySelector('#gif');
 
 // async function getDogs(searchQuery) {
 //   fetch(
@@ -21,8 +21,15 @@ const img = document.querySelector("#gif");
 // }
 
 async function getDogs(searchQuery) {
-  try {
-  } catch {}
+    try {
+        let response = await fetch(
+            `https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=${searchQuery}`
+        );
+        let giphyData = await response.json();
+        img.src = giphyData.data.images.original.url;
+    } catch (err) {
+        console.error(err);
+    }
 }
 
-getDogs("Dog");
+getDogs('dog');
