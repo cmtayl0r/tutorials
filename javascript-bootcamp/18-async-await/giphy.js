@@ -7,3 +7,22 @@ GIPHY - https://www.theodinproject.com/lessons/node-path-javascript-async-and-aw
 
 // DOM elements
 const img = document.querySelector("#gif");
+
+// async function getDogs(searchQuery) {
+//   fetch(
+//     `https://api.giphy.com/v1/gifs/translate?api_key=Exa5gXbGLGErrkoWHv0IvkXzjE12ktDZ&s=${searchQuery}`
+//   )
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (response) {
+//       img.src = response.data.images.original.url;
+//     });
+// }
+
+async function getDogs(searchQuery) {
+  try {
+  } catch {}
+}
+
+getDogs("Dog");
