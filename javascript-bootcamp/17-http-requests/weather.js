@@ -34,6 +34,9 @@ fetchData('berlin').then(data => {
 // https://openweathermap.org/current
 // https://openweathermap.org/forecast5
 
+// Switch between C and F units
+// Have an autocomplete search to select location
+
 // DOM ELEMENTS
 const realSection = document.querySelector('#realtime');
 const foreSection = document.querySelector('#forecast');
@@ -43,21 +46,38 @@ let units = 'metric';
 
 async function fetchPlace(location) {
     try {
+        // 1 - Start both API calls concurrently
         const rtPromise = fetch(
             `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=53901fa0797c3c9403358b2d02c1f9c8&units=&${units}`
         );
         const fcPromise = fetch(
             `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=53901fa0797c3c9403358b2d02c1f9c8&units=&${units}`
         );
+        // 2 - Wait for both promises to resolve
         const responses = await Promise.all([rtPromise, fcPromise]);
+
+        // 3 - Check for HTTP errors
+        responses.forEach(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        });
+
+        // 4 - Parse JSON from both responses
         let [realtime, forecast] = await Promise.all(
             responses.map(res => res.json())
         );
+
         console.log(realtime);
         console.log(forecast);
     } catch (error) {
-        console.log('There iz an Ezzor:', error.message);
-        realSection.insertAdjacentHTML('beforeend', `<p>${error.message}</p>`);
+        console.error('Error fetching data:', error.message);
+        if (realSection) {
+            realSection.insertAdjacentHTML(
+                'beforeend',
+                `<p>${error.message}</p>`
+            );
+        }
     }
 }
 
