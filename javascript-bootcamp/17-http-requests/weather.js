@@ -29,10 +29,10 @@ async function fetchLocation(location) {
     try {
         // 1 - Start both API calls concurrently
         const rtPromise = fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=53901fa0797c3c9403358b2d02c1f9c8&units=&${units}`
+            `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=53901fa0797c3c9403358b2d02c1f9c8&units=${units}`
         );
         const fcPromise = fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=53901fa0797c3c9403358b2d02c1f9c8&units=&${units}`
+            `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=53901fa0797c3c9403358b2d02c1f9c8&units=${units}`
         );
         // 2 - Wait for both promises to resolve
         const responses = await Promise.all([rtPromise, fcPromise]);
@@ -46,7 +46,6 @@ async function fetchLocation(location) {
         let [realtime, forecast] = await Promise.all(
             responses.map(res => res.json())
         );
-
         console.log(realtime);
         console.log(forecast);
         rtDisplay(realtime);
@@ -67,15 +66,21 @@ fetchLocation('Berlin');
 
 const rtDisplay = function (data) {
     rtLocation.textContent = data.name;
-    rtTemp.textContent = data.main.temp;
+    rtTemp.textContent = data.main.temp.toFixed(0);
     rtSummary.textContent = data.weather[0].description;
     rtIcon.setAttribute(
         'src',
         `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
     );
-    rtFeels.textContent = `Feels like ${data.main.feels_like}`;
-    rtHigh.textContent = `High of ${data.main.temp_max}`;
-    rtLow.textContent = `Low of ${data.main.temp_min}`;
+    rtFeels.textContent = `Feels like ${data.main.feels_like.toFixed(0)}`;
+    rtHigh.textContent = `High of ${data.main.temp_max.toFixed(0)}`;
+    rtLow.textContent = `Low of ${data.main.temp_min.toFixed(0)}`;
+    getDate();
+};
+
+const getDate = function () {
+    const now = new Date();
+    rtTime.textContent = now.toDateString();
 };
 
 // ⚙️ Function for forecast data
@@ -87,10 +92,3 @@ const rtDisplay = function (data) {
 // ⚙️ Empty state / Error location input
 
 // ⚙️ Change background based on weather
-
-/*
-testData.textContent = data.location.name;
-const icon = document.createElement('img');
-document.body.appendChild(icon);
-icon.setAttribute('src', data.current.condition.icon);
-*/
