@@ -4,18 +4,28 @@
 // Show realtime and 5 day forecast data
 // Search input to search for location
 // Switch between C and F units
+// Show loading state for data
 // Have an autocomplete search to select location
 // Background image change dependent on weather (use unsplash etc)
 // Mobile version tab switch between realtime and forecast
+// Add "use current location" action to call coords
 
 // DOM ELEMENTS
-const realSection = document.querySelector('#realtime');
-const foreSection = document.querySelector('#forecast');
+const rtSection = document.querySelector('#realtime');
+const fcSection = document.querySelector('#forecast');
+const rtLocation = document.querySelector('.rt__city');
+const rtTemp = document.querySelector('.rt__temp');
+const rtSummary = document.querySelector('.rt__summary');
+const rtTime = document.querySelector('.rt__timedate');
+const rtFeels = document.querySelector('.rt__feels');
+const rtHigh = document.querySelector('.rt__high');
+const rtLow = document.querySelector('.rt__low');
+const rtIcon = document.querySelector('#rt__icon');
 
 // Variable to set measure unit default
 let units = 'metric';
 
-async function fetchPlace(location) {
+async function fetchLocation(location) {
     try {
         // 1 - Start both API calls concurrently
         const rtPromise = fetch(
@@ -26,14 +36,12 @@ async function fetchPlace(location) {
         );
         // 2 - Wait for both promises to resolve
         const responses = await Promise.all([rtPromise, fcPromise]);
-
         // 3 - Check for HTTP errors
         responses.forEach(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
         });
-
         // 4 - Parse JSON from both responses
         let [realtime, forecast] = await Promise.all(
             responses.map(res => res.json())
@@ -41,10 +49,11 @@ async function fetchPlace(location) {
 
         console.log(realtime);
         console.log(forecast);
+        rtDisplay(realtime);
     } catch (error) {
         console.error('Error fetching data:', error.message);
-        if (realSection) {
-            realSection.insertAdjacentHTML(
+        if (rtSection) {
+            rtSection.insertAdjacentHTML(
                 'beforeend',
                 `<p>${error.message}</p>`
             );
@@ -52,9 +61,32 @@ async function fetchPlace(location) {
     }
 }
 
-// Function for realtime data
+fetchLocation('Berlin');
 
-// Function for forecast data
+// ⚙️ Function for realtime data
+
+const rtDisplay = function (data) {
+    rtLocation.textContent = data.name;
+    rtTemp.textContent = data.main.temp;
+    rtSummary.textContent = data.weather[0].description;
+    rtIcon.setAttribute(
+        'src',
+        `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    );
+    rtFeels.textContent = `Feels like ${data.main.feels_like}`;
+    rtHigh.textContent = `High of ${data.main.temp_max}`;
+    rtLow.textContent = `Low of ${data.main.temp_min}`;
+};
+
+// ⚙️ Function for forecast data
+
+// ⚙️ Search input
+
+// ⚙️ Loading
+
+// ⚙️ Empty state / Error location input
+
+// ⚙️ Change background based on weather
 
 /*
 testData.textContent = data.location.name;
@@ -62,5 +94,3 @@ const icon = document.createElement('img');
 document.body.appendChild(icon);
 icon.setAttribute('src', data.current.condition.icon);
 */
-
-fetchPlace('Berlin');
