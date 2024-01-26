@@ -19,7 +19,7 @@ const spendingLimits = Object.freeze({
 // The optional chaining operator (?.) and the nullish coalescing operator (??)
 // If spendingLimits user is undefined, short circuit and return undefined
 // nullish coalescing operator provides a default value (0)
-const getLimit = user => spendingLimits?.[user] ?? 0;
+const getLimit = (limits, user) => limits?.[user] ?? 0;
 
 // Pure function (Functional programming)
 // Using default parameters, user = Jonas if empty
@@ -32,7 +32,7 @@ const addExpense = function (
 ) {
     const cleanUser = user.toLowerCase();
 
-    return value <= getLimit(cleanUser)
+    return value <= getLimit(limits, cleanUser)
         ? // create a copy of state array using spread operator
           [...state, { value: -value, description, user: cleanUser }]
         : state;
@@ -45,13 +45,29 @@ const newBudget2 = addExpense(
     'Going to movies 🍿',
     'Matilda'
 );
-const newBudget3 = addExpense(newBudget2, spendingLimits, 200, 'Stuff', 'Jay');
+const newBudget3 = addExpense(
+    newBudget2,
+    spendingLimits,
+    600,
+    'Stuff',
+    'jonas'
+);
+console.log(newBudget1);
+console.log(newBudget2);
+console.log(newBudget3);
 
-const checkExpense = function () {
-    for (const entry of budget)
-        if (entry.value < -getLimit(entry.user)) entry.flag = 'limit';
+const checkExpense = function (state, limits) {
+    return state.map(entry => {
+        // Using ternary operator
+        // If value is above the limit, return copy of original object, add new property (flag)
+        // create a copy of state array using spread operator
+        // else, return original entry
+        return entry.value < -getLimit(limits, entry.user)
+            ? { ...entry, flag: 'limit' }
+            : entry;
+    });
 };
-checkExpense();
+const finalBudget = checkExpense(newBudget3, spendingLimits);
 
 const logBigExpenses = function (bigLimit) {
     let output = '';
@@ -63,5 +79,5 @@ const logBigExpenses = function (bigLimit) {
     console.log(output);
 };
 
-console.log(budget);
+console.log(finalBudget);
 logBigExpenses(1000);
