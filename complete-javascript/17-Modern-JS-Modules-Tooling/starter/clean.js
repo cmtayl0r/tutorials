@@ -24,19 +24,21 @@ const getLimit = (limits, user) => limits?.[user] ?? 0;
 // Pure function (Functional programming)
 // Using default parameters, user = Jonas if empty
 const addExpense = function (
-    state,
-    limits,
+    state, // current version of the object
+    limits, // limits values for users
     value,
     description,
-    user = 'jonas'
+    user = 'jonas' // default user if none specified
 ) {
     const cleanUser = user.toLowerCase();
 
     return value <= getLimit(limits, cleanUser)
-        ? // create a copy of state array using spread operator
+        ? // if true, create a copy of state array using spread operator
           [...state, { value: -value, description, user: cleanUser }]
         : state;
 };
+
+// We aren't manipulating/mutating the original array objects, we create copies by mapping over the original
 const newBudget1 = addExpense(budget, spendingLimits, 10, 'Pizza 🍕');
 const newBudget2 = addExpense(
     newBudget1,
@@ -49,13 +51,14 @@ const newBudget3 = addExpense(
     newBudget2,
     spendingLimits,
     600,
-    'Stuff',
+    'Stuff 🎁',
     'jonas'
 );
 console.log(newBudget1);
 console.log(newBudget2);
 console.log(newBudget3);
 
+// We check the final budget, and add flags to added expenses (if over limits)
 const checkExpense = function (state, limits) {
     return state.map(entry => {
         // Using ternary operator
@@ -69,15 +72,14 @@ const checkExpense = function (state, limits) {
 };
 const finalBudget = checkExpense(newBudget3, spendingLimits);
 
-const logBigExpenses = function (bigLimit) {
-    let output = '';
-    for (let entry of budget)
-        output +=
-            entry.value <= -bigLimit ? `${entry.description.slice(-2)} / ` : '';
-    // Emojis are 2 chars
-    output = output.slice(0, -2); // Remove last '/ '
-    console.log(output);
+const logBigExpenses = function (state, bigLimit) {
+    const bigExpenses = state
+        .filter(entry => entry.value <= -bigLimit)
+        .map(entry => entry.description.slice(-2))
+        .join(' / '); // Emojis are 2 chars
+
+    console.log(bigExpenses);
 };
 
 console.log(finalBudget);
-logBigExpenses(1000);
+logBigExpenses(finalBudget, 500);
