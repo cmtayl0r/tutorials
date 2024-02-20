@@ -9,8 +9,13 @@
     "author": "Chris Taylor",
     "license": "ISC",
     "devDependencies": {
+        "@babel/core": "^7.23.9",
+        "@babel/preset-env": "^7.23.9",
         "@parcel/transformer-sass": "^2.11.0",
         "parcel": "^2.11.0",
         "sass": "^1.70.0"
+    },
+    "dependencies": {
+        "core-js": "^3.36.0"
     }
 }
