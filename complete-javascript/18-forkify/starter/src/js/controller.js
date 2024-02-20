@@ -2,7 +2,7 @@
 // IMPORTS
 ////////////////////////////////////////////////////////////////////////////////
 
-// Import icons file by using Parcel
+// Importing icons from a given path using Parcel's URL loader syntax
 import icons from 'url:../img/icons.svg';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,9 +27,9 @@ const timeout = function (s) {
 // https://forkify-api.herokuapp.com/v2
 // https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886
 
-// Loading Spinner helper function
+// 🛠️ Render a loading spinner inside a parent element
 const renderSpinner = function (parentEl) {
-    // Add a spinner to any defined container using a generic parameter (parentEl)
+    // Constructs HTML markup for displaying the spinner.
     const markup = `
     <div class="spinner">
         <svg>
@@ -37,33 +37,41 @@ const renderSpinner = function (parentEl) {
         </svg>
     </div> 
     `;
-    // Remove empty state content and loading elements from HTML container
+    // Clears the content of the parent element.
     parentEl.innerHTML = '';
-    // Insert HTML markup in the container
+    // Inserts the spinner's HTML at the beginning of the parent element.
     parentEl.insertAdjacentHTML('afterbegin', markup);
 };
 
-// Show recipe function
+// 🛠️ Show recipe
 const showRecipe = async function () {
     try {
-        // 1 - Loading recipe
-        // Render loading spinner function in container
+        // 1 - Get recipe ID
+
+        // Extracts the recipe ID from the URL hash, to add to fetch call.
+        // Slice of the hash in order to use correctly.
+        const id = window.location.hash.slice(1);
+        // guard clause, conditional early return pattern (truthy)
+        // proceed only if valid id present, if not, immediately exit function
+        if (!id) return;
+
+        // 2 - Loading recipe
+
+        // Calls renderSpinner to show a loading spinner in the recipe container
         renderSpinner(recipeContainer);
-        // Await promise
+        // Await promise, fetches recipe data from the API
         const res = await fetch(
-            'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886'
+            `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
         );
-        // Await promise, turn response into JSON
+        // Await promise, parses the JSON response from the API.
         const data = await res.json();
-
+        // If response not ok, throw new error
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-
-        console.log(data);
-
+        // Destructures and reformats the recipe data fetched from the API.
         let { recipe } = data.data;
-        // Objective is to reformat the API data...
-        // rename api data keys with underscores
         recipe = {
+            // Reformats the keys and values of the recipe object.
+            // rename api data keys that have underscores
             id: recipe.id,
             title: recipe.title,
             publisher: recipe.publisher,
@@ -74,7 +82,9 @@ const showRecipe = async function () {
             servings: recipe.servings,
         };
 
-        // 2 - Rendering recipe
+        // 3 - Rendering recipe
+
+        // Constructs HTML markup for displaying the recipe.
         const markup = `
         <figure class="recipe__fig">
           <img src="${recipe.image}" alt="${
@@ -176,14 +186,21 @@ const showRecipe = async function () {
         </div>
         `;
 
-        // Remove empty state content and loading elements from HTML container
+        // Clears the recipe container (empty state content)
         recipeContainer.innerHTML = '';
-        // Fill empty container with recipe HTML defined above
+        // Inserts the recipe markup into the container.
         recipeContainer.insertAdjacentHTML('afterbegin', markup);
-
-        console.log(recipe);
     } catch (err) {
+        // Alerts the user if there's an error.
         alert(err);
     }
 };
-showRecipe();
+
+// Setup event listeners for two different events on global (window)
+// 1) URL's hash part changes or 2) when the page is initially loaded
+// Both will execute the showRecipe function, to show the recipe
+// An array of these event types is used to iterate over
+['hashchange', 'load'].forEach(evt => window.addEventListener(evt, showRecipe));
+// Ineffecient alternative would be...
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
