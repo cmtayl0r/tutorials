@@ -11,16 +11,6 @@ import recipeView from './views/recipe-view.js';
 
 const recipeContainer = document.querySelector('.recipe');
 
-const timeout = function (s) {
-    return new Promise(function (_, reject) {
-        setTimeout(function () {
-            reject(
-                new Error(`Request took too long! Timeout after ${s} second`)
-            );
-        }, s * 1000);
-    });
-};
-
 ////////////////////////////////////////////////////////////////////////////////
 // CONTROLLER
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,17 +42,17 @@ const controlRecipes = async function () {
         recipeView.render(model.state.recipe);
     } catch (err) {
         // Alerts the user if there's an error.
-        alert(err);
+        console.log(err);
     }
 };
 
-// Setup event listeners for two different events on global (window)
-// 1) URL's hash part changes or 2) when the page is initially loaded
-// Both will execute the controlRecipes function, to show the recipe
-// An array of these event types is used to iterate over
-['hashchange', 'load'].forEach(evt =>
-    window.addEventListener(evt, controlRecipes)
-);
-// Ineffecient alternative would be...
-// window.addEventListener('hashchange', controlRecipes);
-// window.addEventListener('load', controlRecipes);
+////////////////////////////////////////////////////////////////////////////////
+// INIT / START PROGRAM
+////////////////////////////////////////////////////////////////////////////////
+
+const init = function () {
+    // Publisher-subscriber design pattern
+    // Pass in the handler function we want to execute as soon as the event happens
+    recipeView.addHandlerRender(controlRecipes);
+};
+init();

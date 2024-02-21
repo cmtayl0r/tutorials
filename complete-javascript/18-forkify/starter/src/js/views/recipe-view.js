@@ -15,7 +15,7 @@ class RecipeView {
     #parentElement = document.querySelector('.recipe'); // Container for recipes
     #data; // API data from state/model
 
-    // Public methods
+    // ------------------- Public methods
 
     render(data) {
         // Function is responsible for putting the HTML markup on the page
@@ -48,7 +48,23 @@ class RecipeView {
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     };
 
-    // Private methods
+    addHandlerRender(handler) {
+        // Listen for events in the view
+        // Receive function we want to execute as soon as the event happens
+
+        // Setup event listeners for two different events on global (window)
+        // 1) URL's hash part changes or 2) when the page is initially loaded
+        // Both will execute the controlRecipes function, to show the recipe
+        // An array of these event types is used to iterate over using forEach
+        ['hashchange', 'load'].forEach(evt =>
+            window.addEventListener(evt, handler)
+        );
+        // Ineffecient alternative would be...
+        // window.addEventListener('hashchange', controlRecipes);
+        // window.addEventListener('load', controlRecipes);
+    }
+
+    // ------------------- Private methods
 
     #clear() {
         // Clears the recipe container (empty state content)

@@ -9,3 +9,6 @@
 // API URL
 export const API_URL = 'https://forkify-api.herokuapp.com/api/v2/recipes';
 // API KEY
+
+// Timeout seconds
+export const TIMEOUT_SEC = 10;

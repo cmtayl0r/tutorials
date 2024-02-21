@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 import { API_URL } from './config.js';
+import { getJSON } from './helpers.js';
 
 ////////////////////////////////////////////////////////////////////////////////
 // MODEL / STATE
@@ -16,19 +17,21 @@ export const state = {
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// FETCH DATA
+// LOAD RECIPE DATA
 ////////////////////////////////////////////////////////////////////////////////
 
 export const loadRecipe = async function (id) {
     try {
-        // Await promise, fetches recipe data from the API
-        const res = await fetch(`${API_URL}/${id}`);
-        // Await promise, parses the JSON response from the API.
-        const data = await res.json();
-        // If response not ok, throw new error
-        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        // Call helper async function to fetch and parse JSON data
+        // Store returned value from promise (getJSON())
+        const data = await getJSON(`${API_URL}/${id}`);
+
+        console.log(data);
+
         // Destructures and reformats the recipe data fetched from the API.
         const { recipe } = data.data;
+
+        // Add formatted object data to state object
         state.recipe = {
             // Reformats the keys and values of the recipe object.
             // rename api data keys that have underscores
@@ -41,9 +44,9 @@ export const loadRecipe = async function (id) {
             ingredients: recipe.ingredients,
             servings: recipe.servings,
         };
-
-        console.log(state.recipe);
     } catch (err) {
-        alert(err);
+        // Rethrow new error
+        // For any errors from getJSON() promise
+        throw err;
     }
 };
