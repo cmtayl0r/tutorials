@@ -12,8 +12,10 @@ import { Fractional } from 'fractional';
 // CLASSES
 ////////////////////////////////////////////////////////////////////////////////
 class RecipeView {
-    #parentElement = document.querySelector('.recipe');
-    #data;
+    #parentElement = document.querySelector('.recipe'); // Container for recipes
+    #data; // API data from state/model
+
+    // Public methods
 
     render(data) {
         // Function is responsible for putting the HTML markup on the page
@@ -112,7 +114,9 @@ class RecipeView {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-            ${this.#data.ingredients.map(this.#generateMarkupIngredient).join('')}
+            ${this.#data.ingredients
+                .map(this.#generateMarkupIngredient)
+                .join('')}
           </ul>
         </div>
 
@@ -140,10 +144,10 @@ class RecipeView {
     }
 
     #generateMarkupIngredient(ing) {
-            // Call function in #generateMarkup
-            // Loop over api ingredients object using map() array method
-            // Return HTML and join to markup
-            return `
+        // Call function in #generateMarkup
+        // Loop over api ingredients object using map() array method
+        // Return HTML and join to markup
+        return `
             <li class="recipe__ingredient">
                 <svg class="recipe__icon">
                     <use href="${icons}#icon-check"></use>
@@ -160,7 +164,6 @@ class RecipeView {
                 </div>
             </li>
             `;
-        }
     }
 }
 
