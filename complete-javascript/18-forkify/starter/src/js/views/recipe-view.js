@@ -28,11 +28,11 @@ class RecipeView {
         const markup = this.#generateMarkup();
         // Clear parent container
         this.#clear();
-        // Inserts the recipe markup into the parent container.
+        // Inserts the recipe markup into the parent container (.recipe)
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     }
 
-    renderSpinner = function () {
+    renderSpinner() {
         // Render a loading spinner inside a parent element
         // Constructs HTML markup for displaying the spinner.
         const markup = `
@@ -42,11 +42,28 @@ class RecipeView {
                 </svg>
             </div> 
         `;
-        // Clears the content of the parent element.
-        this.#parentElement.innerHTML = '';
-        // Inserts the spinner's HTML at the beginning of the parent element.
+        // Clear parent container
+        this.#clear();
+        // Inserts the spinner's HTML at the beginning of the parent element (.recipe)
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    };
+    }
+
+    renderError(message) {
+        const markup = `
+          <div class="error">
+              <div>
+                <svg>
+                  <use href="${icons}#icon-alert-triangle"></use>
+                </svg>
+              </div>
+              <p>${message}</p>
+          </div> 
+        `;
+        // Clear parent container
+        this.#clear();
+        // Inserts the error HTML at the beginning of the parent element (.recipe)
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
 
     addHandlerRender(handler) {
         // Listen for events in the view
@@ -68,6 +85,7 @@ class RecipeView {
 
     #clear() {
         // Clears the recipe container (empty state content)
+        // Used in other local functions
         this.#parentElement.innerHTML = '';
     }
 

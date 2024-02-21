@@ -24,7 +24,6 @@ const timeout = function (s) {
 
 export const getJSON = async function (url) {
     try {
-        console.log(url);
         // Await promises, fetches recipe data from the API
         // Races 2 promises, fetch() against timeout
         // If timeout wins (promise fulfilled first), rejects with timeout message
@@ -34,9 +33,9 @@ export const getJSON = async function (url) {
         // If response not ok, throw new error
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
         // Result data of promise that function returns
-        console.log(data);
         return data;
     } catch (err) {
+        // Rethrow new error
         throw err;
     }
 };

@@ -43,6 +43,8 @@ const controlRecipes = async function () {
     } catch (err) {
         // Alerts the user if there's an error.
         console.log(err);
+        // Render an error to the view
+        recipeView.renderError(`${err} 💥💥💥💥`);
     }
 };
 
@@ -52,7 +54,7 @@ const controlRecipes = async function () {
 
 const init = function () {
     // Publisher-subscriber design pattern
-    // Pass in the handler function we want to execute as soon as the event happens
+    // Pass handler function we want to execute as soon as the event happens
     recipeView.addHandlerRender(controlRecipes);
 };
 init();
