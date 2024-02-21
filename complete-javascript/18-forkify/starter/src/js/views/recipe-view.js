@@ -1,3 +1,16 @@
+////////////////////////////////////////////////////////////////////////////////
+// IMPORTS
+////////////////////////////////////////////////////////////////////////////////
+
+// Importing icons from a given path using Parcel's URL loader syntax
+import icons from 'url:../../img/icons.svg';
+// Package used for quantity value conversion
+// Destructure right away to clean up
+import { Fractional } from 'fractional';
+
+////////////////////////////////////////////////////////////////////////////////
+// CLASSES
+////////////////////////////////////////////////////////////////////////////////
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
@@ -9,12 +22,37 @@ class RecipeView {
         // So it can be used anywhere in this object
         this.#data = data;
 
-        // Clears the recipe container (empty state content)
-        recipeContainer.innerHTML = '';
-        // Inserts the recipe markup into the container.
-        recipeContainer.insertAdjacentHTML('afterbegin', markup);
+        // Get returned markup from private method of class
+        const markup = this.#generateMarkup();
+        // Clear parent container
+        this.#clear();
+        // Inserts the recipe markup into the parent container.
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     }
-    // Private method
+
+    renderSpinner = function () {
+        // Render a loading spinner inside a parent element
+        // Constructs HTML markup for displaying the spinner.
+        const markup = `
+            <div class="spinner">
+                <svg>
+                    <use href="${icons}#icon-loader"></use>
+                </svg>
+            </div> 
+        `;
+        // Clears the content of the parent element.
+        this.#parentElement.innerHTML = '';
+        // Inserts the spinner's HTML at the beginning of the parent element.
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    };
+
+    // Private methods
+
+    #clear() {
+        // Clears the recipe container (empty state content)
+        this.#parentElement.innerHTML = '';
+    }
+
     #generateMarkup() {
         return `
         <figure class="recipe__fig">
@@ -74,24 +112,7 @@ class RecipeView {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-            ${this.#data.ingredients
-                .map(ing => {
-                    // Need to return a string of HTML, so use map() array method
-                    // Loop over api object
-                    return `
-                <li class="recipe__ingredient">
-                    <svg class="recipe__icon">
-                        <use href="${icons}#icon-check"></use>
-                    </svg>
-                    <div class="recipe__quantity">${ing.quantity}</div>
-                    <div class="recipe__description">
-                        <span class="recipe__unit">${ing.unit}</span>
-                        ${ing.description}
-                    </div>
-                </li>
-                `;
-                })
-                .join('')}
+            ${this.#data.ingredients.map(this.#generateMarkupIngredient).join('')}
           </ul>
         </div>
 
@@ -116,6 +137,30 @@ class RecipeView {
           </a>
         </div>
         `;
+    }
+
+    #generateMarkupIngredient(ing) {
+            // Call function in #generateMarkup
+            // Loop over api ingredients object using map() array method
+            // Return HTML and join to markup
+            return `
+            <li class="recipe__ingredient">
+                <svg class="recipe__icon">
+                    <use href="${icons}#icon-check"></use>
+                </svg>
+                <div class="recipe__quantity">${
+                    // If null, just show empty string
+                    ing.quantity
+                        ? new Fraction(ing.quantity).toString()
+                        : (ing.quantity = '')
+                }</div>
+                <div class="recipe__description">
+                    <span class="recipe__unit">${ing.unit}</span>
+                    ${ing.description}
+                </div>
+            </li>
+            `;
+        }
     }
 }
 
