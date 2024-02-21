@@ -41,10 +41,8 @@ const controlRecipes = async function () {
         // --> Data taken from step 2 and passed into the render() method
         recipeView.render(model.state.recipe);
     } catch (err) {
-        // Alerts the user if there's an error.
-        console.log(err);
-        // Render an error to the view
-        recipeView.renderError(`${err} 💥💥💥💥`);
+        // Render recipeView error markup
+        recipeView.renderError();
     }
 };
 

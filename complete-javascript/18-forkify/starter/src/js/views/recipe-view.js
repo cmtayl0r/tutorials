@@ -14,6 +14,9 @@ import { Fractional } from 'fractional';
 class RecipeView {
     #parentElement = document.querySelector('.recipe'); // Container for recipes
     #data; // API data from state/model
+    #errorMessage = 'We could not find that recipe. Please try another one!';
+    #emptyMessage =
+        'Start by searching for a recipe or an ingredient. Have fun!';
 
     // ------------------- Public methods
 
@@ -48,7 +51,8 @@ class RecipeView {
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     }
 
-    renderError(message) {
+    renderError(message = this.#errorMessage) {
+        // by default, message = error message set as private field in class
         const markup = `
           <div class="error">
               <div>
@@ -58,6 +62,24 @@ class RecipeView {
               </div>
               <p>${message}</p>
           </div> 
+        `;
+        // Clear parent container
+        this.#clear();
+        // Inserts the error HTML at the beginning of the parent element (.recipe)
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+
+    renderMessage(message = this.#emptyMessage) {
+        // by default, message = empty state message set as private field in class
+        const markup = `
+          <div class="message">
+              <div>
+                  <svg>
+                      <use href="${icons}#icon-smile"></use>
+                  </svg>
+              </div>
+              <p>${message}</p>
+          </div>
         `;
         // Clear parent container
         this.#clear();
