@@ -88,6 +88,7 @@ class RecipeView {
     }
 
     addHandlerRender(handler) {
+        // TODO: why a handler???
         // Listen for events in the view
         // Receive function we want to execute as soon as the event happens
 

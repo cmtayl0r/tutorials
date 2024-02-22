@@ -4,15 +4,10 @@
 
 import * as model from './model.js';
 import recipeView from './views/recipe-view.js';
+import searchView from './views/search-view.js';
 
 ////////////////////////////////////////////////////////////////////////////////
-// DOM ELEMENTS
-////////////////////////////////////////////////////////////////////////////////
-
-const recipeContainer = document.querySelector('.recipe');
-
-////////////////////////////////////////////////////////////////////////////////
-// CONTROLLER
+// CONTROLLER FUNCTIONS
 ////////////////////////////////////////////////////////////////////////////////
 
 const controlRecipes = async function () {
@@ -46,13 +41,36 @@ const controlRecipes = async function () {
     }
 };
 
+const controlSearchResults = async function () {
+    try {
+        // 1 - Get query from search input
+        const query = searchView.getQuery();
+        if (!query) return; // guard clause if no query
+
+        // 2 - Load search results based on query
+        await model.loadSearchResults(query);
+        // console.log(model.state.search.results);
+
+        // 3 - Render search results
+        console.log(model.state.search.results);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+controlSearchResults();
+
 ////////////////////////////////////////////////////////////////////////////////
 // INIT / START PROGRAM
 ////////////////////////////////////////////////////////////////////////////////
 
 const init = function () {
     // Publisher-subscriber design pattern
+
     // Pass handler function we want to execute as soon as the event happens
     recipeView.addHandlerRender(controlRecipes);
+
+    // Pass handler function we want to execute as soon as the event happens
+    searchView.addHandlerSearch(controlSearchResults);
 };
 init();

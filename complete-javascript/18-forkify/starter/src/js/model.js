@@ -12,7 +12,7 @@ import { getJSON } from './helpers.js';
 // MODEL / STATE
 ////////////////////////////////////////////////////////////////////////////////
 
-// COntains all the data we need in order to build our application
+// Contains all the data we need in order to build our application
 export const state = {
     recipe: {},
     search: {
@@ -79,9 +79,9 @@ export const loadSearchResults = async function (query) {
                 image: rec.image_url,
             };
         });
+        // console.log(state.search.results);
     } catch (err) {
         // Rethrow new error, so can deal with in the controller
         throw err;
     }
 };
-loadSearchResults('pizza');
