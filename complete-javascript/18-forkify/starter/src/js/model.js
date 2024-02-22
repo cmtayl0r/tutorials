@@ -12,14 +12,20 @@ import { getJSON } from './helpers.js';
 // MODEL / STATE
 ////////////////////////////////////////////////////////////////////////////////
 
+// COntains all the data we need in order to build our application
 export const state = {
     recipe: {},
+    search: {
+        query: '',
+        results: [],
+    },
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 // LOAD RECIPE DATA
 ////////////////////////////////////////////////////////////////////////////////
 
+// function called by the controller
 export const loadRecipe = async function (id) {
     try {
         // Call helper async function to fetch and parse JSON data
@@ -43,7 +49,39 @@ export const loadRecipe = async function (id) {
             servings: recipe.servings,
         };
     } catch (err) {
-        // Rethrow new error
+        // Rethrow new error, so can deal with in the controller
         throw err;
     }
 };
+
+////////////////////////////////////////////////////////////////////////////////
+// LOAD SEARCH RESULTS DATA
+////////////////////////////////////////////////////////////////////////////////
+
+// function called by the controller
+export const loadSearchResults = async function (query) {
+    try {
+        state.search.query = query;
+
+        // Call helper async function to fetch and parse JSON data
+        // Store returned value from promise (getJSON())
+        const data = await getJSON(`${API_URL}?search=${query}`);
+
+        // Map over array given by API, return reformatted objects
+        // Add map objects to array in state object
+        state.search.results = data.data.recipes.map(rec => {
+            return {
+                // Reformats the keys and values of the recipe object.
+                // rename api data keys that have underscores
+                id: rec.id,
+                title: rec.title,
+                publisher: rec.publisher,
+                image: rec.image_url,
+            };
+        });
+    } catch (err) {
+        // Rethrow new error, so can deal with in the controller
+        throw err;
+    }
+};
+loadSearchResults('pizza');
