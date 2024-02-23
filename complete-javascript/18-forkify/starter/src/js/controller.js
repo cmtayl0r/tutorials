@@ -67,6 +67,9 @@ controlSearchResults();
 const init = function () {
     // Publisher-subscriber design pattern
 
+    // TODO: why a handler???
+    // TODO: What is the publisher-subscriber pattern?
+
     // Pass handler function we want to execute as soon as the event happens
     recipeView.addHandlerRender(controlRecipes);
 
