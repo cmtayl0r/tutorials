@@ -32,6 +32,8 @@ export const loadRecipe = async function (id) {
         // Store returned value from promise (getJSON())
         const data = await getJSON(`${API_URL}/${id}`);
 
+        console.log(data);
+
         // Destructures and reformats the recipe data fetched from the API.
         const { recipe } = data.data;
 

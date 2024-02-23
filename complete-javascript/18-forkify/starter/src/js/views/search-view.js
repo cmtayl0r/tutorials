@@ -2,14 +2,14 @@
 // CLASSES
 ////////////////////////////////////////////////////////////////////////////////
 class SearchView {
-    #parentElement = document.querySelector('.search');
+    _parentElement = document.querySelector('.search');
 
     // PUBLIC METHODS
 
     getQuery() {
-        const query = this.#parentElement.querySelector('.search__field').value;
+        const query = this._parentElement.querySelector('.search__field').value;
         // Clear input after submitting search
-        this.#clearInput();
+        this._clearInput();
         return query;
     }
 
@@ -19,7 +19,7 @@ class SearchView {
 
         // Listen for submit event on whole form
         // No matter if button clicked or enter pressed
-        this.#parentElement.addEventListener('submit', function (e) {
+        this._parentElement.addEventListener('submit', function (e) {
             e.preventDefault();
             handler();
         });
@@ -27,9 +27,9 @@ class SearchView {
 
     // PRIVATE METHODS
 
-    #clearInput() {
+    _clearInput() {
         // Clear input after search
-        this.#parentElement.querySelector('.search__field').value = '';
+        this._parentElement.querySelector('.search__field').value = '';
     }
 }
 
