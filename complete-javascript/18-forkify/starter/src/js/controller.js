@@ -2,9 +2,18 @@
 // IMPORTS
 ////////////////////////////////////////////////////////////////////////////////
 
+// MODEL / STATE
 import * as model from './model.js';
+
+// VIEWS
 import recipeView from './views/recipe-view.js';
 import searchView from './views/search-view.js';
+import resultsView from './views/results-view.js';
+
+// Parcel
+if (module.hot) {
+    module.hot.accept;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // CONTROLLER FUNCTIONS
@@ -43,6 +52,10 @@ const controlRecipes = async function () {
 
 const controlSearchResults = async function () {
     try {
+        // --> Call function from resultsView Class
+        // --> Calls renderSpinner to show a loading spinner in the results container
+        resultsView.renderSpinner();
+
         // 1 - Get query from search input
         const query = searchView.getQuery();
         if (!query) return; // guard clause if no query
@@ -53,12 +66,11 @@ const controlSearchResults = async function () {
 
         // 3 - Render search results
         console.log(model.state.search.results);
+        resultsView.render(model.state.search.results);
     } catch (err) {
         console.log(err);
     }
 };
-
-controlSearchResults();
 
 ////////////////////////////////////////////////////////////////////////////////
 // INIT / START PROGRAM
