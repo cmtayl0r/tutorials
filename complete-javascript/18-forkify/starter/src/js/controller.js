@@ -17,9 +17,15 @@ if (module.hot) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// CONTROLLER FUNCTIONS
+// CONTROLLER SUBSCRIBERS
 ////////////////////////////////////////////////////////////////////////////////
 
+// *** Publisher-subscriber design pattern
+// These controller functions (aka event handlers) are subscribers because they ...
+// ... "subscribe" to listen for specific events (user actions, published from views) ...
+// ... and execute in response to those events.
+
+// Subscriber - Reacts to an event where a user selects a recipe to view its details.
 const controlRecipes = async function () {
     try {
         // 1 - Get recipe ID
@@ -51,6 +57,7 @@ const controlRecipes = async function () {
     }
 };
 
+// Subscriber - Reacts to an event where a user submits a search query..
 const controlSearchResults = async function () {
     try {
         // --> Call function from resultsView Class
@@ -79,6 +86,7 @@ const controlSearchResults = async function () {
     }
 };
 
+// Subscriber - Reacts to an event where a user navigates through search results using pagination.
 const controlPagination = function (goToPage) {
     console.log(`This is page ${goToPage}`);
 
@@ -91,17 +99,26 @@ const controlPagination = function (goToPage) {
     paginationView.render(model.state.search);
 };
 
+const controlServings = functions() {
+    // 1 - Update the recipe servings (in state)
+    // 2 - Update the recipe view
+}
+
 ////////////////////////////////////////////////////////////////////////////////
-// INIT / START PROGRAM
+// INIT [START APP] / BIND HANDLERS
 ////////////////////////////////////////////////////////////////////////////////
 
 const init = function () {
-    // Publisher-subscriber design pattern
-    // Subscribers in the controller "handle" the events the publisher functions are listening for
+    // *** Publisher-subscriber design pattern
+    // Event/Bind handlers
+    // Connect the publishers (user actions) to the subscribers (controller functions)
+    // They set up the subscriptions, effectively binding user actions to specific controller logic
 
-    // TODO: why a handler???
-    // TODO: What is the publisher-subscriber pattern?
+    // Each of these methods takes a controller function as an argument ...
+    // ... and binds it to a specific user interaction or event ...
+    // ... so, when event occurs (publisher) the subscriber function is executed
 
+    // As soon as page is loaded, Bind handlers are in place to react to user actions
     recipeView.addHandlerRender(controlRecipes);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);

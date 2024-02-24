@@ -14,9 +14,8 @@ class SearchView {
     }
 
     addHandlerSearch(handler) {
-        // TODO: why a handler???
-        // "Publisher" function listening for events in the view
-        // Receives handler function we want to execute as soon as the event happens
+        // "Publisher" function listening for events in this view
+        // when requested, "publishes" events that the application needs to respond to
 
         // Listen for submit event on whole form
         // No matter if button clicked or enter pressed

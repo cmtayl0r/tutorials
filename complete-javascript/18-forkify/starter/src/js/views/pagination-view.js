@@ -17,8 +17,8 @@ class PaginationView extends View {
     // ------------------- Public methods
 
     addHandlerClick(handler) {
-        // "Publisher" function listening for events in the view
-        // Receives handler function we want to execute as soon as the event happens
+        // "Publisher" function listening for events in this view
+        // when requested, "publishes" events that the application needs to respond to
 
         // add listener to parent, not each button
         this._parentElement.addEventListener('click', function (e) {

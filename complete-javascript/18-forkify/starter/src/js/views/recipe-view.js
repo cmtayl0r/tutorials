@@ -24,9 +24,8 @@ class RecipeView extends View {
     // ------------------- Public methods
 
     addHandlerRender(handler) {
-        // TODO: why a handler???
-        // "Publisher" function listening for events in the view
-        // Receives handler function we want to execute as soon as the event happens
+        // "Publisher" function listening for events in this view
+        // when requested, "publishes" events that the application needs to respond to
 
         // Setup event listeners for two different events on global (window)
         // 1) URL's hash part changes or 2) when the page is initially loaded
