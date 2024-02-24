@@ -13,15 +13,16 @@ class SearchView {
         return query;
     }
 
-    // TODO: why a handler???
     addHandlerSearch(handler) {
-        // Listen for events in the view
+        // TODO: why a handler???
+        // "Publisher" function listening for events in the view
+        // Receives handler function we want to execute as soon as the event happens
 
         // Listen for submit event on whole form
         // No matter if button clicked or enter pressed
         this._parentElement.addEventListener('submit', function (e) {
             e.preventDefault();
-            handler();
+            handler(); // call handler (controlSearchResults) in controller
         });
     }
 

@@ -79,20 +79,31 @@ const controlSearchResults = async function () {
     }
 };
 
+const controlPagination = function (goToPage) {
+    console.log(`This is page ${goToPage}`);
+
+    // use number from pagination button (goToPage)
+
+    // 1 - Render NEW search results
+    resultsView.render(model.getSearchResultsPage(goToPage));
+
+    // 2 - Render NEW pagination buttons
+    paginationView.render(model.state.search);
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 // INIT / START PROGRAM
 ////////////////////////////////////////////////////////////////////////////////
 
 const init = function () {
     // Publisher-subscriber design pattern
+    // Subscribers in the controller "handle" the events the publisher functions are listening for
 
     // TODO: why a handler???
     // TODO: What is the publisher-subscriber pattern?
 
-    // Pass handler function we want to execute as soon as the event happens
     recipeView.addHandlerRender(controlRecipes);
-
-    // Pass handler function we want to execute as soon as the event happens
     searchView.addHandlerSearch(controlSearchResults);
+    paginationView.addHandlerClick(controlPagination);
 };
 init();

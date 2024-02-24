@@ -25,15 +25,15 @@ class RecipeView extends View {
 
     addHandlerRender(handler) {
         // TODO: why a handler???
-        // Listen for events in the view
-        // Receive function we want to execute as soon as the event happens
+        // "Publisher" function listening for events in the view
+        // Receives handler function we want to execute as soon as the event happens
 
         // Setup event listeners for two different events on global (window)
         // 1) URL's hash part changes or 2) when the page is initially loaded
         // Both will execute the controlRecipes function, to show the recipe
         // An array of these event types is used to iterate over using forEach
-        ['hashchange', 'load'].forEach(evt =>
-            window.addEventListener(evt, handler)
+        ['hashchange', 'load'].forEach(
+            evt => window.addEventListener(evt, handler) // call handler (controlRecipes) in controller
         );
         // Ineffecient alternative would be...
         // window.addEventListener('hashchange', controlRecipes);
