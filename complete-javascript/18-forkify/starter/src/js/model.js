@@ -5,7 +5,7 @@
 // IMPORTS
 ////////////////////////////////////////////////////////////////////////////////
 
-import { API_URL } from './config.js';
+import { API_URL, RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +18,8 @@ export const state = {
     search: {
         query: '',
         results: [],
+        page: 1,
+        resultsPerPage: RES_PER_PAGE,
     },
 };
 
@@ -86,4 +88,19 @@ export const loadSearchResults = async function (query) {
         // Rethrow new error, so can deal with in the controller
         throw err;
     }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// SET SEARCH RESULTS PAGINATION
+////////////////////////////////////////////////////////////////////////////////
+
+export const getSearchResultsPage = function (page = state.search.page) {
+    // resultsPerPage is important data and should go into the state object
+    state.search.page = page;
+    // Determine the starting index of the results for the current page
+    const start = (page - 1) * state.search.resultsPerPage;
+    // Determine the ending index of the results for the current page
+    const end = page * state.search.resultsPerPage;
+    // returns a portion of the search results array using slice method
+    return state.search.results.slice(start, end);
 };

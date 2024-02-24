@@ -9,6 +9,7 @@ import * as model from './model.js';
 import recipeView from './views/recipe-view.js';
 import searchView from './views/search-view.js';
 import resultsView from './views/results-view.js';
+import paginationView from './views/pagination-view.js';
 
 // Parcel
 if (module.hot) {
@@ -65,7 +66,14 @@ const controlSearchResults = async function () {
         // console.log(model.state.search.results);
 
         // 3 - Render search results
-        resultsView.render(model.state.search.results);
+        // Call search results pagination function from model.js
+        // Start at page 1, set in state object
+        resultsView.render(model.getSearchResultsPage());
+
+        //  4 - Render initial pagination buttons
+        // Pass in the whole search object of the state ...
+        // ... so to access the results, page number etc
+        paginationView.render(model.state.search);
     } catch (err) {
         console.log(err);
     }
