@@ -19,6 +19,12 @@ export default class View {
     render(data) {
         // Function is responsible for putting the HTML markup on the page
 
+        // Guard clause if no results or data, exit function immediately
+        // If no data (results) exist, render error message
+        // If no data OR array has 0 entries/length
+        if (!data || (Array.isArray(data) && data.length === 0))
+            return this.renderError();
+
         // Takes data state from controller (showRecipe() async function)
         // So it can be used anywhere in this object
         this._data = data;

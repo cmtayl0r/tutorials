@@ -14,14 +14,13 @@ import icons from 'url:../../img/icons.svg';
 
 class ResultsView extends View {
     _parentElement = document.querySelector('.results'); // results ul
-    _errorMessage = 'We could not find that recipe. Please try another one!';
+    _errorMessage = 'No recipes found. Please search again!';
     _emptyMessage =
         'Start by searching for a recipe or an ingredient. Have fun!';
 
     // ------------------- Private methods
 
     _generateMarkup() {
-        console.log(this._data);
         // iterate over each element in the _data array
         // For each element, the method is called with the current element passed as an argument
         // Return a new array with the results
