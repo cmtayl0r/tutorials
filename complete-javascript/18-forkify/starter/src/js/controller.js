@@ -99,10 +99,14 @@ const controlPagination = function (goToPage) {
     paginationView.render(model.state.search);
 };
 
-const controlServings = functions() {
+// Subscriber - Reacts to an event where a user changes the servings, impacting the ingredient quantity
+const controlServings = function (newServings) {
     // 1 - Update the recipe servings (in state)
+    model.updateServings(newServings);
+
     // 2 - Update the recipe view
-}
+    recipeView.render(model.state.recipe);
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // INIT [START APP] / BIND HANDLERS
@@ -122,5 +126,6 @@ const init = function () {
     recipeView.addHandlerRender(controlRecipes);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
+    recipeView.addHandlerUpdateServings(controlServings);
 };
 init();

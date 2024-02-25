@@ -39,6 +39,20 @@ class RecipeView extends View {
         // window.addEventListener('load', controlRecipes);
     }
 
+    addHandlerUpdateServings(handler) {
+        // Listen for button clicks to update servings. This uses event delegation ...
+        // ... to efficiently handle clicks on dynamically generated buttons.
+        this._parentElement.addEventListener('click', function (evt) {
+            const btn = evt.target.closest('.btn--tiny');
+            // Guard clause. If the clicked element isn't a button, exit the function.
+            if (!btn) return;
+            // Convert dataset attribute value on HTML element to number.
+            const { updateTo } = btn.dataset;
+            // Validate the converted number then call the passed-in handler function with the valid number.
+            if (+updateTo > 0) handler(+updateTo);
+        });
+    }
+
     // ------------------- Private methods
 
     _generateMarkup() {
@@ -72,12 +86,16 @@ class RecipeView extends View {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${
+                  this._data.servings - 1
+              }">
                 <svg>
                   <use href="${icons}#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${
+                  this._data.servings + 1
+              }">
                 <svg>
                   <use href="${icons}#icon-plus-circle"></use>
                 </svg>

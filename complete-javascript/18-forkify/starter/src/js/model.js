@@ -104,3 +104,18 @@ export const getSearchResultsPage = function (page = state.search.page) {
     // returns a portion of the search results array using slice method
     return state.search.results.slice(start, end);
 };
+
+////////////////////////////////////////////////////////////////////////////////
+// UPDATE SERVINGS CALCULATION
+////////////////////////////////////////////////////////////////////////////////
+
+export const updateServings = function (newServings) {
+    // reach in to each ingredient of the recipe and change quantity
+    state.recipe.ingredients.forEach(ing => {
+        ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+        // newQt = oldQt * newServings / oldServings
+    });
+
+    // Update servings in the state
+    state.recipe.servings = newServings;
+};
