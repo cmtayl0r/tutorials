@@ -40,6 +40,9 @@ const controlRecipes = async function () {
         // --> Calls renderSpinner to show a loading spinner in the recipe container
         recipeView.renderSpinner();
 
+        // 0 -  Update results view to mark selected search result
+        resultsView.update(model.getSearchResultsPage());
+
         // 2 - Loading recipe
 
         // --> Async function returns a promise
@@ -105,7 +108,8 @@ const controlServings = function (newServings) {
     model.updateServings(newServings);
 
     // 2 - Update the recipe view
-    recipeView.render(model.state.recipe);
+    // recipeView.render(model.state.recipe);
+    recipeView.update(model.state.recipe);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
