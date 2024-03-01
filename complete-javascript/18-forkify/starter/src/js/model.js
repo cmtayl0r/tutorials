@@ -21,6 +21,7 @@ export const state = {
         page: 1,
         resultsPerPage: RES_PER_PAGE,
     },
+    bookmarks: [],
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -122,4 +123,15 @@ export const updateServings = function (newServings) {
 
     // Update servings in the state
     state.recipe.servings = newServings;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// ADD BOOKMARK
+////////////////////////////////////////////////////////////////////////////////
+
+export const addBookmark = function (recipe) {
+    // Add bookmark to array
+    state.bookmarks.push(recipe);
+
+    // Mark current recipe as bookmark
 };
