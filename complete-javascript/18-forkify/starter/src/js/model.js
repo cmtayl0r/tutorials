@@ -83,7 +83,11 @@ export const loadSearchResults = async function (query) {
                 image: rec.image_url,
             };
         });
-        // console.log(state.search.results);
+
+        // When load any new search results, page resets to 1 in state
+        // Corrects search pagination issues...
+        // ... when on page 3 of results (Pizza), do another search (Pasta), still on page 3
+        state.search.page = 1;
     } catch (err) {
         // Rethrow new error, so can deal with in the controller
         throw err;
