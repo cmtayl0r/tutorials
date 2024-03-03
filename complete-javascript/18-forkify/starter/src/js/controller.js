@@ -41,21 +41,23 @@ const controlRecipes = async function () {
         // --> Calls renderSpinner to show a loading spinner in the recipe container
         recipeView.renderSpinner();
 
-        // 0 -  Update results and bookmarks view to mark selected search result
+        // 2 -  Update results view to mark selected search result
         resultsView.update(model.getSearchResultsPage());
-        bookmarksView.update(model.state.bookmarks);
 
-        // 2 - Loading recipe
+        // 3 - Loading recipe
 
         // --> Async function returns a promise
         // --> Load data, store it in the state object
         await model.loadRecipe(id);
 
-        // 3 - Rendering recipe
+        // 4 - Rendering recipe
 
         // --> Call function from recipeView Class
         // --> Data taken from step 2 and passed into the render() method
         recipeView.render(model.state.recipe);
+
+        // 5 - Update bookmarks view to mark selected bookmark result
+        bookmarksView.update(model.state.bookmarks);
     } catch (err) {
         // Render recipeView error markup
         recipeView.renderError();
@@ -130,6 +132,11 @@ const controlAddBookmark = function () {
     bookmarksView.render(model.state.bookmarks);
 };
 
+const controlBookmarks = function () {
+    //
+    bookmarksView.render(model.state.bookmarks);
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 // INIT [START APP] / BIND HANDLERS
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,6 +152,7 @@ const init = function () {
     // ... so, when event occurs (publisher) the subscriber function is executed
 
     // As soon as page is loaded, Bind handlers are in place to react to user actions
+    bookmarksView.addHandlerRender(controlBookmarks);
     recipeView.addHandlerRender(controlRecipes);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);

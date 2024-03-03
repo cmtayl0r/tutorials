@@ -22,6 +22,10 @@ class BookmarksView extends View {
 
     // ------------------- Private methods
 
+    addHandlerRender(handler) {
+        window.addEventListener('load', handler);
+    }
+
     _generateMarkup() {
         // iterate over each element in the _data array
         // For each element, the previewView.render() method is called
