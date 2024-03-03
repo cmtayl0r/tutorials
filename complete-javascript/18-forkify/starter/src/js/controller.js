@@ -5,6 +5,9 @@
 // MODEL / STATE
 import * as model from './model.js';
 
+// CONFIG
+import { MODAL_CLOSE_SEC } from './config.js';
+
 // VIEWS
 import recipeView from './views/recipe-view.js';
 import searchView from './views/search-view.js';
@@ -140,10 +143,22 @@ const controlBookmarks = function () {
 
 const controlAddRecipe = async function (newRecipe) {
     try {
+        // show loading spinner on form modal (from parent view class)
+        addRecipeView.renderSpinner();
+
         // Upload new recipe data
         await model.uploadRecipe(newRecipe);
 
-        console.log(model.state.recipe);
+        // Render uploaded recipe
+        recipeView.render(model.state.recipe);
+
+        // Render Success message on form modal (from parent view class)
+        addRecipeView.renderMessage();
+
+        // Close form window
+        setTimeout(function () {
+            addRecipeView.toggleWindow();
+        }, MODAL_CLOSE_SEC * 1000);
     } catch (err) {
         console.error('💥', err);
         addRecipeView.renderError(err.message);

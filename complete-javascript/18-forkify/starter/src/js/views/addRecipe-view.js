@@ -13,6 +13,7 @@ import icons from 'url:../../img/icons.svg';
 ////////////////////////////////////////////////////////////////////////////////
 class AddRecipeView extends View {
     _parentElement = document.querySelector('.upload'); // form
+    _emptyMessage = 'Recipe was successfully uploaded';
     _window = document.querySelector('.add-recipe-window'); // The modal window
     _overlay = document.querySelector('.overlay');
     _btnOpen = document.querySelector('.nav__btn--add-recipe');
