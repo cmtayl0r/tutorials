@@ -5,6 +5,9 @@
 // Import parent class
 import View from './view.js';
 
+// Import child class that handles generating result markup for both bookmarks and search results
+import previewView from './preview-view.js';
+
 // Importing icons from a given path using Parcel's URL loader syntax
 import icons from 'url:../../img/icons.svg';
 
@@ -22,31 +25,12 @@ class ResultsView extends View {
 
     _generateMarkup() {
         // iterate over each element in the _data array
-        // For each element, the method is called with the current element passed as an argument
+        // For each element, the previewView.render() method is called
         // Return a new array with the results
-        // These results are then joined together into a single string with no spaces
-        return this._data.map(this._generateMarkupPreview).join('');
-    }
-
-    _generateMarkupPreview(result) {
-        // Get id to determine selected search result, and apply class below
-        const id = window.location.hash.slice(1);
-
-        return `
-        <li class="preview">
-            <a class="preview__link preview ${
-                result.id === id ? 'preview__link--active' : ''
-            }" href="#${result.id}">
-            <figure class="preview__fig">
-                <img src="${result.image}" alt="${result.title}" />
-            </figure>
-            <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.publisher}</p>
-            </div>
-            </a>
-        </li>
-    `;
+        // These result results are then joined together into a single string with no spaces
+        return this._data
+            .map(result => previewView.render(result, false))
+            .join('');
     }
 }
 

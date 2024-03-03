@@ -16,7 +16,7 @@ import icons from 'url:../../img/icons.svg';
 export default class View {
     _data; // API data from state/model
 
-    render(data) {
+    render(data, render = true) {
         // Function is responsible for putting the HTML markup on the page
 
         // Guard clause if no results or data, exit function immediately
@@ -32,6 +32,9 @@ export default class View {
         // Generate the new markup based on the updated data.
         // Get returned markup from private method of this class
         const markup = this._generateMarkup();
+
+        //
+        if (!render) return markup;
 
         // Clear parent container
         this._clear();

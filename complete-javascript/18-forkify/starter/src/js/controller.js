@@ -41,8 +41,9 @@ const controlRecipes = async function () {
         // --> Calls renderSpinner to show a loading spinner in the recipe container
         recipeView.renderSpinner();
 
-        // 0 -  Update results view to mark selected search result
+        // 0 -  Update results and bookmarks view to mark selected search result
         resultsView.update(model.getSearchResultsPage());
+        bookmarksView.update(model.state.bookmarks);
 
         // 2 - Loading recipe
 
