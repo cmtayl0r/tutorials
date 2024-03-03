@@ -35,7 +35,7 @@ export const loadRecipe = async function (id) {
         // Store returned value from promise (getJSON())
         const data = await getJSON(`${API_URL}/${id}`);
 
-        console.log(data);
+        // console.log(data);
 
         // Destructures and reformats the recipe data fetched from the API.
         const { recipe } = data.data;
@@ -53,6 +53,13 @@ export const loadRecipe = async function (id) {
             ingredients: recipe.ingredients,
             servings: recipe.servings,
         };
+
+        // Check bookmarks array
+        // Look for id of recipe pushed to array
+        // If true will maintain bookmarked button icon state
+        if (state.bookmarks.some(bookmark => bookmark.id === id))
+            state.recipe.bookmarked = true;
+        else state.recipe.bookmarked = false;
     } catch (err) {
         // Rethrow new error, so can deal with in the controller
         throw err;
@@ -126,7 +133,7 @@ export const updateServings = function (newServings) {
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// ADD BOOKMARK
+// ADD and DELETE BOOKMARK
 ////////////////////////////////////////////////////////////////////////////////
 
 export const addBookmark = function (recipe) {
@@ -134,4 +141,17 @@ export const addBookmark = function (recipe) {
     state.bookmarks.push(recipe);
 
     // Mark current recipe as bookmark
+    // Set new property on state object (bookmarked)
+    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+
+export const deleteBookmark = function (id) {
+    // Find the index of the recipe id in the bookmarks array
+    const index = state.bookmarks.findIndex(el => el.id === id);
+    // Delete that id from the bookmarks array
+    state.bookmarks.splice(index, 1);
+
+    // Mark current recipe as NOT bookmarked
+    // Set new property on state object (bookmarked)
+    if (id === state.recipe.id) state.recipe.bookmarked = false;
 };

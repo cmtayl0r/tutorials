@@ -112,6 +112,21 @@ const controlServings = function (newServings) {
     recipeView.update(model.state.recipe);
 };
 
+// Subscriber - Reacts to an event where the user bookmarks a recipe
+const controlAddBookmark = function () {
+    // 1 - Add/remove bookmark
+    if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+    else model.deleteBookmark(model.state.recipe.id);
+    // console.log(model.state.recipe);
+    // console.log(model.state.bookmarked);
+
+    // 2 - Update recipe view
+    // update recipe view to see bookmarked style change
+    recipeView.update(model.state.recipe);
+
+    // 3 - Render bookmarks
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 // INIT [START APP] / BIND HANDLERS
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,5 +146,6 @@ const init = function () {
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
     recipeView.addHandlerUpdateServings(controlServings);
+    recipeView.addHandlerAddBookmark(controlAddBookmark);
 };
 init();

@@ -40,9 +40,11 @@ class RecipeView extends View {
     }
 
     addHandlerUpdateServings(handler) {
+        // Event delegation
         // Listen for button clicks to update servings. This uses event delegation ...
         // ... to efficiently handle clicks on dynamically generated buttons.
         this._parentElement.addEventListener('click', function (evt) {
+            // identify if click occurred on button or any of its descendants (svg etc)
             const btn = evt.target.closest('.btn--tiny');
             // Guard clause. If the clicked element isn't a button, exit the function.
             if (!btn) return;
@@ -50,6 +52,20 @@ class RecipeView extends View {
             const { updateTo } = btn.dataset;
             // Validate the converted number then call the passed-in handler function with the valid number.
             if (+updateTo > 0) handler(+updateTo);
+        });
+    }
+
+    addHandlerAddBookmark(handler) {
+        // Event delegation
+        // Listen for an event on a parent element, figure out if click happened
+        // This is because button not visible when page first loads
+        this._parentElement.addEventListener('click', function (evt) {
+            // identify if click occurred on button or any of its descendants (svg etc)
+            const btn = evt.target.closest('.btn--bookmark');
+            // Guard clause. If the clicked element isn't a button, exit the function.
+            if (!btn) return;
+            // Call handler
+            handler();
         });
     }
 
@@ -106,9 +122,11 @@ class RecipeView extends View {
           <div class="recipe__user-generated">
             
           </div>
-          <button class="btn--round">
+          <button class="btn--round btn--bookmark">
             <svg class="">
-              <use href="${icons}#icon-bookmark-fill"></use>
+              <use href="${icons}#icon-bookmark${
+            this._data.bookmarked ? '-fill' : ''
+        }"></use>
             </svg>
           </button>
         </div>

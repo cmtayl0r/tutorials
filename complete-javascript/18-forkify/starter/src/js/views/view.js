@@ -42,6 +42,8 @@ export default class View {
 
     update(data) {
         // This method optimizes DOM updates by only modifying elements that actually changed.
+        // - Select bookmark
+        // - Change servings
 
         // Takes data state from controller
         // Update the internal data reference with the new data.
@@ -68,16 +70,16 @@ export default class View {
         newElements.forEach((newEl, i) => {
             const curEl = curElements[i]; // Corresponding element in the current DOM.
 
-            console.log(curEl, newEl.isEqualNode(curEl));
+            // console.log(curEl, newEl.isEqualNode(curEl));
 
             // A - Updates changed TEXT
             // Check if the element itself has changed (excluding its children).
             // If the text content is different, update the current DOM's text content.
             if (
                 !newEl.isEqualNode(curEl) &&
-                newEl.firstChild?.nodeValue.trim() !== ''
+                newEl.firstChild?.nodeValue.trim() !== '' &&
+                newEl.firstChild?.nodeValue.trim() !== undefined
             ) {
-                console.log('🥺', newEl.firstChild.nodeValue.trim());
                 // Mutate/update the current DOM to have changes
                 curEl.textContent = newEl.textContent;
             }
