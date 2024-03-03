@@ -11,6 +11,7 @@ import searchView from './views/search-view.js';
 import resultsView from './views/results-view.js';
 import paginationView from './views/pagination-view.js';
 import bookmarksView from './views/bookmarks-view.js';
+import addRecipeView from './views/addRecipe-view.js';
 
 // Parcel
 if (module.hot) {
@@ -137,6 +138,18 @@ const controlBookmarks = function () {
     bookmarksView.render(model.state.bookmarks);
 };
 
+const controlAddRecipe = async function (newRecipe) {
+    try {
+        // Upload new recipe data
+        await model.uploadRecipe(newRecipe);
+
+        console.log(model.state.recipe);
+    } catch (err) {
+        console.error('💥', err);
+        addRecipeView.renderError(err.message);
+    }
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 // INIT [START APP] / BIND HANDLERS
 ////////////////////////////////////////////////////////////////////////////////
@@ -158,5 +171,6 @@ const init = function () {
     paginationView.addHandlerClick(controlPagination);
     recipeView.addHandlerUpdateServings(controlServings);
     recipeView.addHandlerAddBookmark(controlAddBookmark);
+    addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 init();

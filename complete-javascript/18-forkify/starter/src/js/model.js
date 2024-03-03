@@ -5,8 +5,8 @@
 // IMPORTS
 ////////////////////////////////////////////////////////////////////////////////
 
-import { API_URL, RES_PER_PAGE } from './config.js';
-import { getJSON } from './helpers.js';
+import { API_URL, RES_PER_PAGE, KEY } from './config.js';
+import { getJSON, sendJSON } from './helpers.js';
 
 ////////////////////////////////////////////////////////////////////////////////
 // MODEL / STATE
@@ -28,6 +28,26 @@ export const state = {
 // LOAD RECIPE DATA
 ////////////////////////////////////////////////////////////////////////////////
 
+const createRecipeObject = function (data) {
+    // Destructures and reformats the recipe data fetched from the API.
+    const { recipe } = data.data;
+
+    // Return formatted object data
+    return {
+        // Reformats the keys and values of the recipe object.
+        // rename api data keys that have underscores
+        id: recipe.id,
+        title: recipe.title,
+        publisher: recipe.publisher,
+        sourceUrl: recipe.source_url,
+        image: recipe.image_url,
+        cookingTime: recipe.cooking_time,
+        ingredients: recipe.ingredients,
+        servings: recipe.servings,
+        ...(recipe.key && { key: recipe.key }), // if recipe key doesnt exist, nothing happens. If exists, spread and add object
+    };
+};
+
 // function called by the controller
 export const loadRecipe = async function (id) {
     try {
@@ -35,24 +55,8 @@ export const loadRecipe = async function (id) {
         // Store returned value from promise (getJSON())
         const data = await getJSON(`${API_URL}/${id}`);
 
-        // console.log(data);
-
-        // Destructures and reformats the recipe data fetched from the API.
-        const { recipe } = data.data;
-
-        // Add formatted object data to state object
-        state.recipe = {
-            // Reformats the keys and values of the recipe object.
-            // rename api data keys that have underscores
-            id: recipe.id,
-            title: recipe.title,
-            publisher: recipe.publisher,
-            sourceUrl: recipe.source_url,
-            image: recipe.image_url,
-            cookingTime: recipe.cooking_time,
-            ingredients: recipe.ingredients,
-            servings: recipe.servings,
-        };
+        //  Add formatted state object to the state object
+        state.recipe = createRecipeObject(data);
 
         // Check bookmarks array
         // Look for id of recipe pushed to array
@@ -174,4 +178,52 @@ init();
 
 const clearBookmarks = function () {
     localStorage.clear('bookmarks');
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// UPLOAD RECIPE
+////////////////////////////////////////////////////////////////////////////////
+
+export const uploadRecipe = async function (newRecipe) {
+    try {
+        // Take created object of the uploaded recipe (new recipe)
+        // Filter out the ata we are interested in
+        // Create new array with array elements that start with 'ingredient' (0)
+        // ... and don't have an empty string as second value (1)
+        const ingredients = Object.entries(newRecipe)
+            .filter(
+                entry => entry[0].startsWith('ingredient') && entry[1] !== ''
+            )
+            .map(ing => {
+                const ingArr = ing[1].replaceAll(' ', '').split(',');
+                if (ingArr.length !== 3)
+                    throw new Error(
+                        'Wrong ingredient format! Please use the correct format.'
+                    );
+                const [quantity, unit, description] = ingArr;
+                return {
+                    quantity: quantity ? +quantity : null,
+                    unit,
+                    description,
+                };
+            });
+        // turn into object to send to API
+        const recipe = {
+            title: newRecipe.title,
+            source_url: newRecipe.sourceUrl,
+            image_url: newRecipe.image,
+            publisher: newRecipe.publisher,
+            cooking_time: +newRecipe.cookingTime,
+            servings: +newRecipe.servings,
+            ingredients,
+        };
+        console.log(recipe);
+        const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+        //  Add formatted state object to the state object
+        state.recipe = createRecipeObject(data);
+        // Add uploaded recipe as bookmark
+        addBookmark(state.recipe);
+    } catch (err) {
+        throw err;
+    }
 };
