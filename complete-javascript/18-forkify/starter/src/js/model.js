@@ -53,7 +53,7 @@ export const loadRecipe = async function (id) {
     try {
         // Call helper async function to fetch and parse JSON data
         // Store returned value from promise (getJSON())
-        const data = await AJAX(`${API_URL}/${id}`);
+        const data = await AJAX(`${API_URL}/${id}?key=${KEY}`);
 
         //  Add formatted state object to the state object
         state.recipe = createRecipeObject(data);
@@ -81,7 +81,7 @@ export const loadSearchResults = async function (query) {
 
         // Call helper async function to fetch and parse JSON data
         // Store returned value from promise (getJSON())
-        const data = await AJAX(`${API_URL}?search=${query}`);
+        const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
 
         // Map over array given by API, return reformatted objects
         // Add map objects to array in state object
@@ -93,6 +93,7 @@ export const loadSearchResults = async function (query) {
                 title: rec.title,
                 publisher: rec.publisher,
                 image: rec.image_url,
+                ...(rec.key && { key: rec.key }), // if recipe key doesn't exist, nothing happens. If exists, spread and add object
             };
         });
 
@@ -195,7 +196,10 @@ export const uploadRecipe = async function (newRecipe) {
                 entry => entry[0].startsWith('ingredient') && entry[1] !== ''
             )
             .map(ing => {
-                const ingArr = ing[1].replaceAll(' ', '').split(',');
+                const ingArr = ing[1]
+                    .replaceAll(' ', '')
+                    .split(',')
+                    .map(el => el.trim());
                 if (ingArr.length !== 3)
                     throw new Error(
                         'Wrong ingredient format! Please use the correct format.'
