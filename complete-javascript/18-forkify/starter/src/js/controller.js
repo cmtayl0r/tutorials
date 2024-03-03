@@ -22,13 +22,20 @@ if (module.hot) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// CONTROLLER SUBSCRIBERS
+// CONTROLLER (SUBSCRIBERS)
 ////////////////////////////////////////////////////////////////////////////////
 
 // *** Publisher-subscriber design pattern
-// These controller functions (aka event handlers) are subscribers because they ...
-// ... "subscribe" to listen for specific events (user actions, published from views) ...
-// ... and execute in response to those events.
+/*
+These controller functions (aka event handlers) are subscribers because they ...
+... "subscribe" to listen for specific events (user actions, published from views) ...
+... and execute in response to those events.
+*/
+/* 
+These functions act as a "controller" ...
+... managing the flow of several different events
+... by interacting with both the model for data handling and the view for UI updates.
+*/
 
 // Subscriber - Reacts to an event where a user selects a recipe to view its details.
 const controlRecipes = async function () {
@@ -141,6 +148,7 @@ const controlBookmarks = function () {
     bookmarksView.render(model.state.bookmarks);
 };
 
+// Subscriber - Reacts to a recipe addition event, where the user attempts to upload a new recipe.
 const controlAddRecipe = async function (newRecipe) {
     try {
         // show loading spinner on form modal (from parent view class)
@@ -154,6 +162,13 @@ const controlAddRecipe = async function (newRecipe) {
 
         // Render Success message on form modal (from parent view class)
         addRecipeView.renderMessage();
+
+        // Render bookmark view
+        bookmarksView.render(model.state.bookmarks);
+
+        // Change ID in URL
+        // Change url without reloading the page
+        window.history.pushState(null, '', `#${model.state.recipe.id}`);
 
         // Close form window
         setTimeout(function () {

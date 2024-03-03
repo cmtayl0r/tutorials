@@ -22,6 +22,35 @@ const timeout = function (s) {
     });
 };
 
+export const AJAX = async function (url, uploadData = undefined) {
+    try {
+        // Upload data used as part of add recipe process
+        const fetchPro = uploadData
+            ? fetch(url, {
+                  method: 'POST', // Use the POST method to send data.
+                  headers: {
+                      'Content-Type': 'application/json', // Set the content type of the request body to JSON.
+                  },
+                  body: JSON.stringify(uploadData), // Convert the `uploadData` object to a JSON string for the request body.
+              })
+            : fetch(url);
+        // Await promises, fetches recipe data from the API
+        // Races 2 promises, fetch() against timeout
+        // If timeout wins (promise fulfilled first), rejects with timeout message
+        const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
+        // Await promise, parses the JSON response from the API.
+        const data = await res.json();
+        // If response not ok, throw new error
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        // Result data of promise that function returns
+        return data;
+    } catch (err) {
+        // Rethrow new error
+        throw err;
+    }
+};
+
+/*
 export const getJSON = async function (url) {
     try {
         // Await promises, fetches recipe data from the API
@@ -67,3 +96,4 @@ export const sendJSON = async function (url, uploadData) {
         throw err;
     }
 };
+*/
