@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 import { API_URL, RES_PER_PAGE, KEY } from './config.js';
-import { getJSON, sendJSON } from './helpers.js';
+import { AJAX } from './helpers.js';
 
 ////////////////////////////////////////////////////////////////////////////////
 // MODEL / STATE
@@ -53,7 +53,7 @@ export const loadRecipe = async function (id) {
     try {
         // Call helper async function to fetch and parse JSON data
         // Store returned value from promise (getJSON())
-        const data = await getJSON(`${API_URL}/${id}`);
+        const data = await AJAX(`${API_URL}/${id}`);
 
         //  Add formatted state object to the state object
         state.recipe = createRecipeObject(data);
@@ -81,7 +81,7 @@ export const loadSearchResults = async function (query) {
 
         // Call helper async function to fetch and parse JSON data
         // Store returned value from promise (getJSON())
-        const data = await getJSON(`${API_URL}?search=${query}`);
+        const data = await AJAX(`${API_URL}?search=${query}`);
 
         // Map over array given by API, return reformatted objects
         // Add map objects to array in state object
@@ -218,7 +218,7 @@ export const uploadRecipe = async function (newRecipe) {
             ingredients,
         };
         console.log(recipe);
-        const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+        const data = await AJAX(`${API_URL}?key=${KEY}`, recipe);
         //  Add formatted state object to the state object
         state.recipe = createRecipeObject(data);
         // Add uploaded recipe as bookmark
