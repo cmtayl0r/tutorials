@@ -10,6 +10,7 @@ import recipeView from './views/recipe-view.js';
 import searchView from './views/search-view.js';
 import resultsView from './views/results-view.js';
 import paginationView from './views/pagination-view.js';
+import bookmarksView from './views/bookmarks-view.js';
 
 // Parcel
 if (module.hot) {
@@ -125,6 +126,7 @@ const controlAddBookmark = function () {
     recipeView.update(model.state.recipe);
 
     // 3 - Render bookmarks
+    bookmarksView.render(model.state.bookmarks);
 };
 
 ////////////////////////////////////////////////////////////////////////////////
