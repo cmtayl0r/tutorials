@@ -37,7 +37,7 @@ export const AJAX = async function (url, uploadData = undefined) {
         // Await promises, fetches recipe data from the API
         // Races 2 promises, fetch() against timeout
         // If timeout wins (promise fulfilled first), rejects with timeout message
-        const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
+        const res = await Promise.race([fetchPro, timeout(TIMEOUT_SEC)]);
         // Await promise, parses the JSON response from the API.
         const data = await res.json();
         // If response not ok, throw new error
