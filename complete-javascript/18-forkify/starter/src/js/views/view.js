@@ -16,6 +16,13 @@ import icons from 'url:../../img/icons.svg';
 export default class View {
     _data; // API data from state/model
 
+    /**
+     * Render the received object to the DOM
+     * @param {Object | Object[]} data The data to be rendered (e.g. recipe)
+     * @param {Boolean} [render=true] if false, create markup string instead of rendering to the DOM
+     * @returns {undefined | string } A markup string is returned if render=false
+     * @this {object} View instance
+     */
     render(data, render = true) {
         // Function is responsible for putting the HTML markup on the page
 
