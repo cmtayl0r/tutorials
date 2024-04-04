@@ -37,3 +37,29 @@ console.log(newAccount.balance);
 
 // newAccount.withdraw(60);
 // newAccount.showData();
+
+// -----------------------------------------------------------------------------
+//  CODING EXERCISE 2
+// -----------------------------------------------------------------------------
+
+class ArrayUtils {
+  constructor() {
+    throw new Error("ArrayUtils cannot be instantiated.");
+  }
+  static average(arr) {
+    // Check if array is empty
+    if (arr.length === 0) {
+      throw new Error("Array cannot be empty.");
+    }
+    // Use reduce method to find average number in array
+    return arr.reduce((sum, current) => sum + current, 0) / arr.length;
+  }
+  static max(arr) {
+    // Check if the array is not an array AND is empty
+    if (!Array.isArray(arr) || arr.length === 0) {
+      throw new Error("The input must be a non-empty array.");
+    }
+    // Use Math.max with spread operator to find the largest number
+    return Math.max(...arr);
+  }
+}
