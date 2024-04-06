@@ -43,7 +43,7 @@ class UserProfile {
     }
 
     // GETTER METHODS
-    get userName() {
+    get username() {
         return this._username;
     }
     get email() {
