@@ -12,15 +12,49 @@
                     'Helvetica Neue', sans-serif;
                 margin: 0;
                 padding: 0;
-                background-color: salmon;
+                background-color: greenyellow;
             }
             h1 {
                 text-align: center;
                 margin-top: 50px;
             }
+            button {
+                padding: 10px 20px;
+                font-size: 1.2rem;
+                border: none;
+                background-color: green;
+                color: white;
+                cursor: pointer;
+                width: auto;
+            }
+            #stack {
+                display: flex;
+                height: 400px;
+                width: 300px;
+                border: dashed 2px green;
+
+                justify-content: center;
+                align-items: center;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+
+                align-items: center;
+                box-sizing: content-box;
+                max-inline-size: 80ch;
+                margin-inline: auto;
+            }
+            .card {
+            }
         </style>
     </head>
     <body>
         <h1>Section 05: OOP Under the hood</h1>
+        <!-- <button id="dealBtn">Deal a card</button> -->
+        <main class="container">
+            <button id="dealBtn">Deal a card</button>
+            <div id="stack"></div>
+        </main>
     </body>
 </html>
