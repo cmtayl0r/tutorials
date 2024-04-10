@@ -1,5 +1,3 @@
-// const BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
-
 // fetch(`${BASE_URL}/1`) // Receives a promise
 //     .then(res1 => {
 //         res1.json(); // Returns a new promise
@@ -52,6 +50,7 @@
 // SEQUENTIAL ASYNC OPERATIONS
 // -----------------------------------------------------------------------------
 
+// const BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
 // const results = [];
 
 // async function get3Pokemons(pokeIds) {
@@ -229,3 +228,126 @@ async function drawCard() {
 // Add an event listener to the deal button
 // When the button is clicked, draw a card
 dealBtn.addEventListener('click', drawCard);
+
+// -----------------------------------------------------------------------------
+// POKEMON APP
+// -----------------------------------------------------------------------------
+
+// TODO: Clear the stack before rendering new Pokemon
+// TODO: Add a loading spinner while fetching data
+// TODO: Add error handling for fetch requests
+// TODO: Refactor as Class
+
+const BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
+const catchBtn = document.querySelector('#catchBtn');
+const pokeStack = document.querySelector('#poke-stack');
+
+catchBtn.addEventListener('click', () => fetchRandomPoke(3));
+
+// Fetch random Pokemon data
+async function fetchRandomPoke(count) {
+    try {
+        // Destructure the results array from the JSON object
+        const { results: pokemon } = await fetchPokeData();
+        // Create array of random pokemon urls, amount determined by count
+        const pokeURLs = Array.from(
+            { length: count },
+            () => pokemon[Math.floor(Math.random() * 100)].url
+        );
+        // Fetch data for chosen Pokemon
+        const pokeData = await Promise.all(
+            pokeURLs.map(async url => {
+                const res = await fetch(url);
+                if (!res.ok)
+                    throw new Error(
+                        `Error fetching Pokemon details [${res.status}]`
+                    );
+                return res.json();
+            })
+        );
+        pokeData.forEach(poke => renderPoke(poke));
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+// Fetch initial 100 Pokemon data
+async function fetchPokeData() {
+    const response = await fetch(`${BASE_URL}?limit=100`);
+    if (!response.ok)
+        throw new Error(
+            `Failed to fetch initial Pokemon data [${response.status}]`
+        );
+    return response.json();
+}
+
+// Helper function to render Pokemon data
+// Destructure the object to get the name, sprites, and abilities
+function renderPoke({ name, sprites, abilities }) {
+    const abilityList = abilities
+        .map(ability => `<li>${ability.ability.name}</li>`)
+        .join(''); // Join the array into a string
+    const markup = `
+        <article class="poke-card">
+            <h3>${name}</h3>
+            <img src="${sprites.front_default}" />
+            <ul>${abilityList}</ul>
+        </article>
+    `;
+    pokeStack.insertAdjacentHTML('beforeend', markup);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+// function renderPokemon(data) {
+//     const abilities = data.abilities
+//         .map(ability => `<li>${ability.ability.name}</li>`)
+//         .join('');
+//     const markup = `
+//         <article class="poke-card">
+//             <h3>${data.name}</h3>
+//             <img src="${data.sprites.front_default}" />
+//             <ul>${abilities}</ul>
+//         </article>
+//     `;
+//     pokeStack.insertAdjacentHTML('beforeend', markup);
+// }
+
+// async function getThreePokemon() {
+//     try {
+//         // 1 - Get initial Pokemon data of 100
+//         const response = await fetch(`${BASE_URL}?limit=100`);
+//         if (!response.ok)
+//             throw new Error(`100 Pokemon error [${response.status}]`);
+//         // Parse the response into JSON
+//         // Destructure the results array from the JSON object, because we only need the results
+//         const { results: pokemon } = await response.json();
+
+//         // 2 - Get 3 random pokemon
+//         // Create an array of 3 random numbers between 0 and 100
+//         // Array.from creates a new array with a length of 3
+//         const selectedIndexes = Array.from({ length: 3 }, () =>
+//             Math.floor(Math.random() * 100)
+//         );
+//         // Create a new array based on array of random numbers
+//         const pokeURLs = selectedIndexes.map(index => pokemon[index].url);
+//         // Fetch data of 3 defined pokemon and create new array
+//         const pokeData = await Promise.all(
+//             pokeURLs.map(async url => {
+//                 const res = await fetch(url);
+//                 if (!res.ok)
+//                     throw new Error(
+//                         `Error fetching Pokemon details [${res.status}]`
+//                     );
+//                 return res.json();
+//             })
+//         );
+
+//         console.log(pokeData);
+
+//         // 4 - Run helper function on each array item
+//         pokeData.forEach(renderPokemon);
+//     } catch (error) {
+//         console.error('Error fetching data:', error.message);
+//     }
+// }

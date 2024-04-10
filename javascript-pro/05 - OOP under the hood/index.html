@@ -44,17 +44,30 @@
                 box-sizing: content-box;
                 max-inline-size: 80ch;
                 margin-inline: auto;
+                margin-bottom: 1rem;
             }
             .card {
+            }
+            #poke-stack {
+                display: flex;
+                gap: 0.5rem;
+
+                & .poke-card {
+                    background-color: yellow;
+                }
             }
         </style>
     </head>
     <body>
         <h1>Section 05: OOP Under the hood</h1>
         <!-- <button id="dealBtn">Deal a card</button> -->
-        <main class="container">
+        <div class="container">
             <button id="dealBtn">Deal a card</button>
             <div id="stack"></div>
-        </main>
+        </div>
+        <div class="container">
+            <button id="catchBtn">Catch Pokemon!</button>
+            <div id="poke-stack"></div>
+        </div>
     </body>
 </html>
