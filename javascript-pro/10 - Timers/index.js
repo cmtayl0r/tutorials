@@ -74,7 +74,7 @@ function debounce(callback, delay = 1000) {
     let timeoutID;
 
     // return a new function that will be called every time the event is triggered
-    // spread operator to get all the arguments from the event
+    // spread operator to get all the arguments from the debounced function
     return function (...args) {
         // save the context of the function
         const context = this;
@@ -100,6 +100,7 @@ function fakeQueryAPI(searchTerm, otherArg) {
 
 // const debouncedQueryAPI = debounce(fakeQueryAPI, 1000);
 
+// Event listener for the search input to call the debounced function
 searchInput.addEventListener(
     'input',
     debounce(() => {
