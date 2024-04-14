@@ -116,7 +116,7 @@ searchInput.addEventListener(
 const content = document.getElementById('content');
 const SCROLL_THRESHOLD = 200; // Threshold for loading more items
 
-function throttle(callback, limit) {
+function throttle(callback, limit = 500) {
     let isThrottled = false; // Closure variable to track timeout
     return function () {
         if (!isThrottled) {
