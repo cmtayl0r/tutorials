@@ -125,4 +125,55 @@ function guessingGame() {
     };
 }
 
-let game = guessingGame();
+// let game = guessingGame();
+
+// -----------------------------------------------------------------------------
+// BANK ACCOUNT
+// -----------------------------------------------------------------------------
+
+function createAccount(pin, initialAmount) {
+    let balance = initialAmount;
+    let accPin = pin;
+
+    return {
+        deposit: function (pin, amount) {
+            if (pin !== accPin) return 'Invalid PIN.';
+            balance += amount;
+            return `Successfully deposited $${amount}. Current balance: $${balance}.`;
+        },
+        withdraw: function (pin, amount) {
+            if (pin !== accPin) return 'Invalid PIN.';
+            if (amount <= balance) {
+                balance -= amount;
+                return `Successfully withdrew $${amount}. Current balance: $${balance}.`;
+            }
+            return 'Withdrawal amount exceeds account balance. Transaction cancelled.';
+        },
+        checkBalance: function (pin) {
+            if (pin !== accPin) return 'Invalid PIN.';
+            return balance; // Access private variable
+        },
+        changePin: function (oldPin, newPIN) {
+            if (pin !== accPin) return 'Invalid PIN.';
+            accPin = newPIN;
+            return 'PIN successfully changed!';
+        },
+    };
+}
+
+let account = createAccount('1234', 100);
+
+//   account.checkBalance("oops");
+//   // "Invalid PIN."
+
+//   account.deposit("1234", 250);
+//   // "Successfully deposited $250. Current balance: $350."
+
+//   account.withdraw("1234", 300);
+//   // "Successfully withdrew $300. Current balance: $50."
+
+//   account.withdraw("1234", 100);
+//   // "Withdrawal amount exceeds account balance. Transaction cancelled."
+
+account.changePin('5678', '4321');
+//   // "PIN successfully changed!"
