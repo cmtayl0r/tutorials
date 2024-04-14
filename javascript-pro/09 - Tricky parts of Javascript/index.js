@@ -158,6 +158,10 @@ function createAccount(pin, initialAmount) {
             accPin = newPIN;
             return 'PIN successfully changed!';
         },
+        showPin: function (pin) {
+            if (pin !== accPin) return 'Invalid PIN.';
+            return accPin;
+        },
     };
 }
 
@@ -175,5 +179,25 @@ let account = createAccount('1234', 100);
 //   account.withdraw("1234", 100);
 //   // "Withdrawal amount exceeds account balance. Transaction cancelled."
 
-account.changePin('5678', '4321');
+// account.changePin('1234', '5678');
 //   // "PIN successfully changed!"
+
+// -----------------------------------------------------------------------------
+// SPECIAL ADD
+// -----------------------------------------------------------------------------
+
+function specialAdd(num) {
+    let sum = 0;
+
+    function inner(num) {
+        sum += num;
+        return inner;
+    }
+
+    inner.toString = function () {
+        return sum;
+    };
+
+    return inner;
+}
+console.log(specialAdd(2)(8)(5)(1));
