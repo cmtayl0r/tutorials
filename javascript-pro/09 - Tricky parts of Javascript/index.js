@@ -83,7 +83,7 @@ function createBankAccount(initialBalance) {
 // newBankAccount.deposit(50);
 // newBankAccount.deposit(50);
 
-console.log('Balance:', newBankAccount.getBalance());
+// console.log('Balance:', newBankAccount.getBalance());
 
 function createUserId(prefix) {
     return function generateId(name) {
@@ -97,3 +97,32 @@ function createUserId(prefix) {
 // const newUser = createUserId('user');
 
 // console.log(newUser('Chris'));
+
+// -----------------------------------------------------------------------------
+// GUESSING GAME
+// -----------------------------------------------------------------------------
+
+function guessingGame() {
+    const secretNumber = Math.floor(Math.random() * 100);
+    let guesses = 0;
+    let wonGame = false;
+
+    console.log(secretNumber);
+
+    return function submitGuess(guess) {
+        if (wonGame) {
+            return 'The game is over, you already won.';
+        }
+
+        guesses++;
+        if (guess === secretNumber) {
+            wonGame = true;
+            const guessPhrase = guesses === 1 ? 'guess' : 'guesses';
+            return `You win! You found ${guess} in ${guesses} ${guessPhrase}.`;
+        }
+        if (guess > secretNumber) return `${guess} is too high!`;
+        if (guess < secretNumber) return `${guess} is too low!`;
+    };
+}
+
+let game = guessingGame();
