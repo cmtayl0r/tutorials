@@ -172,7 +172,7 @@ window.addEventListener(
 loadMoreItems(); // initial load of first 10 items
 
 // -----------------------------------------------------------------------------
-// THROTTLE
+// SMOOTH SCROLL TO TOP ANIMATION
 // -----------------------------------------------------------------------------
 
 const backToTopButton = document.querySelector('.back-to-top');
