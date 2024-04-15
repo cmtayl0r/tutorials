@@ -170,3 +170,32 @@ window.addEventListener(
 );
 
 loadMoreItems(); // initial load of first 10 items
+
+// -----------------------------------------------------------------------------
+// THROTTLE
+// -----------------------------------------------------------------------------
+
+const backToTopButton = document.querySelector('.back-to-top');
+
+function smoothScrollToTop() {
+    const duration = 500; // duration of the scroll animation
+    const start = window.pageYOffset; // current vertical scroll position
+    const end = 0; // top of the page
+    const change = end - start; // change in scroll position to reach the top
+    let startTime = null; // start time of the animation
+
+    function animateScroll(currentTime) {
+        if (startTime === null) startTime = currentTime; // set the start time if it is not set
+        const timeElapsed = currentTime - startTime; // calculate the time elapsed
+        const progress = Math.min(timeElapsed / duration, 1); // calculate the progress of the animation
+        window.scrollTo(0, start + change * progress); // update the scroll position
+
+        // if the animation is not finished, request the next frame
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animateScroll);
+        }
+    }
+    requestAnimationFrame(animateScroll);
+}
+
+backToTopButton.addEventListener('click', smoothScrollToTop);
