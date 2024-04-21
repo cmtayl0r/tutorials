@@ -28,8 +28,8 @@ const applyTheme = () => {
     }
 };
 
-toggleBtn.addEventListener('click', toggleTheme);
-applyTheme();
+toggleBtn.addEventListener('click', toggleTheme); // Toggle theme on button click
+applyTheme(); // Apply theme on page load
 
 // -----------------------------------------------------------------------------
 // NOTES APP
@@ -71,7 +71,7 @@ class NotesApp {
             // if noteContent is not empty, create note element and save note
             this.createNoteElement(noteContent);
             this.textArea.value = '';
-            this.notes.push(noteContent);
+            this.notes.push(noteContent); // Add note to notes array
             this.updateLocalStorage();
         }
     }
@@ -86,3 +86,14 @@ class NotesApp {
 }
 
 new NotesApp('#noteInput', '#saveNote', '#notesContainer', '#clearNotes');
+
+// -----------------------------------------------------------------------------
+// Storage Event
+// -----------------------------------------------------------------------------
+
+window.addEventListener('storage', event => {
+    console.log('Storage event fired:', event);
+    if (event.key === 'theme') {
+        applyTheme(); // Apply theme on storage event
+    }
+});
