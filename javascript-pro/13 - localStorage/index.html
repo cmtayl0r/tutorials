@@ -11,16 +11,49 @@
                     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
                     'Helvetica Neue', sans-serif;
                 margin: 0;
-                padding: 0;
+                padding: 2rem;
                 background-color: chocolate;
             }
             h1 {
                 text-align: center;
-                margin-top: 50px;
+            }
+            body.dark-mode {
+                background-color: #333;
+                color: white;
             }
         </style>
     </head>
     <body>
         <h1>Section 13: localStorage</h1>
+        <h3>Theme toggle</h3>
+        <button id="toggleMode">Enable Dark Mode</button>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
+            temporibus eius optio illo consectetur, accusantium error
+            repudiandae doloremque ex, placeat voluptas numquam nemo voluptatem,
+            voluptatibus blanditiis aspernatur. Error, perferendis nostrum?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+            eveniet quisquam sit obcaecati laudantium, optio incidunt
+            dignissimos, recusandae voluptatum illo, facilis nulla dicta quaerat
+            repellendus molestiae perferendis nobis blanditiis et? Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit. Reiciendis temporibus
+            eius optio illo consectetur, accusantium error repudiandae
+            doloremque ex, placeat voluptas numquam nemo voluptatem,
+            voluptatibus blanditiis aspernatur. Error, perferendis nostrum?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
+            eveniet quisquam sit obcaecati laudantium, optio incidunt
+            dignissimos, recusandae voluptatum illo, facilis nulla dicta quaerat
+            repellendus molestiae perferendis nobis blanditiis et?
+        </p>
+        <h3>Simple Notes App</h3>
+        <textarea
+            name="noteInput"
+            id="noteInput"
+            cols="30"
+            rows="10"
+        ></textarea>
+        <button id="saveNote">Save note</button>
+        <ul id="notesContainer"></ul>
+        <button id="clearNotes">Clear notes</button>
     </body>
 </html>
