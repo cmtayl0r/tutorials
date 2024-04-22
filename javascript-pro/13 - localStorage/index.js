@@ -97,3 +97,65 @@ window.addEventListener('storage', event => {
         applyTheme(); // Apply theme on storage event
     }
 });
+
+// -----------------------------------------------------------------------------
+// SessionStorage
+// -----------------------------------------------------------------------------
+
+// sessionStorage.setItem('sessionKey', 'sessionValue'); // Set session storage
+// const sessionValue = sessionStorage.getItem('sessionKey'); // Get session storage
+// sessionStorage.removeItem('sessionKey'); // Remove session storage
+// sessionStorage.clear(); // Clear all session storage
+
+// function warnUserOnce() {
+//     if (!localStorage.getItem('shownWarning')) {
+//         console.log('WARNING! We Are Shutting Down our entire app');
+//     }
+//     localStorage.setItem('shownWarning', 'true');
+// }
+
+// warnUserOnce();
+
+const searchField = document.querySelector('#searchField');
+searchField.addEventListener('input', e => {
+    sessionStorage.setItem('searchField', e.target.value);
+});
+
+const populateSearch = () => {
+    const previousSearch = sessionStorage.getItem('searchField');
+    searchField.value = previousSearch;
+};
+
+populateSearch();
+
+// Session Storage Form Data
+
+const form = document.querySelector('#checkoutForm');
+
+// Listen for input events on the form
+form.addEventListener('input', e => {
+    // If any of the 3 inputs change we want to save the data
+    // Destructure the name and value from the input
+    const { name, value } = e.target;
+    // Look to see if we have anything stored already, or create an empty object
+    const formData = JSON.parse(sessionStorage.getItem('formData')) ?? {};
+    // Add the name and value of the input to the object
+    formData[name] = value;
+    // Save the object to session storage
+    sessionStorage.setItem('formData', JSON.stringify(formData));
+});
+
+// Function to populate the form with the data from session storage
+// so that it persists on page refresh and the user can continue where they left off
+const populateForm = () => {
+    // Get the form data from session storage
+    const formData = JSON.parse(sessionStorage.getItem('formData')) ?? {};
+    // If we have form data, loop over each key and value and populate the form
+    if (formData) {
+        Object.entries(formData).forEach(([name, value]) => {
+            form.querySelector(`[name=${name}]`).value = value;
+        });
+    }
+};
+// Call the function to populate the form
+populateForm();
