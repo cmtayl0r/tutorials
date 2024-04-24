@@ -132,7 +132,7 @@ populateSearch();
 
 const form = document.querySelector('#checkoutForm');
 
-// Listen for input events on the form
+// 1 - Listen for input events on the form
 form.addEventListener('input', e => {
     // If any of the 3 inputs change we want to save the data
     // Destructure the name and value from the input
@@ -145,7 +145,7 @@ form.addEventListener('input', e => {
     sessionStorage.setItem('formData', JSON.stringify(formData));
 });
 
-// Function to populate the form with the data from session storage
+// 2 - Function to populate the form with the data from session storage
 // so that it persists on page refresh and the user can continue where they left off
 const populateForm = () => {
     // Get the form data from session storage
