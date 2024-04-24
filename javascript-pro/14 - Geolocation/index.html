@@ -18,9 +18,18 @@
                 text-align: center;
                 color: white;
             }
+            .container > * + * {
+                margin-block-start: 1rem;
+                padding: 1rem;
+                background-color: rgba(255, 255, 255, 0.2);
+            }
         </style>
     </head>
     <body>
         <h1>Section 14: Geolocation API</h1>
+        <div class="container">
+            <button id="getLocation">Get Location</button>
+            <div id="locationDisplay">Your location will appear here</div>
+        </div>
     </body>
 </html>
