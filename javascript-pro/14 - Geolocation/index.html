@@ -13,6 +13,7 @@
                 margin: 0;
                 padding: 2rem;
                 background-color: rebeccapurple;
+                height: 4000px;
             }
             h1 {
                 text-align: center;
@@ -23,6 +24,26 @@
                 padding: 1rem;
                 background-color: rgba(255, 255, 255, 0.2);
             }
+            .ad {
+                height: 20rem;
+                width: 20rem;
+                border: 2px solid white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                margin-top: 1500px;
+                color: white;
+            }
+            #blue {
+                background-color: blue;
+            }
+            #gray {
+                background-color: lightslategray;
+            }
+            .lazy-blur {
+                filter: blur(20px);
+            }
         </style>
     </head>
     <body>
@@ -31,5 +52,8 @@
             <button id="getLocation">Get Location</button>
             <div id="locationDisplay">Your location will appear here</div>
         </div>
+        <div id="blue" class="ad">This is an Intersection observer demo 1</div>
+        <div id="gray" class="ad">This is an Intersection observer demo 2</div>
+        <!-- <div class="ad">This is an Intersection observer demo 2</div> -->
     </body>
 </html>
