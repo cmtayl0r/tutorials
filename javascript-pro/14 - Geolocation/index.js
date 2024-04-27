@@ -146,3 +146,15 @@ window.addEventListener('load', () => {
 });
 
 performance.mark('start_script');
+
+// Add an event listener to the window object to listen for the DOMContentLoaded event
+// This event fires when the initial HTML document has been completely loaded and parsed
+//
+window.addEventListener('DOMContentLoaded', () => {
+    // Get performance entries for each resource loaded
+    // resources could be images, stylesheets, scripts, etc.
+    performance.getEntriesByType('resource').forEach(resource => {
+        console.log(resource);
+        console.log(resource.name, resource.duration);
+    });
+});
