@@ -71,6 +71,9 @@ allImages.forEach(image => observer.observe(image));
 const navPrimary = document.querySelector('.navPrimary');
 const navHeightPrimary = navPrimary.getBoundingClientRect().height;
 const headerPrimary = document.querySelector('.headerPrimary');
+// header is needed because the nav is not the first child of the header
+// and the observer needs to know when the header is intersecting
+// with the viewport to add the sticky class
 
 const navSecondary = document.querySelector('.navSecondary');
 const navHeightSecondary = navSecondary.getBoundingClientRect().height;
@@ -86,7 +89,7 @@ updateSecondaryNavTop();
 window.addEventListener('resize', updateSecondaryNavTop);
 
 const stickyPrimaryNav = (entries, observer) => {
-    const [entry] = entries;
+    const [entry] = entries; // Destructure the entries array
     if (!entry.isIntersecting) {
         navPrimary.classList.add('sticky');
         navPrimary.style.top = '0';
@@ -103,7 +106,7 @@ const observerPrimary = new IntersectionObserver(stickyPrimaryNav, {
 });
 
 const stickySecondaryNav = (entries, observer) => {
-    const [entry] = entries;
+    const [entry] = entries; // Destructure the entries array
     if (!entry.isIntersecting) {
         navSecondary.classList.add('sticky');
         navSecondary.style.top = `${navHeightPrimary}px`;
@@ -121,3 +124,25 @@ const observerSecondary = new IntersectionObserver(stickySecondaryNav, {
 
 observerPrimary.observe(headerPrimary);
 observerSecondary.observe(headerSecondary);
+
+// -----------------------------------------------------------------------------
+// PERFORMANCE API
+// -----------------------------------------------------------------------------
+
+// Mark the start of the page load
+performance.mark('start_load');
+
+// Add an event listener to the window object to listen for the load event
+window.addEventListener('load', () => {
+    // Mark the end of the page load
+    performance.mark('end_load');
+    // Measure the duration between the start and end marks
+    performance.measure('load_time', 'start_load', 'end_load');
+    // Get the performance entry by name
+    // Destructure the measure object from the array
+    const [measure] = performance.getEntriesByName('load_time');
+    // Log the duration of the page load
+    console.log(`Page load time: ${measure.duration.toFixed(0)}ms`);
+});
+
+performance.mark('start_script');
