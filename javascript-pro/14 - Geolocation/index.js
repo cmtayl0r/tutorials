@@ -25,57 +25,41 @@ const displayError = error => {
 };
 
 // -----------------------------------------------------------------------------
-// INTERSECTION OBSERVER
+// INTERSECTION OBSERVER [LAZY LOADING]
 // -----------------------------------------------------------------------------
 
-// Create a new IntersectionObserver object
-// receives a callback function as an argument, which receives an array of entries
-// const observer = new IntersectionObserver(entries => {
-//     // Loop through the entries
-//     entries.forEach(entry => {
-//         // If the entry is intersecting the viewport, log a message
-//         if (entry.isIntersecting) {
-//             console.log('Element is in view');
-//         }
-//     });
-// });
+const IMAGE_URL = 'https://source.unsplash.com/random/';
+const allImages = document.querySelectorAll('.lazy');
 
-// // Select the target element
-// const target = document.querySelector('.targetElement');
-// // Observe the target element
-// observer.observe(target);
-
-// Select all the ads
-const ads = document.querySelectorAll('.ad');
-
-let adViewTimes = []; // Array to store the time the ad was visible
-let adVisibleStartTime; // Time when the ad became visible
-
-// 1 - Observer options object
-let options = {
+const options = {
     root: null, // viewport is the root
     rootMargin: '0px', // no margin around the root
-    threshold: 0.5, // entry is considered visible when 100% of it is visible
+    threshold: 0.8, // entry is considered visible when 100% of it is visible
 };
 
-// 2 - Observer callback function
-// const observerCallback = function(entries)
-
-// 3 - Create a new IntersectionObserver object
-// has a callback function and the options object as arguments
-const observer = new IntersectionObserver(entries => {
+// callback function for the IntersectionObserver
+// receives an array of entries and the observer object
+const loadImage = (entries, observer) => {
     entries.forEach(entry => {
-        // destructuring the entry object to get the isIntersecting and id properties
-        const { isIntersecting } = entry;
-        const { id } = entry.target;
-        if (isIntersecting) {
-            console.log(`${id} ad is showing 👀`);
-        } else {
-            console.log(`${id} ad is NOT showing 🙈`);
+        if (entry.isIntersecting) {
+            // The image element being observed
+            const img = entry.target;
+
+            // Generate a random number between 0 and 1000
+            // Create random URL for the image from Unsplash
+            let randomImage = Math.floor(Math.random() * 1000);
+            img.src = `${IMAGE_URL}${randomImage}`;
+
+            // When the image is loaded, remove the 'lazy' class
+            img.onload = () => {
+                entry.target.classList.remove('lazy');
+            };
+            // Stop observing the image
+            observer.unobserve(img);
         }
     });
-}, options);
+};
 
-// 4 - Observe the target elements
-// Loop through the ads and observe each one
-ads.forEach(ad => observer.observe(ad));
+const observer = new IntersectionObserver(loadImage, options);
+
+allImages.forEach(image => observer.observe(image));

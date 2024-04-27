@@ -13,7 +13,6 @@
                 margin: 0;
                 padding: 2rem;
                 background-color: rebeccapurple;
-                height: 4000px;
             }
             h1 {
                 text-align: center;
@@ -24,25 +23,34 @@
                 padding: 1rem;
                 background-color: rgba(255, 255, 255, 0.2);
             }
-            .ad {
-                height: 20rem;
-                width: 20rem;
-                border: 2px solid white;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                margin-top: 1500px;
-                color: white;
+            img {
+                /* background: url('placeholder.png') no-repeat center center; */
+
+                width: 100%;
+                height: 100%;
+                filter: grayscale(100%);
+                mix-blend-mode: multiply;
+                aspect-ratio: 3 / 2;
+                object-fit: cover;
+                object-position: center;
+
+                transition: all 0.5s ease-in-out; /* Smooth transition for image loading */
+                /* opacity: 1; Start with full opacity */
             }
-            #blue {
-                background-color: blue;
-            }
-            #gray {
-                background-color: lightslategray;
-            }
-            .lazy-blur {
+            img.lazy {
+                opacity: 0; /* Reduced opacity when loading new image */
                 filter: blur(20px);
+            }
+            .gallery {
+                display: grid;
+                gap: 1rem;
+                grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            }
+            figure {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
             }
         </style>
     </head>
@@ -51,9 +59,168 @@
         <div class="container">
             <button id="getLocation">Get Location</button>
             <div id="locationDisplay">Your location will appear here</div>
+            <div class="gallery">
+                <figure>
+                    <img src="" alt="Image 1" class="lazy" />
+                    <figcaption>Image 1</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 2" class="lazy" />
+                    <figcaption>Image 2</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 3" class="lazy" />
+                    <figcaption>Image 3</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 4" class="lazy" />
+                    <figcaption>Image 4</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 5" class="lazy" />
+                    <figcaption>Image 5</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 6" class="lazy" />
+                    <figcaption>Image 6</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 7" class="lazy" />
+                    <figcaption>Image 7</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 8" class="lazy" />
+                    <figcaption>Image 8</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 9" class="lazy" />
+                    <figcaption>Image 9</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 10" class="lazy" />
+                    <figcaption>Image 10</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 11" class="lazy" />
+                    <figcaption>Image 11</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 12" class="lazy" />
+                    <figcaption>Image 12</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 13" class="lazy" />
+                    <figcaption>Image 13</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 14" class="lazy" />
+                    <figcaption>Image 14</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 15" class="lazy" />
+                    <figcaption>Image 15</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 16" class="lazy" />
+                    <figcaption>Image 16</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 17" class="lazy" />
+                    <figcaption>Image 17</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 18" class="lazy" />
+                    <figcaption>Image 18</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 19" class="lazy" />
+                    <figcaption>Image 19</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 20" class="lazy" />
+                    <figcaption>Image 20</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 21" class="lazy" />
+                    <figcaption>Image 21</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 22" class="lazy" />
+                    <figcaption>Image 22</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 23" class="lazy" />
+                    <figcaption>Image 23</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 24" class="lazy" />
+                    <figcaption>Image 24</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 25" class="lazy" />
+                    <figcaption>Image 25</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 26" class="lazy" />
+                    <figcaption>Image 26</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 27" class="lazy" />
+                    <figcaption>Image 27</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 28" class="lazy" />
+                    <figcaption>Image 28</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 29" class="lazy" />
+                    <figcaption>Image 29</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 30" class="lazy" />
+                    <figcaption>Image 30</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 31" class="lazy" />
+                    <figcaption>Image 31</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 32" class="lazy" />
+                    <figcaption>Image 32</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 33" class="lazy" />
+                    <figcaption>Image 33</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 34" class="lazy" />
+                    <figcaption>Image 34</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 35" class="lazy" />
+                    <figcaption>Image 35</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 36" class="lazy" />
+                    <figcaption>Image 36</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 37" class="lazy" />
+                    <figcaption>Image 37</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 38" class="lazy" />
+                    <figcaption>Image 38</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 39" class="lazy" />
+                    <figcaption>Image 39</figcaption>
+                </figure>
+                <figure>
+                    <img src="" alt="Image 40" class="lazy" />
+                    <figcaption>Image 40</figcaption>
+                </figure>
+            </div>
         </div>
-        <div id="blue" class="ad">This is an Intersection observer demo 1</div>
-        <div id="gray" class="ad">This is an Intersection observer demo 2</div>
-        <!-- <div class="ad">This is an Intersection observer demo 2</div> -->
     </body>
 </html>
