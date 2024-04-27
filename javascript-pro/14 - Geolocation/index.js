@@ -63,3 +63,61 @@ const loadImage = (entries, observer) => {
 const observer = new IntersectionObserver(loadImage, options);
 
 allImages.forEach(image => observer.observe(image));
+
+// -----------------------------------------------------------------------------
+// INTERSECTION OBSERVER [STICKY NAVIGATION]
+// -----------------------------------------------------------------------------
+
+const navPrimary = document.querySelector('.navPrimary');
+const navHeightPrimary = navPrimary.getBoundingClientRect().height;
+const headerPrimary = document.querySelector('.headerPrimary');
+
+const navSecondary = document.querySelector('.navSecondary');
+const navHeightSecondary = navSecondary.getBoundingClientRect().height;
+const headerSecondary = document.querySelector('.headerSecondary');
+
+// Function to update the top position of the secondary nav
+const updateSecondaryNavTop = () => {
+    navSecondary.style.top = `${navHeightPrimary}px`;
+};
+// Call the function initially to set the correct top position
+updateSecondaryNavTop();
+// Call the function whenever the window is resized
+window.addEventListener('resize', updateSecondaryNavTop);
+
+const stickyPrimaryNav = (entries, observer) => {
+    const [entry] = entries;
+    if (!entry.isIntersecting) {
+        navPrimary.classList.add('sticky');
+        navPrimary.style.top = '0';
+    } else {
+        navPrimary.classList.remove('sticky');
+        navPrimary.removeAttribute('style');
+    }
+};
+
+const observerPrimary = new IntersectionObserver(stickyPrimaryNav, {
+    root: null,
+    threshold: 0,
+    rootMargin: `0px`,
+});
+
+const stickySecondaryNav = (entries, observer) => {
+    const [entry] = entries;
+    if (!entry.isIntersecting) {
+        navSecondary.classList.add('sticky');
+        navSecondary.style.top = `${navHeightPrimary}px`;
+    } else {
+        navSecondary.classList.remove('sticky');
+        navSecondary.removeAttribute('style');
+    }
+};
+
+const observerSecondary = new IntersectionObserver(stickySecondaryNav, {
+    root: null,
+    threshold: 0,
+    rootMargin: `-${navHeightSecondary}px`,
+});
+
+observerPrimary.observe(headerPrimary);
+observerSecondary.observe(headerSecondary);

@@ -18,11 +18,19 @@
                 text-align: center;
                 color: white;
             }
-            .container > * + * {
-                margin-block-start: 1rem;
+            .container {
+                margin-block-start: 2rem;
                 padding: 1rem;
                 background-color: rgba(255, 255, 255, 0.2);
             }
+
+            #locationDisplay {
+                padding: 2rem;
+                background-color: rgba(255, 255, 255, 0.2);
+                margin-block-start: 1rem;
+            }
+
+            /* Lazy loading */
             img {
                 /* background: url('placeholder.png') no-repeat center center; */
 
@@ -52,13 +60,51 @@
                 margin: 0;
                 padding: 0;
             }
+            .headerSecondary {
+                margin-block-start: 2rem;
+            }
+            nav {
+                background: rgba(0, 0, 0, 0.2);
+                color: white;
+                padding: 2rem;
+                transition: background 0.3s ease-in-out;
+            }
+
+            .navPrimary.sticky {
+                border-bottom: 1px solid white;
+                background: rgba(0, 0, 0, 0.8);
+            }
+            .navSecondary.sticky {
+                background: rgba(0, 0, 0, 0.4);
+            }
+            .sticky {
+                position: fixed;
+                left: 0;
+                z-index: 1000;
+                width: 100%;
+            }
         </style>
     </head>
     <body>
+        <header class="headerPrimary">
+            <nav class="navPrimary">
+                Primary Nav: Becomes sticky when the its last vertical pixel
+                intersects 😃💥
+            </nav>
+        </header>
         <h1>Section 14: Geolocation API</h1>
+
         <div class="container">
             <button id="getLocation">Get Location</button>
             <div id="locationDisplay">Your location will appear here</div>
+        </div>
+        <header class="headerSecondary">
+            <nav class="navSecondary">
+                Secondary Nav: Becomes sticky when at 0 pixel intersect 🙈💥
+            </nav>
+        </header>
+        <div class="container">
+            <!--  -->
             <div class="gallery">
                 <figure>
                     <img src="" alt="Image 1" class="lazy" />
